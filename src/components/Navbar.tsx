@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown } from 'lucide-react'
 
 const products = [
-  { to: '/products', label: 'AP Workflows Engine', sub: 'Automated invoice ingestion & ERP push' },
+  { to: '/products', label: 'AP Workflows Engine',     sub: 'Automated invoice ingestion & ERP push' },
   { to: '/products', label: 'CSA Intelligence Portal', sub: 'Executive spend analytics dashboard' },
 ]
 
@@ -15,10 +15,10 @@ const links = [
 ]
 
 export default function Navbar() {
-  const [open, setOpen]           = useState(false)
-  const [scrolled, setScrolled]   = useState(false)
-  const [prodOpen, setProdOpen]   = useState(false)
-  const { pathname }              = useLocation()
+  const [open, setOpen]       = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [prodOpen, setProdOpen] = useState(false)
+  const { pathname }          = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -26,33 +26,22 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    setOpen(false)
-    setProdOpen(false)
-  }, [pathname])
-
-  const isHome = pathname === '/'
+  useEffect(() => { setOpen(false); setProdOpen(false) }, [pathname])
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled || !isHome
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between" style={{ height: '72px' }}>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      scrolled
+        ? 'bg-[#030712]/90 backdrop-blur-md border-b border-white/[0.06]'
+        : 'bg-transparent'
+    }`}>
+      <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between" style={{ height: '72px' }}>
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 bg-[#0A192F] rounded-xl flex items-center justify-center shadow-md group-hover:bg-emerald-600 transition-colors duration-200">
+          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40 group-hover:bg-blue-500 transition-colors duration-200">
             <span className="text-white font-black text-sm tracking-tight">S</span>
           </div>
-          <span className={`font-bold text-lg tracking-tight transition-colors duration-200 ${
-            scrolled || !isHome ? 'text-slate-900' : 'text-white'
-          }`}>
-            Symantum
-          </span>
+          <span className="font-bold text-lg text-white tracking-tight">Symantum</span>
         </Link>
 
         {/* Desktop nav */}
@@ -64,28 +53,18 @@ export default function Navbar() {
             onMouseEnter={() => setProdOpen(true)}
             onMouseLeave={() => setProdOpen(false)}
           >
-            <button
-              className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                scrolled || !isHome
-                  ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  : 'text-white/80 hover:text-white hover:bg-white/10'
-              }`}
-            >
+            <button className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors">
               Products
               <ChevronDown size={14} className={`transition-transform ${prodOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {prodOpen && (
-              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 animate-fade-up">
+              <div className="absolute top-full left-0 mt-2 w-72 bg-slate-900/95 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/50 p-2 animate-fade-up">
                 {products.map(p => (
-                  <Link
-                    key={p.label}
-                    to={p.to}
-                    className="flex flex-col gap-0.5 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors group"
+                  <Link key={p.label} to={p.to}
+                    className="flex flex-col gap-0.5 px-4 py-3 rounded-xl hover:bg-white/[0.06] transition-colors group"
                   >
-                    <span className="text-sm font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
-                      {p.label}
-                    </span>
+                    <span className="text-sm font-semibold text-slate-200 group-hover:text-blue-400 transition-colors">{p.label}</span>
                     <span className="text-xs text-slate-500">{p.sub}</span>
                   </Link>
                 ))}
@@ -94,17 +73,11 @@ export default function Navbar() {
           </div>
 
           {links.map(l => (
-            <Link
-              key={l.to}
-              to={l.to}
+            <Link key={l.to} to={l.to}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 pathname === l.to
-                  ? scrolled || !isHome
-                    ? 'text-slate-900 bg-slate-100'
-                    : 'text-white bg-white/15'
-                  : scrolled || !isHome
-                    ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                  ? 'text-white bg-white/[0.08]'
+                  : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
               {l.label}
@@ -118,16 +91,14 @@ export default function Navbar() {
             href="https://frontend-apportal.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`text-sm font-medium transition-colors ${
-              scrolled || !isHome ? 'text-slate-600 hover:text-slate-900' : 'text-white/80 hover:text-white'
-            }`}
+            className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
           >
             Sign In
           </a>
           <Link
             to="/contact"
-            className="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold
-                       transition-all duration-200 shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5"
+            className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold
+                       transition-all duration-200 shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50 hover:-translate-y-0.5"
           >
             Request Free Pilot →
           </Link>
@@ -135,9 +106,7 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className={`md:hidden p-2 rounded-lg transition-colors ${
-            scrolled || !isHome ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-          }`}
+          className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
           onClick={() => setOpen(o => !o)}
           aria-label="Toggle menu"
         >
@@ -147,22 +116,22 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-b border-slate-100 shadow-lg">
+        <div className="md:hidden bg-[#030712]/95 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl">
           <div className="max-w-7xl mx-auto px-6 py-4 space-y-1">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 mb-2">Products</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 px-3 mb-2">Products</p>
             {products.map(p => (
               <Link key={p.label} to={p.to}
-                className="flex flex-col gap-0.5 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors"
+                className="flex flex-col gap-0.5 px-3 py-3 rounded-xl hover:bg-white/[0.06] transition-colors"
               >
-                <span className="text-sm font-semibold text-slate-800">{p.label}</span>
+                <span className="text-sm font-semibold text-slate-200">{p.label}</span>
                 <span className="text-xs text-slate-500">{p.sub}</span>
               </Link>
             ))}
-            <div className="h-px bg-slate-100 my-2" />
+            <div className="h-px bg-white/[0.06] my-2" />
             {links.map(l => (
               <Link key={l.to} to={l.to}
                 className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  pathname === l.to ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                  pathname === l.to ? 'bg-white/[0.08] text-white' : 'text-slate-400 hover:bg-white/[0.05] hover:text-white'
                 }`}
               >
                 {l.label}
@@ -170,7 +139,7 @@ export default function Navbar() {
             ))}
             <div className="pt-3 pb-1">
               <Link to="/contact"
-                className="block text-center py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition-colors"
+                className="block text-center py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-colors"
               >
                 Request Free 30-Day Pilot →
               </Link>

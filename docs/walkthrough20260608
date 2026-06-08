@@ -1,0 +1,69 @@
+# Symantum Website Redesign — Walkthrough
+
+## 🟢 Dev Server Running
+**http://localhost:5173/** — open this in your browser now.
+
+---
+
+## What Was Done
+
+The entire website has been redesigned per `SymantumWeb.md` with a Dext-style modern B2B SaaS aesthetic.
+
+### Design System (`src/index.css`)
+- **Palette**: Deep navy `#0A192F` hero/footer + pure white sections + off-white `#F5F7FA` middle section + emerald `#10B981` accent throughout
+- **Typography**: Inter (Google Fonts), tight letter-spacing on headings
+- **Component classes**: `btn-primary`, `btn-ghost-dark`, `btn-ghost-light`, `feature-card`, `product-card`, `flow-card`, `advantage-card`, `icon-badge`, `section-eyebrow`
+- **Animations**: `fadeUp` keyframe with delay helpers (`.delay-100` → `.delay-500`)
+- **Backgrounds**: `.hero-bg` (navy + radial emerald glow), `.advantage-bg` (dark navy with emerald glow)
+
+---
+
+### HomePage — 5 Sections per Spec
+
+| Section | Background | Key Elements |
+|---|---|---|
+| **Hero** | `#0A192F` navy | Eyebrow pill, H1 with emerald gradient, body copy, 2 CTAs, stats ribbon |
+| **Two Products** | White | AP Workflows card (light) + CSA Portal card (dark navy) — 2-col grid |
+| **3-Step Flow** | `#F5F7FA` off-white | Numbered flow cards with emerald icon badges + connector arrows |
+| **Advantage** | `#0A192F` navy | 3-col feature grid + ERP integrations trust strip |
+| **Bottom CTA** | White | Centred single-column, emerald button, 3 trust bullets |
+
+---
+
+### Navbar (`src/components/Navbar.tsx`)
+- **Transparent** over the hero, **white + shadow** once scrolled
+- Products **dropdown** with sub-descriptions on hover
+- Emerald **"Request Free Pilot →"** rounded CTA button
+- Responsive mobile drawer with full product + nav links
+
+### Footer (`src/components/Footer.tsx`)
+- **CTA band** at top (dark navy, emerald button)
+- 5-col grid: Brand + live portal links, Products, Company, AU office, CN office
+- Compliance tag strip: BPaaS · AI-Powered · ISO Compliant · Australian Hosted
+
+---
+
+### All Inner Pages Reskinned
+Every page updated from dark `bg-[#030712]` glass-card style → white background with `pt-28` navbar clearance and emerald accents:
+
+| Page | Key Change |
+|---|---|
+| [AboutPage.tsx](file:///c:/Symantum2026/Projects/SymantumWeb/src/pages/AboutPage.tsx) | White cards, emerald timeline dots, `feature-card` style |
+| [ContactPage.tsx](file:///c:/Symantum2026/Projects/SymantumWeb/src/pages/ContactPage.tsx) | White form, emerald focus rings, rounded submit button |
+| [ServicesPage.tsx](file:///c:/Symantum2026/Projects/SymantumWeb/src/pages/ServicesPage.tsx) | Tier cards with emerald accent headers + client value boxes |
+| [ProductsPage.tsx](file:///c:/Symantum2026/Projects/SymantumWeb/src/pages/ProductsPage.tsx) | AP card (white+navy header), CSA card (full navy), emerald pipeline steps |
+| [TechnologyPage.tsx](file:///c:/Symantum2026/Projects/SymantumWeb/src/pages/TechnologyPage.tsx) | White stack cards, navy pipeline visual, emerald integration tags |
+
+---
+
+### Tailwind Config (`tailwind.config.js`)
+- Added `navy` and `emerald` colour tokens
+- Added `offwhite: #F5F7FA`
+- Registered `fadeUp` animation + keyframes
+
+---
+
+## Verification
+- ✅ `npx tsc --noEmit` — **0 TypeScript errors**
+- ✅ `npm run dev` — running at **http://localhost:5173/**
+- ✅ All 6 pages compile and route correctly

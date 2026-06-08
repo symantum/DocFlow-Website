@@ -4,30 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          DEFAULT: '#0A192F',
-          mid:     '#0D2137',
-          light:   '#112240',
-        },
-        emerald: {
-          50:  '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10B981',
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
-        },
-        offwhite: '#F5F7FA',
+        // Exact AP Portal + CSA Portal palette
+        slate: { 950: '#020617' },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-      borderColor: {
-        lt: '#E8E8E8',
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       animation: {
         'fade-up': 'fadeUp 0.6s ease both',

@@ -167,7 +167,7 @@ function StarRating({ score }: { score: number }) {
 
 export default function HomePage() {
   return (
-    <div className="bg-white">
+    <div>
 
       {/* ══════════════════════════════════════════
           SECTION 1 — HERO
@@ -185,8 +185,8 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto text-center relative z-10">
 
           {/* Eyebrow pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8 animate-fade-up">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 animate-fade-up">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
             <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">
               AI-Powered Insights. Human-Verified Accuracy.
             </span>
@@ -194,7 +194,7 @@ export default function HomePage() {
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.04] tracking-tight mb-6 animate-fade-up delay-100">
             Flawless Document&nbsp;Workflows.{' '}
-            <span className="gradient-text-emerald">Actionable Spend&nbsp;Intelligence.</span>
+            <span className="gradient-text-blue">Actionable Spend&nbsp;Intelligence.</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300/80 font-medium mb-4 animate-fade-up delay-200">
@@ -215,7 +215,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <p className="mt-6 text-slate-500 text-xs animate-fade-up delay-500">
+          <p className="mt-6 text-slate-400 text-xs animate-fade-up delay-500">
             No setup fees · No software to install · Zero risk to your live files
           </p>
 
@@ -320,33 +320,29 @@ export default function HomePage() {
         <div className="relative z-10 max-w-4xl mx-auto mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 animate-fade-up delay-500">
           {stats.map(s => (
             <div key={s.label} className="text-center">
-              <s.icon size={20} className="text-emerald-400 mx-auto mb-2" />
+              <s.icon size={20} className="text-blue-400 mx-auto mb-2" />
               <div className="text-3xl font-black text-white mb-1">{s.value}</div>
               <div className="text-xs text-slate-400 font-medium">{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none pointer-events-none">
-          <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-[60px] fill-white">
-            <path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" />
-          </svg>
-        </div>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#030712] to-transparent pointer-events-none" />
       </section>
 
 
       {/* ══════════════════════════════════════════
           SECTION 2 — TWO PRODUCT CARDS
       ══════════════════════════════════════════ */}
-      <section className="bg-white py-28 px-6">
+      <section className="py-28 px-6 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="section-eyebrow"><span className="eyebrow-dot" />Our Solutions</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
               One Core Engine. Two Modular Pathways.
             </h2>
-            <p className="text-slate-500 text-lg max-w-xl mx-auto">
+            <p className="text-slate-400 text-lg max-w-xl mx-auto">
               Choose the exact operational layer your business requires.
             </p>
           </div>
@@ -355,31 +351,31 @@ export default function HomePage() {
             {/* AP card */}
             <div className="product-card group">
               <div className="mb-2">
-                <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest">
+                <span className="px-3 py-1 rounded-full bg-white/[0.06] text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                   AP Automation
                 </span>
               </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-1 group-hover:text-emerald-700 transition-colors">
+              <h3 className="text-2xl font-black text-white mb-1 group-hover:text-blue-400 transition-colors">
                 Modular AP Automation
               </h3>
-              <p className="text-sm font-semibold text-emerald-600 mb-4">Built for CFOs &amp; IT Controllers</p>
-              <p className="text-slate-600 text-sm leading-relaxed mb-8 border-b border-slate-100 pb-8">
+              <p className="text-sm font-semibold text-blue-400 mb-4">Built for CFOs &amp; IT Controllers</p>
+              <p className="text-slate-400 text-sm leading-relaxed mb-8 border-b border-white/[0.06] pb-8">
                 A pure, high-integrity automated data ingestion engine that auto-pushes verified transactions straight into your current systems. Banish manual data entry errors and prevent bad data from ever hitting your active corporate files.
               </p>
               <ul className="space-y-5 mb-10">
                 {apFeatures.map(f => (
                   <li key={f.label} className="flex gap-4">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0 mt-0.5">
-                      <f.icon size={16} className="text-emerald-600" />
+                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <f.icon size={16} className="text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-800 mb-0.5">{f.label}</p>
-                      <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+                      <p className="text-sm font-semibold text-slate-200 mb-0.5">{f.label}</p>
+                      <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
                     </div>
                   </li>
                 ))}
               </ul>
-              <Link to="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors group">
+              <Link to="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group">
                 Explore AP Workflows <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -391,28 +387,28 @@ export default function HomePage() {
                   Spend Intelligence
                 </span>
               </div>
-              <h3 className="text-2xl font-black text-white mb-1 group-hover:text-emerald-400 transition-colors">
+              <h3 className="text-2xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors">
                 Symantum CSA Portal
               </h3>
-              <p className="text-sm font-semibold text-emerald-400 mb-4">Built for CEOs, Boards, &amp; Owners</p>
+              <p className="text-sm font-semibold text-cyan-400 mb-4">Built for CEOs, Boards, &amp; Owners</p>
               <p className="text-slate-400 text-sm leading-relaxed mb-8 border-b border-white/10 pb-8">
                 An advanced executive financial intelligence interface. Turn daily operational paperwork into long-term strategic actions. Monitor capital velocity, catch hidden cost creep, and optimize regional supply chains automatically.
               </p>
               <ul className="space-y-5 mb-10">
                 {csaFeatures.map(f => (
                   <li key={f.label} className="flex gap-4">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0 mt-0.5">
-                      <f.icon size={16} className="text-emerald-400" />
+                    <div className="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <f.icon size={16} className="text-cyan-400" />
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-slate-200 mb-0.5">{f.label}</p>
-                      <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+                      <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
                     </div>
                   </li>
                 ))}
               </ul>
               <a href="https://csa-dashboard-omega.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors group">
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group">
                 Explore CSA Intelligence <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -424,11 +420,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           SECTION 3 — AUTOMATION FLOW
       ══════════════════════════════════════════ */}
-      <section className="py-28 px-6" style={{ backgroundColor: '#F5F7FA' }}>
+      <section className="py-28 px-6 section-alt border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="section-eyebrow"><span className="eyebrow-dot" />How It Works</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
               How Symantum Protects<br />Your Corporate Ledger
             </h2>
             <p className="text-slate-500 text-lg max-w-xl mx-auto">
@@ -443,18 +439,18 @@ export default function HomePage() {
                   <span className="absolute top-6 right-7 text-6xl font-black text-slate-100 select-none leading-none">
                     {step.num}
                   </span>
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center mb-6 shadow-md shadow-emerald-500/25">
+                  <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center mb-6 shadow-md shadow-blue-900/40">
                     <step.icon size={22} className="text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{step.title}</h3>
-                  <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-4">{step.sub}</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{step.desc}</p>
+                  <h3 className="text-xl font-bold text-white mb-1">{step.title}</h3>
+                  <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-4">{step.sub}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed">{step.desc}</p>
                 </div>
                 {i < 2 && (
                   <div className="hidden md:flex items-center justify-center px-2 shrink-0">
                     <div className="flex flex-col items-center gap-1">
-                      <div className="w-8 h-px bg-emerald-300" />
-                      <ArrowRight size={16} className="text-emerald-400 -ml-1" />
+                      <div className="w-8 h-px bg-blue-500/40" />
+                      <ArrowRight size={16} className="text-blue-400 -ml-1" />
                     </div>
                   </div>
                 )}
@@ -472,10 +468,10 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           SECTION 4 — SYMANTUM ADVANTAGE (navy)
       ══════════════════════════════════════════ */}
-      <section className="advantage-bg py-28 px-6">
+      <section className="py-28 px-6 section-alt border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="section-eyebrow-light"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />Why Symantum</span>
+            <span className="section-eyebrow"><span className="eyebrow-dot" />Why Symantum</span>
             <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
               Enterprise Trust. Modern Engineering.
             </h2>
@@ -484,11 +480,11 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {advantages.map(a => (
               <div key={a.title} className="advantage-card group">
-                <div className="icon-badge-dark group-hover:bg-emerald-500/25 transition-colors">
+                <div className="icon-badge-dark group-hover:bg-blue-500/20 transition-colors">
                   <a.icon size={22} />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-1">{a.title}</h3>
-                <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-4">{a.sub}</p>
+                <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-4">{a.sub}</p>
                 <p className="text-sm text-slate-400 leading-relaxed">{a.desc}</p>
               </div>
             ))}
@@ -516,19 +512,19 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           SECTION 5 — GLOBAL STATS (off-white)
       ══════════════════════════════════════════ */}
-      <section className="py-20 px-6" style={{ backgroundColor: '#F5F7FA' }}>
+      <section className="py-20 px-6 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-10">
             Symantum by the numbers
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {globalStats.map(s => (
-              <div key={s.label} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 text-center">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-                  <s.icon size={18} className="text-emerald-600" />
+              <div key={s.label} className="glass-card p-6 text-center">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+                  <s.icon size={18} className="text-blue-400" />
                 </div>
-                <p className="text-3xl font-black text-slate-900 mb-1">{s.value}</p>
-                <p className="text-xs text-slate-500 font-medium leading-snug">{s.label}</p>
+                <p className="text-3xl font-black text-white mb-1">{s.value}</p>
+                <p className="text-xs text-slate-400 font-medium leading-snug">{s.label}</p>
               </div>
             ))}
           </div>
@@ -539,7 +535,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           SECTION 6 — TESTIMONIALS (white)
       ══════════════════════════════════════════ */}
-      <section className="bg-white py-28 px-6">
+      <section className="py-28 px-6 section-alt border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <span className="section-eyebrow"><span className="eyebrow-dot" />Client Results</span>
@@ -550,19 +546,19 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map(t => (
-              <div key={t.name} className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 p-8 flex flex-col">
+              <div key={t.name} className="glass-card p-8 flex flex-col hover:border-white/10 transition-all duration-300">
                 <div className="flex gap-0.5 mb-5">
                   {[1,2,3,4,5].map(i => (
                     <Star key={i} size={14} className="text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                <p className="text-slate-700 text-sm leading-relaxed flex-1 mb-6">"{t.quote}"</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                  <div className="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center shrink-0">
+                <p className="text-slate-300 text-sm leading-relaxed flex-1 mb-6">"{t.quote}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+                  <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
                     <span className="text-white text-xs font-bold">{t.initials}</span>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">{t.name}</p>
+                    <p className="text-sm font-semibold text-white">{t.name}</p>
                     <p className="text-xs text-slate-400">{t.company}</p>
                   </div>
                 </div>
@@ -580,10 +576,10 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="section-eyebrow"><span className="eyebrow-dot" />FAQs</span>
-            <h2 className="text-4xl font-black text-slate-900">Frequently Asked Questions</h2>
+            <h2 className="text-4xl font-black text-white">Frequently Asked Questions</h2>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-8 divide-y divide-slate-100">
+          <div className="glass-card px-8 divide-y divide-white/[0.06]">
             {faqs.map(f => <FAQItem key={f.q} q={f.q} a={f.a} />)}
           </div>
         </div>
@@ -593,13 +589,13 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           SECTION 8 — BOTTOM CTA (white)
       ══════════════════════════════════════════ */}
-      <section className="bg-white py-32 px-6">
+      <section className="py-32 px-6 border-t border-white/[0.06]">
         <div className="max-w-3xl mx-auto text-center">
           <span className="section-eyebrow"><span className="eyebrow-dot" />Get Started Today</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 leading-tight">
             Ready to Automate<br />Your Ledger Operations?
           </h2>
-          <p className="text-slate-500 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+          <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
             Connect your invoice flow to our staging pipeline for 30 days. No setup fees, no software to install, and zero risk to your live files.
           </p>
           <Link to="/contact" className="btn-primary text-base px-10 py-4 mx-auto">
@@ -608,7 +604,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
             {['No credit card required', 'Australian data sovereignty', 'Dedicated onboarding support'].map(item => (
               <span key={item} className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-500" />
+                <CheckCircle2 size={14} className="text-blue-400" />
                 {item}
               </span>
             ))}

@@ -5,30 +5,18 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   Design Tokens
-───────────────────────────────────────────── */
-:root {
-  --navy:       #0A192F;
-  --navy-mid:   #0D2137;
-  --navy-light: #112240;
-  --emerald:    #10B981;
-  --emerald-dk: #059669;
-  --slate-body: #64748B;
-  --off-white:  #F5F7FA;
-  --border-lt:  #E8E8E8;
-}
-
-/* ─────────────────────────────────────────────
-   Base
+   Base — matches AP Portal + CSA Portal exactly
 ───────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color-scheme: dark;
   }
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    @apply bg-white text-slate-800;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply bg-[#030712] text-slate-100;
   }
   h1, h2, h3, h4 {
     letter-spacing: -0.02em;
@@ -36,129 +24,126 @@
 }
 
 /* ─────────────────────────────────────────────
+   Custom Scrollbar — matches portals
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+/* ─────────────────────────────────────────────
    Component Utilities
 ───────────────────────────────────────────── */
 @layer utilities {
-  /* Pill label above headings */
+
+  /* Glass card — matches CSA Portal .glass-card */
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/[0.06] rounded-2xl;
+  }
+
+  /* Slightly more prominent card */
+  .glass-card-solid {
+    @apply bg-slate-900/60 border border-white/10 rounded-2xl;
+  }
+
+  /* Eyebrow label above headings */
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4;
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-4;
   }
 
-  /* Navy section eyebrow */
-  .section-eyebrow-light {
-    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-4;
-  }
-
-  /* Subtle divider dot */
+  /* Subtle dot in eyebrow */
   .eyebrow-dot {
-    @apply w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block;
+    @apply w-1.5 h-1.5 rounded-full bg-blue-500 inline-block;
   }
 
-  /* Primary emerald button */
+  /* Label — matches CSA Portal .label-text */
+  .section-label {
+    @apply text-[10px] font-black uppercase tracking-[0.25em] text-blue-400/80 block;
+  }
+
+  /* Primary CTA button — blue (AP Portal palette) */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600
-           text-white font-semibold text-sm transition-all duration-200
-           shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:translate-y-0;
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full
+           bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm
+           transition-all duration-200 shadow-lg shadow-blue-900/40
+           hover:shadow-blue-900/60 hover:-translate-y-0.5 active:translate-y-0;
   }
 
-  /* Ghost button – dark bg */
+  /* Ghost button for dark backgrounds */
   .btn-ghost-dark {
     @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full
            border border-white/20 text-white font-semibold text-sm
            hover:bg-white/10 transition-all duration-200 hover:-translate-y-0.5;
   }
 
-  /* Ghost button – light bg */
+  /* Ghost button — subtle on dark bg */
   .btn-ghost-light {
     @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full
-           border border-slate-200 text-slate-700 font-semibold text-sm
-           hover:border-slate-300 hover:bg-slate-50 transition-all duration-200 hover:-translate-y-0.5;
+           border border-white/[0.12] text-slate-300 font-semibold text-sm
+           hover:border-white/20 hover:bg-white/[0.05] transition-all duration-200 hover:-translate-y-0.5;
   }
 
-  /* Feature card – white section */
+  /* Feature card (glass) */
   .feature-card {
-    @apply bg-white rounded-2xl p-8 border border-slate-100
-           shadow-sm hover:shadow-md hover:-translate-y-1
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/[0.06] rounded-2xl
+           hover:border-white/10 hover:bg-slate-900/60
            transition-all duration-300;
   }
 
-  /* Feature card – off-white section */
+  /* Flow step card */
   .flow-card {
-    @apply bg-white rounded-2xl p-8
-           shadow-sm border border-slate-100;
+    @apply bg-slate-900/50 backdrop-blur-xl border border-white/[0.06] rounded-2xl;
   }
 
   /* Product card */
   .product-card {
-    @apply bg-white rounded-2xl border border-slate-100 p-10
-           shadow-sm hover:shadow-lg transition-all duration-300;
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/[0.06] rounded-2xl p-10
+           hover:border-white/10 hover:bg-slate-900/60 transition-all duration-300;
   }
 
-  /* Gradient text – navy heading accent */
-  .gradient-text-emerald {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Gradient text – white/cyan for dark sections */
-  .gradient-text-light {
-    background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Advantage card on dark navy bg */
+  /* Advantage card */
   .advantage-card {
-    @apply rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-all duration-300;
+    @apply rounded-2xl p-8 bg-white/[0.03] border border-white/[0.07]
+           hover:bg-white/[0.06] hover:border-white/10 transition-all duration-300;
   }
 
-  /* Emerald icon badge */
+  /* Blue icon badge */
   .icon-badge {
-    @apply w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center
-           text-emerald-600 mb-5 shrink-0;
+    @apply w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center
+           text-blue-400 mb-5 shrink-0;
   }
 
-  /* Navy icon badge */
+  /* Icon badge for cards */
   .icon-badge-dark {
-    @apply w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center
-           text-emerald-400 mb-5 shrink-0;
+    @apply w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center
+           text-blue-400 mb-5 shrink-0;
   }
 
-  /* Numbered step badge */
-  .step-number {
-    @apply w-10 h-10 rounded-full bg-emerald-500 text-white text-sm font-bold
-           flex items-center justify-center shrink-0;
+  /* Gradient text */
+  .gradient-text-blue {
+    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* Checklist bullet */
-  .check-item {
-    @apply flex items-start gap-3 text-sm text-slate-600 leading-relaxed;
-  }
-
-  /* Thin horizontal rule */
-  .divider {
-    @apply border-0 border-t border-slate-100;
-  }
-
-  /* Navy bg check items */
-  .check-item-dark {
-    @apply flex items-start gap-3 text-sm text-slate-300 leading-relaxed;
+  /* Keep emerald gradient for sections that use it */
+  .gradient-text-emerald {
+    background: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
 /* ─────────────────────────────────────────────
-   Scroll-reveal animation helpers
+   Fade-up animation
 ───────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-up {
-  animation: fadeUp 0.6s ease both;
-}
+.animate-fade-up { animation: fadeUp 0.6s ease both; }
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
@@ -166,27 +151,19 @@
 .delay-500 { animation-delay: 0.5s; }
 
 /* ─────────────────────────────────────────────
-   Connector line for 3-step flow
-───────────────────────────────────────────── */
-.step-connector {
-  @apply hidden md:flex items-center justify-center;
-}
-
-/* ─────────────────────────────────────────────
-   Hero background – deep navy with subtle radial
+   Hero background — Deep Ink + blue radial glow
+   Matches AP Portal's dark enterprise aesthetic
 ───────────────────────────────────────────── */
 .hero-bg {
-  background: #0A192F;
+  background: #030712;
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(16,185,129,0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 50% at 50% -5%,  rgba(59,130,246,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(56,189,248,0.05) 0%, transparent 60%);
 }
 
 /* ─────────────────────────────────────────────
-   Advantage section – dark navy
+   Section separator utility
 ───────────────────────────────────────────── */
-.advantage-bg {
-  background: #0A192F;
-  background-image:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(16,185,129,0.07) 0%, transparent 70%);
+.section-alt {
+  background: rgba(15, 23, 42, 0.5);
 }
