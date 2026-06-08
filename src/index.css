@@ -1,24 +1,192 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────
+   Design Tokens
+───────────────────────────────────────────── */
+:root {
+  --navy:       #0A192F;
+  --navy-mid:   #0D2137;
+  --navy-light: #112240;
+  --emerald:    #10B981;
+  --emerald-dk: #059669;
+  --slate-body: #64748B;
+  --off-white:  #F5F7FA;
+  --border-lt:  #E8E8E8;
+}
+
+/* ─────────────────────────────────────────────
+   Base
+───────────────────────────────────────────── */
 @layer base {
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
   body {
-    @apply bg-[#030712] text-slate-100 font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-white text-slate-800;
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
   }
 }
 
+/* ─────────────────────────────────────────────
+   Component Utilities
+───────────────────────────────────────────── */
 @layer utilities {
-  .glass-card {
-    @apply bg-white/[0.03] border border-white/[0.08] rounded-2xl backdrop-blur-sm;
+  /* Pill label above headings */
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4;
   }
-  .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent;
+
+  /* Navy section eyebrow */
+  .section-eyebrow-light {
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-4;
   }
-  .section-label {
-    @apply text-[10px] font-bold uppercase tracking-[0.3em] text-blue-400;
+
+  /* Subtle divider dot */
+  .eyebrow-dot {
+    @apply w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block;
   }
+
+  /* Primary emerald button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600
+           text-white font-semibold text-sm transition-all duration-200
+           shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  /* Ghost button – dark bg */
+  .btn-ghost-dark {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full
+           border border-white/20 text-white font-semibold text-sm
+           hover:bg-white/10 transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Ghost button – light bg */
+  .btn-ghost-light {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full
+           border border-slate-200 text-slate-700 font-semibold text-sm
+           hover:border-slate-300 hover:bg-slate-50 transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Feature card – white section */
+  .feature-card {
+    @apply bg-white rounded-2xl p-8 border border-slate-100
+           shadow-sm hover:shadow-md hover:-translate-y-1
+           transition-all duration-300;
+  }
+
+  /* Feature card – off-white section */
+  .flow-card {
+    @apply bg-white rounded-2xl p-8
+           shadow-sm border border-slate-100;
+  }
+
+  /* Product card */
+  .product-card {
+    @apply bg-white rounded-2xl border border-slate-100 p-10
+           shadow-sm hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Gradient text – navy heading accent */
+  .gradient-text-emerald {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gradient text – white/cyan for dark sections */
+  .gradient-text-light {
+    background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Advantage card on dark navy bg */
+  .advantage-card {
+    @apply rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-all duration-300;
+  }
+
+  /* Emerald icon badge */
+  .icon-badge {
+    @apply w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center
+           text-emerald-600 mb-5 shrink-0;
+  }
+
+  /* Navy icon badge */
+  .icon-badge-dark {
+    @apply w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center
+           text-emerald-400 mb-5 shrink-0;
+  }
+
+  /* Numbered step badge */
+  .step-number {
+    @apply w-10 h-10 rounded-full bg-emerald-500 text-white text-sm font-bold
+           flex items-center justify-center shrink-0;
+  }
+
+  /* Checklist bullet */
+  .check-item {
+    @apply flex items-start gap-3 text-sm text-slate-600 leading-relaxed;
+  }
+
+  /* Thin horizontal rule */
+  .divider {
+    @apply border-0 border-t border-slate-100;
+  }
+
+  /* Navy bg check items */
+  .check-item-dark {
+    @apply flex items-start gap-3 text-sm text-slate-300 leading-relaxed;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Scroll-reveal animation helpers
+───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ─────────────────────────────────────────────
+   Connector line for 3-step flow
+───────────────────────────────────────────── */
+.step-connector {
+  @apply hidden md:flex items-center justify-center;
+}
+
+/* ─────────────────────────────────────────────
+   Hero background – deep navy with subtle radial
+───────────────────────────────────────────── */
+.hero-bg {
+  background: #0A192F;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(16,185,129,0.04) 0%, transparent 60%);
+}
+
+/* ─────────────────────────────────────────────
+   Advantage section – dark navy
+───────────────────────────────────────────── */
+.advantage-bg {
+  background: #0A192F;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(16,185,129,0.07) 0%, transparent 70%);
 }

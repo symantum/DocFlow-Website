@@ -21,16 +21,16 @@ export default function ContactPage() {
     setSubmitted(true)
   }
 
-  const inputClass = "w-full bg-white/[0.04] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/60 focus:bg-white/[0.06] transition-all"
+  const inputClass = "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 transition-all"
   const labelClass = "block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1.5"
 
   return (
-    <div className="py-20 px-6">
+    <div className="pt-28 pb-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
           <p className="section-label mb-3">Get In Touch</p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
             Talk to us
           </h1>
           <p className="text-slate-400 max-w-xl mx-auto">
@@ -42,47 +42,47 @@ export default function ContactPage() {
           {/* Contact form */}
           <div className="lg:col-span-2">
             {submitted ? (
-              <div className="glass-card p-12 text-center">
-                <div className="w-14 h-14 bg-emerald-400/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                  <Send size={24} className="text-emerald-400" />
+              <div className="bg-white border border-slate-100 shadow-sm rounded-2xl p-12 text-center">
+                <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                  <Send size={24} className="text-emerald-600" />
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Message received</h2>
-                <p className="text-slate-400">Thank you — our team will be in touch within one business day.</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Message received</h2>
+                <p className="text-slate-500">Thank you — our team will be in touch within one business day.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="glass-card p-8 space-y-5">
+              <form onSubmit={handleSubmit} className="bg-white border border-slate-100 shadow-sm rounded-2xl p-8 space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className={labelClass}>First Name <span className="text-blue-400">*</span></label>
+                    <label className={labelClass}>First Name <span className="text-emerald-500">*</span></label>
                     <input required className={inputClass} placeholder="Jane" value={form.firstName} onChange={set('firstName')} />
                   </div>
                   <div>
-                    <label className={labelClass}>Last Name <span className="text-blue-400">*</span></label>
+                    <label className={labelClass}>Last Name <span className="text-emerald-500">*</span></label>
                     <input required className={inputClass} placeholder="Smith" value={form.lastName} onChange={set('lastName')} />
                   </div>
                 </div>
 
                 <div>
-                  <label className={labelClass}>Company Name <span className="text-blue-400">*</span></label>
+                  <label className={labelClass}>Company Name <span className="text-emerald-500">*</span></label>
                   <input required className={inputClass} placeholder="Acme Pty Ltd" value={form.company} onChange={set('company')} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className={labelClass}>Country <span className="text-blue-400">*</span></label>
+                    <label className={labelClass}>Country <span className="text-emerald-500">*</span></label>
                     <select required className={inputClass + ' cursor-pointer'} value={form.country} onChange={set('country')}>
                       <option value="">Select country</option>
                       {countries.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className={labelClass}>Phone Number <span className="text-blue-400">*</span></label>
+                    <label className={labelClass}>Phone Number <span className="text-emerald-500">*</span></label>
                     <input required className={inputClass} placeholder="+61 4XX XXX XXX" value={form.phone} onChange={set('phone')} />
                   </div>
                 </div>
 
                 <div>
-                  <label className={labelClass}>Email Address <span className="text-blue-400">*</span></label>
+                  <label className={labelClass}>Email Address <span className="text-emerald-500">*</span></label>
                   <input required type="email" className={inputClass} placeholder="jane@company.com" value={form.email} onChange={set('email')} />
                 </div>
 
@@ -99,7 +99,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-xl shadow-blue-900/30 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"
                 >
                   Send Message <Send size={15} />
                 </button>
@@ -109,35 +109,35 @@ export default function ContactPage() {
 
           {/* Side info */}
           <div className="space-y-5">
-            <div className="glass-card p-6">
+            <div className="feature-card p-6">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xl">🇦🇺</span>
-                <p className="font-semibold text-white text-sm">Australia</p>
+                <p className="font-semibold text-slate-800 text-sm">Australia</p>
               </div>
-              <div className="space-y-2 text-sm text-slate-400">
+              <div className="space-y-2 text-sm text-slate-600">
                 <div className="flex gap-2">
-                  <MapPin size={14} className="text-blue-400 mt-0.5 shrink-0" />
+                  <MapPin size={14} className="text-emerald-600 mt-0.5 shrink-0" />
                   <span>247 Bouverie Street, Carlton VIC 3053</span>
                 </div>
                 <div className="flex gap-2">
-                  <Phone size={14} className="text-blue-400 mt-0.5 shrink-0" />
+                  <Phone size={14} className="text-emerald-600 mt-0.5 shrink-0" />
                   <span>+61 3 9342 2458</span>
                 </div>
               </div>
             </div>
 
-            <div className="glass-card p-6">
+            <div className="feature-card p-6">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xl">🇨🇳</span>
-                <p className="font-semibold text-white text-sm">China</p>
+                <p className="font-semibold text-slate-800 text-sm">China</p>
               </div>
-              <div className="space-y-2 text-sm text-slate-400">
+              <div className="space-y-2 text-sm text-slate-600">
                 <div className="flex gap-2">
-                  <MapPin size={14} className="text-blue-400 mt-0.5 shrink-0" />
+                  <MapPin size={14} className="text-emerald-600 mt-0.5 shrink-0" />
                   <span>B306 Han Yun, Xi'an Software Development Zone, Shaanxi</span>
                 </div>
                 <div className="flex gap-2">
-                  <Phone size={14} className="text-blue-400 mt-0.5 shrink-0" />
+                  <Phone size={14} className="text-emerald-600 mt-0.5 shrink-0" />
                   <span>+86 29 8760 7723</span>
                 </div>
               </div>

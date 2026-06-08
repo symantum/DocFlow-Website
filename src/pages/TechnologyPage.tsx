@@ -61,36 +61,36 @@ const integrations = [
 
 export default function TechnologyPage() {
   return (
-    <div className="py-20 px-6">
+    <div className="pt-28 pb-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <p className="section-label mb-3">Technology</p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
             Built for precision at scale
           </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
             Every layer of the Symantum stack is purpose-built for financial document processing — from IMAP inbox to ERP endpoint.
           </p>
         </div>
 
         {/* Architecture pipeline visual */}
-        <div className="glass-card border border-white/[0.08] p-8 mb-14 overflow-x-auto">
-          <p className="section-label mb-6 text-center">Full Pipeline Architecture</p>
+        <div className="bg-[#0A192F] rounded-2xl p-8 mb-14 overflow-x-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400 mb-6 text-center">Full Pipeline Architecture</p>
           <div className="flex items-stretch gap-0 min-w-[640px]">
             {[
-              { label: 'Email\nInbox',     color: 'bg-blue-600',   sub: 'Outlook / IMAP' },
-              { label: 'EIP\nS1 → S3',    color: 'bg-blue-500',   sub: 'OAuth2 + PDF sort' },
-              { label: 'OCR\nEngine',      color: 'bg-cyan-600',   sub: 'v3.6.4 extraction' },
-              { label: 'AI\nValidation',   color: 'bg-violet-600', sub: 'Gemini Flash' },
-              { label: 'HITL\nReview',     color: 'bg-violet-500', sub: 'AP Portal UI' },
-              { label: 'Analytics\nCSA',   color: 'bg-cyan-500',   sub: 'Spend dashboard' },
-              { label: 'ERP\nPush',        color: 'bg-emerald-600', sub: 'Xero / SAP / API' },
+              { label: 'Email\nInbox',     color: 'bg-emerald-600',  sub: 'Outlook / IMAP' },
+              { label: 'EIP\nS1 → S3',    color: 'bg-emerald-500',  sub: 'OAuth2 + PDF sort' },
+              { label: 'OCR\nEngine',      color: 'bg-blue-600',     sub: 'v3.6.4 extraction' },
+              { label: 'AI\nValidation',   color: 'bg-violet-600',   sub: 'Gemini Flash' },
+              { label: 'HITL\nReview',     color: 'bg-violet-500',   sub: 'AP Portal UI' },
+              { label: 'Analytics\nCSA',   color: 'bg-blue-500',     sub: 'Spend dashboard' },
+              { label: 'ERP\nPush',        color: 'bg-emerald-700',  sub: 'Xero / SAP / API' },
             ].map((node, i, arr) => (
               <div key={node.label} className="flex items-center flex-1">
-                <div className={`flex-1 ${node.color}/20 border border-white/[0.08] rounded-xl p-3 text-center`}>
+                <div className={`flex-1 ${node.color}/20 border border-white/10 rounded-xl p-3 text-center`}>
                   <p className="text-white font-semibold text-xs whitespace-pre-line leading-tight">{node.label}</p>
-                  <p className="text-slate-500 text-[10px] mt-1">{node.sub}</p>
+                  <p className="text-slate-400 text-[10px] mt-1">{node.sub}</p>
                 </div>
                 {i < arr.length - 1 && (
                   <div className="w-4 flex items-center justify-center shrink-0">
@@ -106,19 +106,19 @@ export default function TechnologyPage() {
         {/* Stack layers */}
         <div className="space-y-8">
           {stack.map(layer => (
-            <div key={layer.phase} className={`glass-card border ${layer.border} overflow-hidden`}>
-              <div className={`${layer.bg} border-b ${layer.border} px-8 py-4`}>
-                <h2 className={`font-bold ${layer.color}`}>{layer.phase}</h2>
+            <div key={layer.phase} className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+              <div className="bg-slate-50 border-b border-slate-100 px-8 py-4">
+                <h2 className="font-bold text-slate-800">{layer.phase}</h2>
               </div>
               <div className="px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {layer.items.map(item => (
                   <div key={item.name} className="flex gap-4">
-                    <div className={`w-9 h-9 ${layer.bg} rounded-lg flex items-center justify-center shrink-0`}>
-                      <item.icon size={16} className={layer.color} />
+                    <div className="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
+                      <item.icon size={16} className="text-emerald-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white mb-1">{item.name}</p>
-                      <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+                      <p className="text-sm font-semibold text-slate-800 mb-1">{item.name}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -129,10 +129,10 @@ export default function TechnologyPage() {
 
         {/* Integrations */}
         <div className="mt-14 text-center">
-          <p className="section-label mb-6">Integrations & Platforms</p>
-          <div className="flex flex-wrap justify-center gap-2">
+          <span className="section-eyebrow"><span className="eyebrow-dot" />Integrations &amp; Platforms</span>
+          <div className="flex flex-wrap justify-center gap-2 mt-6">
             {integrations.map(i => (
-              <span key={i} className="px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-sm text-slate-400">
+              <span key={i} className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-sm text-slate-600 font-medium">
                 {i}
               </span>
             ))}

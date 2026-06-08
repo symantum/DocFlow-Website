@@ -127,15 +127,15 @@ const tiers = [
 
 export default function ServicesPage() {
   return (
-    <div className="py-20 px-6">
+    <div className="pt-28 pb-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <p className="section-label mb-3">Service Tiers</p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
             Solutions for every scale
           </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
             The same intelligent GET → EVA → PUSH pipeline — packaged for your complexity, your industry, and your systems.
           </p>
         </div>
@@ -143,41 +143,41 @@ export default function ServicesPage() {
         {/* Tier cards */}
         <div className="space-y-10">
           {tiers.map(t => (
-            <div key={t.id} id={t.id} className={`glass-card border ${t.border} overflow-hidden`}>
+            <div key={t.id} id={t.id} className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
               {/* Tier header */}
-              <div className={`${t.glow} border-b ${t.border} px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4`}>
+              <div className="bg-slate-50 border-b border-slate-100 px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3 mb-1">
-                    <span className={`text-xs font-bold uppercase tracking-widest ${t.accent}`}>{t.tier}</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-emerald-600">{t.tier}</span>
                     {t.highlight && (
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
                         Most Popular
                       </span>
                     )}
                   </div>
-                  <h2 className="text-2xl font-bold text-white">{t.name} <span className="text-slate-500 font-normal text-lg">{t.subtitle}</span></h2>
-                  <p className={`text-sm ${t.accent} font-medium mt-0.5`}>{t.target}</p>
+                  <h2 className="text-2xl font-bold text-slate-900">{t.name} <span className="text-slate-400 font-normal text-lg">{t.subtitle}</span></h2>
+                  <p className="text-sm text-emerald-600 font-medium mt-0.5">{t.target}</p>
                 </div>
-                <p className="text-sm text-slate-400 max-w-xs">{t.targetDesc}</p>
+                <p className="text-sm text-slate-500 max-w-xs">{t.targetDesc}</p>
               </div>
 
               {/* Services grid */}
               <div className="px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {t.services.map(s => (
                   <div key={s.label} className="flex gap-3">
-                    <Check size={16} className={`${t.accent} mt-0.5 shrink-0`} />
+                    <Check size={16} className="text-emerald-500 mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-sm font-semibold text-white mb-1">{s.label}</p>
-                      <p className="text-sm text-slate-400 leading-relaxed">{s.desc}</p>
+                      <p className="text-sm font-semibold text-slate-800 mb-1">{s.label}</p>
+                      <p className="text-sm text-slate-500 leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Value proposition */}
-              <div className={`mx-8 mb-6 p-4 rounded-xl ${t.glow} border ${t.border}`}>
-                <p className={`text-xs font-bold uppercase tracking-widest ${t.accent} mb-1`}>Client Value</p>
-                <p className="text-sm text-slate-300 leading-relaxed">{t.value}</p>
+              <div className="mx-8 mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-1">Client Value</p>
+                <p className="text-sm text-slate-600 leading-relaxed">{t.value}</p>
               </div>
             </div>
           ))}
@@ -185,10 +185,10 @@ export default function ServicesPage() {
 
         {/* Bottom CTA */}
         <div className="mt-16 text-center">
-          <p className="text-slate-400 mb-6">Not sure which tier fits your business?</p>
+          <p className="text-slate-500 mb-6">Not sure which tier fits your business?</p>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-xl shadow-blue-900/30"
+            className="btn-primary"
           >
             Talk to our team <ArrowRight size={16} />
           </Link>

@@ -6,7 +6,8 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 pt-16">
+      {/* Hero page gets no top padding (hero is full-screen with its own pt) */}
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />

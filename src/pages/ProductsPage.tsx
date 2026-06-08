@@ -20,33 +20,33 @@ const csaFeatures = [
 
 export default function ProductsPage() {
   return (
-    <div className="py-20 px-6">
+    <div className="pt-28 pb-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
           <p className="section-label mb-3">Live Products</p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
             Two portals. One pipeline.
           </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
             AP Portal handles ingestion, extraction and validation. CSA Portal delivers the spending intelligence. Together they form a complete finance automation system.
           </p>
         </div>
 
         {/* ── AP Portal ── */}
         <section className="mb-20" id="ap-portal">
-          <div className="glass-card border border-blue-400/20 overflow-hidden">
+          <div className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-900/30 to-transparent border-b border-blue-400/20 px-8 py-8">
+            <div className="bg-[#0A192F] border-b border-white/10 px-8 py-8">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
+                    <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                       <span className="text-white font-black text-base">AP</span>
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold text-white">AP Portal</h2>
-                      <p className="text-xs text-blue-400 font-semibold uppercase tracking-widest">Accounts Payable Automation</p>
+                      <p className="text-xs text-emerald-400 font-semibold uppercase tracking-widest">Accounts Payable Automation</p>
                     </div>
                   </div>
                   <p className="text-slate-300 max-w-xl leading-relaxed">
@@ -57,7 +57,7 @@ export default function ProductsPage() {
                   href="https://frontend-apportal.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-xl shadow-blue-900/30"
+                  className="shrink-0 btn-primary"
                 >
                   Open Live Demo <ArrowRight size={16} />
                 </a>
@@ -65,14 +65,14 @@ export default function ProductsPage() {
             </div>
 
             {/* Pipeline flow */}
-            <div className="px-8 py-6 bg-blue-900/10 border-b border-blue-400/10">
+            <div className="px-8 py-6 bg-slate-50 border-b border-slate-100">
               <div className="flex flex-wrap items-center gap-2 text-sm">
                 {['Email Intake', 'OCR Extraction', 'AI Validation', 'HITL Review', 'AP Push'].map((step, i) => (
                   <div key={step} className="flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-blue-400/10 border border-blue-400/20 text-blue-300 text-xs font-medium">
+                    <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
                       {step}
                     </span>
-                    {i < 4 && <ArrowRight size={12} className="text-slate-600" />}
+                    {i < 4 && <ArrowRight size={12} className="text-slate-300" />}
                   </div>
                 ))}
               </div>
@@ -82,24 +82,24 @@ export default function ProductsPage() {
             <div className="px-8 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {apFeatures.map(f => (
                 <div key={f.title} className="flex gap-4">
-                  <div className="w-9 h-9 bg-blue-400/10 rounded-lg flex items-center justify-center shrink-0">
-                    <f.icon size={16} className="text-blue-400" />
+                  <div className="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
+                    <f.icon size={16} className="text-emerald-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white mb-1">{f.title}</p>
-                    <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
+                    <p className="text-sm font-semibold text-slate-800 mb-1">{f.title}</p>
+                    <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Demo credentials */}
-            <div className="mx-8 mb-8 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <div className="mx-8 mb-8 p-4 rounded-xl bg-slate-50 border border-slate-100">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Demo Access</p>
-              <p className="text-sm text-slate-300">
-                Username: <code className="text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded">admin_test</code>
+              <p className="text-sm text-slate-700">
+                Username: <code className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">admin_test</code>
                 &nbsp;·&nbsp;
-                Password: <code className="text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded">password123</code>
+                Password: <code className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">password123</code>
               </p>
             </div>
           </div>
@@ -107,18 +107,18 @@ export default function ProductsPage() {
 
         {/* ── CSA Portal ── */}
         <section id="csa-portal">
-          <div className="glass-card border border-cyan-400/20 overflow-hidden">
+          <div className="bg-[#0A192F] border border-white/10 rounded-2xl shadow-lg overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-cyan-900/30 to-transparent border-b border-cyan-400/20 px-8 py-8">
+            <div className="border-b border-white/10 px-8 py-8">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-900/40">
+                    <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                       <span className="text-white font-black text-base">CS</span>
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold text-white">CSA Portal</h2>
-                      <p className="text-xs text-cyan-400 font-semibold uppercase tracking-widest">Customer Spending Analysis</p>
+                      <p className="text-xs text-emerald-400 font-semibold uppercase tracking-widest">Customer Spending Analysis</p>
                     </div>
                   </div>
                   <p className="text-slate-300 max-w-xl leading-relaxed">
@@ -129,7 +129,7 @@ export default function ProductsPage() {
                   href="https://csa-dashboard-omega.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold transition-all shadow-xl shadow-cyan-900/30"
+                  className="shrink-0 btn-primary"
                 >
                   Open Live Demo <ArrowRight size={16} />
                 </a>
@@ -140,11 +140,11 @@ export default function ProductsPage() {
             <div className="px-8 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {csaFeatures.map(f => (
                 <div key={f.title} className="flex gap-4">
-                  <div className="w-9 h-9 bg-cyan-400/10 rounded-lg flex items-center justify-center shrink-0">
-                    <f.icon size={16} className="text-cyan-400" />
+                  <div className="w-9 h-9 bg-emerald-500/15 rounded-lg flex items-center justify-center shrink-0">
+                    <f.icon size={16} className="text-emerald-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white mb-1">{f.title}</p>
+                    <p className="text-sm font-semibold text-slate-200 mb-1">{f.title}</p>
                     <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
@@ -152,12 +152,12 @@ export default function ProductsPage() {
             </div>
 
             {/* Demo credentials */}
-            <div className="mx-8 mb-8 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <div className="mx-8 mb-8 p-4 rounded-xl bg-white/5 border border-white/10">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Demo Access</p>
               <p className="text-sm text-slate-300">
-                Username: <code className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded">admin</code>
+                Username: <code className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">admin</code>
                 &nbsp;·&nbsp;
-                Password: <code className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded">admin</code>
+                Password: <code className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">admin</code>
               </p>
             </div>
           </div>
