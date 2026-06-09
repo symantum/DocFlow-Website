@@ -407,7 +407,7 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-              <a href="https://csa-dashboard-omega.vercel.app/" target="_blank" rel="noopener noreferrer"
+              <a href="https://csa.symantum.com/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group">
                 Explore CSA Intelligence <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </a>

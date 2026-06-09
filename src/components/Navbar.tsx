@@ -88,7 +88,7 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://frontend-apportal.vercel.app/"
+            href="https://ap.symantum.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-slate-400 hover:text-white transition-colors"

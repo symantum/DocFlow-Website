@@ -12,8 +12,8 @@ const companyLinks = [
   { to: '/contact',    label: 'Contact' },
 ]
 const livePortals = [
-  { href: 'https://frontend-apportal.vercel.app/',   label: 'AP Portal →' },
-  { href: 'https://csa-dashboard-omega.vercel.app/', label: 'CSA Dashboard →' },
+  { href: 'https://ap.symantum.com/',   label: 'AP Portal →' },
+  { href: 'https://csa.symantum.com/', label: 'CSA Dashboard →' },
 ]
 
 export default function Footer() {

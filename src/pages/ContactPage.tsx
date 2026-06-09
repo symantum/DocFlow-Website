@@ -123,11 +123,11 @@ export default function ContactPage() {
                 Both portals are live and open for exploration. Log in with the demo credentials to see the full workflow before reaching out.
               </p>
               <div className="space-y-2">
-                <a href="https://frontend-apportal.vercel.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://ap.symantum.com/" target="_blank" rel="noopener noreferrer"
                   className="block text-center py-2 rounded-lg bg-blue-600/20 border border-blue-400/20 text-blue-400 text-xs font-semibold hover:bg-blue-600/30 transition-colors">
                   AP Portal Demo →
                 </a>
-                <a href="https://csa-dashboard-omega.vercel.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://csa.symantum.com/" target="_blank" rel="noopener noreferrer"
                   className="block text-center py-2 rounded-lg bg-cyan-600/20 border border-cyan-400/20 text-cyan-400 text-xs font-semibold hover:bg-cyan-600/30 transition-colors">
                   CSA Portal Demo →
                 </a>

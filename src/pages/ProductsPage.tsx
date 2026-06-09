@@ -52,7 +52,7 @@ export default function ProductsPage() {
                     End-to-end invoice processing platform. From the moment a supplier hits send to the moment your accounting system is updated — fully automated with human validation at every critical step.
                   </p>
                 </div>
-                <a href="https://frontend-apportal.vercel.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://ap.symantum.com/" target="_blank" rel="noopener noreferrer"
                   className="shrink-0 btn-primary">
                   Open Live Demo <ArrowRight size={16} />
                 </a>
@@ -115,7 +115,7 @@ export default function ProductsPage() {
                     Intelligence layer on top of your AP data. Multi-tenant analytics dashboard giving finance teams and executives the real-time spending visibility they need — without touching the ERP.
                   </p>
                 </div>
-                <a href="https://csa-dashboard-omega.vercel.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://csa.symantum.com/" target="_blank" rel="noopener noreferrer"
                   className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm transition-all shadow-lg shadow-cyan-900/30 hover:-translate-y-0.5">
                   Open Live Demo <ArrowRight size={16} />
                 </a>
