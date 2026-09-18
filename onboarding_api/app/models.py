@@ -29,6 +29,11 @@ class Application(Base):
     payload: Mapped[dict] = mapped_column(JSON, nullable=False)
     consent_version: Mapped[str] = mapped_column(String(40), nullable=False)
     email_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Phase 8: DocFlow Account ID minted on approval (nullable until then).
+    account_id: Mapped[str | None] = mapped_column(String(20), unique=True, index=True)
+    provision_status: Mapped[str | None] = mapped_column(String(30), index=True)
+    provisioned_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    provision_detail: Mapped[dict | None] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, onupdate=utcnow

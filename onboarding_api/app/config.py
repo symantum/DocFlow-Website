@@ -28,6 +28,12 @@ class Settings(BaseSettings):
     rate_limit_requests: int = 10
     rate_limit_window_seconds: int = 3600
 
+    # Phase 8 — AP provision (onboarding coordinator → AP internal-provision)
+    ap_provision_enabled: bool = True
+    ap_portal_url: str = ""
+    ap_portal_integration_secret: str = ""
+    email_alias_domain: str = "df.symantum.com"
+
     @field_validator("allowed_origins")
     @classmethod
     def validate_origins(cls, value: str) -> str:

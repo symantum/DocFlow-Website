@@ -99,10 +99,9 @@ def test_verification_link_transitions_application(client: TestClient):
 
     verified = client.get("/email/verify", params={"token": token})
     assert verified.status_code == 200
-    assert verified.json() == {
-        "application_id": application_id,
-        "status": "EMAIL_VERIFIED",
-    }
+    assert verified.json()["application_id"] == application_id
+    assert verified.json()["status"] == "EMAIL_VERIFIED"
+    assert verified.json().get("account_id") is None
     assert client.get("/email/verify", params={"token": token}).status_code == 400
 
     with SessionLocal() as db:

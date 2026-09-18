@@ -1,22 +1,30 @@
 # DocFlow Onboarding API
 
 Independent public-intake service for Pilot, production-onboarding, and Contact submissions.
-It owns the `docflow_onboarding` database and does not write directly to AP_Portal or CSA_Portal.
+It owns the `docflow_onboarding` database and does not accept public writes to AP_Portal or CSA_Portal.
 
-## Current Phase 4 foundation
+## Phase 8 coordinator (first slice)
+
+On internal **APPROVED**:
+
+1. Mint DocFlow **Account ID** (`DF-…`) on the application.
+2. Call AP `POST /api/v1/clients/internal-provision` with `X-Integration-Secret` (when `AP_PORTAL_URL` + secret are set).
+3. Record `provision_status` (`SUCCESS` / `FAILED` / `SKIPPED`). Approval is not rolled back if AP is down — retry via `POST /internal/applications/{id}/provision`.
+
+Default path is **AP-only** (no Client Portal users). Alias default: `{account-id}@df.symantum.com`.
+
+## Earlier foundation
 
 - Durable Pilot, production, and Contact records.
 - Opaque `APP-*` and `INQ-*` references.
 - Versioned consent capture.
 - Hashed, expiring, single-use work-email verification tokens.
 - Application lifecycle and audit events.
-- Protected internal review-state transitions without account provisioning.
+- Protected internal review-state transitions.
 - Database-backed idempotency and source-hashed rate limiting.
 - Local email outbox with a Postmark adapter ready for later credentials.
 - Disabled development bot adapter with Turnstile verification ready for later credentials.
 - Production startup guards that reject missing email, bot, secret, or migration configuration.
-
-No application provisions an AP or Client Portal account.
 
 ## Local setup
 

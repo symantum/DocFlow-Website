@@ -1,9 +1,9 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** Phases 1–4 foundation complete; Phase 5 acceptance next  
+**Status:** **Phase 8A in progress** (coordinator → AP provision on approval). Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 website ship ready (DNS + public form providers deferred).  
 **Product owner:** Symantum  
-**Last updated:** 18 September 2026  
-**Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal.
+**Last updated:** 19 September 2026  
+**Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
 
 ---
 
@@ -24,11 +24,12 @@ The public website must describe DocFlow as a general digital operations platfor
 
 ### 2.1 System responsibilities
 
-- **SymantumWeb** is the public marketing, application, and onboarding entry point.
-- **AP Portal** is Symantum's internal document-processing and human-validation workspace.
-- **CSA Portal** is the authenticated client-facing portal for profile, account, settings, analytics, and enabled client services.
+- **SymantumWeb** (`symantum/DocFlow-Website`) is the public marketing, application, and onboarding entry point.
+- **DocFlow Operations Portal** (technical repo/deploy: AP_Portal) is Symantum's internal document-processing and human-validation workspace.
+- **DocFlow Client Portal** (technical repo/deploy: CSA_Portal) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services.
 - Public forms must not write independently to both portal databases.
 - A server-side onboarding service must control approval and provisioning.
+- First-release commercial posture: low barrier to apply; clients still **choose** production services; Client Portal modules stay **open** until Essentials-specific pages exist; avoid org-size or volume bars as entry gates.
 
 ### 2.2 Public identifiers
 
@@ -53,6 +54,8 @@ Account ID: DF-8K4M2P
 - Other connectors may hold their own external identifiers.
 - Any DocFlow-controlled internal routing identifier should be named **Routing Code** or **Workspace Code**.
 - Integration identifiers are namespaced by connector so identical values cannot collide across systems.
+
+**Confirmed (18 September 2026):** At go-live, organisation identity must unify on **DocFlow Account ID** as DocFlow product IP — not a copy of CAAPS job/requirements identity. Existing CAAPS `client_code` values remain valid **integration/workspace** identifiers under that Account (two jobs may share operational codes today; the public/business account model does not inherit CAAPS IP). Compatibility may keep using shared operational codes internally until Account ID is wired end-to-end; new clients must not be marketed or keyed publicly as CAAPS-style codes.
 
 Conceptual structure:
 
@@ -350,6 +353,12 @@ The account model must not embed CAAPS assumptions in its core identity.
 - MFA state
 - Last login and security audit data
 
+**Confirmed (18 September 2026):** Membership roles are **not** redefined as the production service. People roles answer who may act; service subscription answers what the organisation may use. Legacy CSA `user_group` values (`Individual_User` / `SME` / `Corporate` / `Enterprise`) are compatibility/volume labels only and must not remain the long-term entitlement model. `system_role` remains internal/platform-only.
+
+**Confirmed (18 September 2026) — first release access:** One Client Portal login per organisation, treated as **Owner**-equivalent. Multi-user roles (Client Admin / Member / Billing / Read Only) remain in the model for later scale-up; do not implement multi-role invite/RBAC matrices in the first release.
+
+**Confirmed (18 September 2026) — first release portal openness:** Clients still **choose** production services commercially (Automation Delivery / Client Essentials / Client Intelligence). Until Essentials-specific Client Portal pages are ready, **all activated Client Portal users** receive the full portal module set (Overview, Spending, Insights, Reports, Budgets, Plan/Invoices, Help). Do not gate Insights/Reports on legacy org-size `user_group`. Module enforcement by subscribed service returns when Essentials surfaces are ready. Automation Delivery remains no Client Portal login. Platform `superuser`/`dev` always see the full portal.
+
 ### 5.3 Service subscription
 
 Initial supported combinations:
@@ -368,6 +377,8 @@ Subscription controls:
 - Portal access
 - Delivery methods
 - Effective and expiry dates
+
+**Confirmed (18 September 2026):** Get Started / provisioning selects the production service. That selection drives entitlements (modules, portal depth, volume). It does not become the user's membership role.
 
 ### 5.4 Processing workspace
 
@@ -428,6 +439,8 @@ Examples:
 
 The current standalone Account navigation item should be replaced atomically by a dropdown beside the logged-in user's name. Existing routes and deep links remain available.
 
+**Confirmed (18 September 2026):** Do **not** remove Account / Configuration content from CSA. SymantumWeb holds public application only; authenticated profile/org/plan/security stay in the Client Portal. Replace the top-nav **Account** label with the user-name dropdown; keep `/settings` and section hashes.
+
 Planned dropdown:
 
 - My Profile
@@ -435,7 +448,7 @@ Planned dropdown:
 - Workflow & Integrations
 - Team & Access
 - Plan & Usage
-- Billing
+- Invoices (Option B invoice centre — status + PDF; no card checkout)
 - Security
 - Settings
 - Sign Out
@@ -586,47 +599,85 @@ Checklist:
 
 - [x] Run lint and production build.
 - [x] Smoke-test public routes for Home, Automation, Analytics, Data Integrity, Resources, Pricing, Pilot, Get Started, Contact, Privacy, Terms, verify-email, and legacy activation redirect.
-- [ ] Complete a visual desktop and mobile browser walkthrough of Navbar, footer, and Client Login.
+- [ ] Complete a visual desktop and mobile browser walkthrough of Navbar, footer, and Client Login (optional before public DNS; use `.vercel.app`).
 - [x] Submit local test Pilot, Get Started, and Contact applications against the Onboarding API (outbox mode).
 - [x] Confirm the website keeps an honest unavailable path when `VITE_ONBOARDING_API_URL` is unset.
 - [x] Review the existing uncommitted working tree; exclude unrelated docs, Office temp files, secrets, and local databases.
 - [x] Decide GitHub repository naming/remote for SymantumWeb before commit.
   - Confirmed: `symantum/DocFlow-Website`
-- [ ] Commit only intended website and onboarding-plan files after approval.
-- [ ] Push to Vercel for website deployment only after approval.
+- [x] Commit only intended website and onboarding-plan files after approval.
+- [x] Connect `symantum/DocFlow-Website` to the existing Vercel project and deploy (`1fd3384` trigger push).
+  - Public DNS for `symantum.com` / `www` / `df.symantum.com` deferred until public go-live.
+  - Mailboxes `clientN@df.symantum.com` deferred with DNS/mail provider setup.
 
 Local acceptance evidence recorded on 18 September 2026:
 
 - Website production build passed.
 - Onboarding API tests: 4 passed.
 - Local intake references created: Pilot `APP-*`, production `APP-*`, Contact `INQ-*`.
-- No Git remote is currently configured on SymantumWeb.
+- Git remote configured: `origin` → `https://github.com/symantum/DocFlow-Website.git`.
+- Selective commit pushed: `26fa761` on `master`; Vercel trigger `1fd3384`.
 
-Phase 5 may continue with repository setup, selective commit, and Vercel deploy readiness. Full public form go-live still depends on the Phase 4 provider blockers above.
+Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile, and Onboarding API hosting. Optional: desktop/mobile visual walkthrough on `.vercel.app`.
 
-### Phase 6 — CSA security and account experience
+### Phase 6 — CSA / Client Portal security and account experience
 
-- Secure authentication and tenant isolation.
-- Implement invitations, reset, verification, and MFA.
-- Introduce generic account/profile presentation.
-- Replace Account navigation with the user dropdown.
-- Enforce subscriptions and roles.
+**Gate status (18 September 2026):** Foundation **complete** for first-release Client Portal work. Next active build phase is **Phase 7**. Items below marked *parked* are deferred — they do not block starting Account ID / AP generalisation.
 
-### Phase 7 — AP generalisation
+#### Phase 6A — Secure sessions + API tenant isolation — complete
+- [x] Signed access token on login (`access_token` + HttpOnly `csa_session` cookie).
+- [x] `GET /api/me`, `POST /api/logout`; post-login navigate to Overview (blank `/login` shell fixed).
+- [x] `get_current_user` dependency; tenant bound via `bind_client_code` (ignore spoofed `client_code` / `user_id`).
+- [x] Protect account, Xero, analytics reads with optional `client_code`, budgets, export, invoice-by-uid, vendor APIs.
+- [x] `/api/ingest` requires `X-Integration-Secret`; portal CSV ingest uses session auth.
+- [x] CORS origins from `CSA_CORS_ORIGINS` (credentials enabled).
+- [x] Frontend stores Bearer token and attaches it on `fetch` / axios; session restore via `/api/me`.
+- [x] Client-facing product name **DocFlow Client Portal** (header, login, Help, titles); technical `CSA_Portal` repo/deploy names retained.
+- [x] Option B Plan & Usage + invoice centre (`/api/account/plan-usage`, `/api/account/invoices`).
+- [x] First-release open portal modules (Insights included for activated Client Portal users; commercial service choice retained).
+- *Parked polish:* tighten any leftover open GETs; production `CSA_SESSION_SECRET`; ensure AP Portal sends integration secret on ingest.
 
-- Introduce Account ID relationship.
-- Separate workspace and integration configuration.
-- Move CAAPS identifiers into a CAAPS profile.
-- Support AP-only provisioning.
-- Secure service endpoints.
+#### Phase 6B — Role / module enforcement — parked
+- First release: one Owner-equivalent login; full Client Portal modules until Essentials pages exist.
+- Multi-role RBAC and Essentials-vs-Intelligence **module** enforcement deferred.
+- Platform `superuser` / `dev` retain full portal access.
+- Open for later: which membership roles may mutate Settings vs read-only (when multi-user ships).
 
-### Phase 8 — Provisioning and data integration
+#### Phase 6C — Auth hardening — parked (may resume with Phase 8 activation)
+- MFA, invitations, verified password-reset tokens (replace predictable dev reset tokens).
+- Further generic account/profile presentation polish beyond dropdown + Plan/Invoices.
 
-- Implement the onboarding coordinator.
-- Provision AP and/or CSA according to subscription.
-- Configure routing, storage, integration, and delivery.
-- Connect verified AP outputs to CSA where enabled.
+#### Phase 6 delivered summary
+- [x] Replace Account navigation with the user-name dropdown (`/settings#…` retained).
+- [x] Membership roles vs production-service entitlements foundation (login/`/me` payload).
+- [x] Sessions + tenant isolation foundation.
+- End-to-end subscription enforcement and multi-role routes: **parked** until Essentials surfaces and multi-user are required.
+
+### Phase 7 — AP generalisation — **complete (AP foundation)**
+
+Active focus after Phase 6 foundation. Website auto-provision remains **Phase 8**.
+
+**Non-breaking rule (confirmed):** All existing AP_Portal implementations and behaviours stay intact. Account ID is additive beside `client_code`. Spaces / EIP / CAAPS / watch-folder / export paths continue to use workspace `client_code` until later phases explicitly migrate callers.
+
+Checklist:
+
+- [x] **7A — Account ID column + dual-read** (nullable `docflow_account_id` on `clients`; `core/client_identity.py`; optional on `ClientOut`; migration `d0e1f2a3b4c5`).
+- [x] **7A — CAAPS profile scaffolding** (nullable `caaps_profile` JSON; synthesise from legacy `client_code` at read time — live codes not moved).
+- [x] **7B — UI IP rename** (Registry / Dashboard / Line Items / Archives: Account / Account ID labels; APIs still use `client_code`).
+- [x] **7C — Provisioning contract** (`POST /api/v1/clients/internal-provision` + `core/alias_provision.py`; Account ID + AP client row + optional alias-file append; CAAPS JSON keys preserved).
+- [x] **7D — Workspace vs Account naming** (docs/comments; `workspace_code` on provision input; DB column remains `client_code`).
+- [x] **7E — AP-only flag** (`ap_only` on `clients` + provision default true; no Client Portal user creation).
+- [x] **7F — Secure S2S** (`X-Integration-Secret` / `AP_PORTAL_INTEGRATION_SECRET` on `internal-provision`; localhost still allowed).
+- [x] **7G — `user_group` hygiene** (documented: not used for DocFlow Account / EIP routing in new AP work; CSA analytics field unchanged).
+
+### Phase 8 — Provisioning and data integration — **in progress**
+
+- [x] **8A — Coordinator → AP provision** (on `APPROVED`: mint Account ID; call AP `internal-provision`; retry endpoint; `provision_status` on application).
+- Implement remaining onboarding coordinator (Client Portal when not `ap_only`).
+- Configure routing, storage, integration, and delivery beyond default alias.
+- Connect verified AP outputs to Client Portal where enabled.
 - Implement pilot expiry and full-account conversion.
+- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path.
 
 ---
 
@@ -651,12 +702,13 @@ For that deployment:
 These items require explicit confirmation before their implementation phase:
 
 1. Should AP-only clients receive a minimal generic Account Centre, or no portal credentials?
-2. Which durable system owns applications and canonical Account IDs?
-3. What human-readable Account ID format should be used?
+2. Which durable system owns applications and canonical Account IDs? *(Phase 7/8 — decide with Account ID ownership.)*
+3. What human-readable Account ID format should be used? *(Example in §2.2: `DF-…` — confirm as canonical.)*
 4. Which service stores consent and application-review history?
-5. Which bot-protection and email-verification providers will be used?
-6. Is billing required for the first production onboarding release?
-7. At which AP lifecycle event should verified invoice data become visible in CSA?
+5. Which bot-protection and email-verification providers will be used? *(Public go-live blocker — Phase 4.)*
+6. Is billing / payment UI required inside the Client Portal for the first production onboarding release?
+   - **Confirmed — Option B:** Plan & Usage plus invoice centre. No card-on-file self-serve checkout.
+7. At which AP lifecycle event should verified invoice data become visible in the Client Portal?
 
 ---
 
@@ -674,6 +726,16 @@ Each update must:
 
 ### Revision history
 
+- **19 September 2026 — Phase 8A started:** Onboarding coordinator on APPROVED mints Account ID and calls AP `internal-provision` (S2S). Client Portal provisioning and pilot conversion remain later Phase 8. Plan remains local.
+- **19 September 2026 — Phase 7 complete (AP foundation):** S2S secret on `internal-provision`, `ap_only` flag, workspace_code naming, user_group hygiene documented. Website→provision wiring = Phase 8. Plan remains local.
+- **19 September 2026 — Phase 7B/7C:** UI Account / Account ID labels on Operations Portal; `POST /clients/internal-provision` + alias-file append helper. Existing EIP/`client_code` behaviour and CAAPS JSON keys retained. Plan remains local.
+- **18 September 2026 — Phase 7A started (non-breaking):** AP_Portal additive Account ID — nullable `docflow_account_id` + `caaps_profile` on `clients`, dual-read helper `core/client_identity.py`, optional `ClientOut.docflow_account_id`. Existing `client_code` EIP/watch/export/CAAPS paths untouched. Plan remains local until explicitly committed.
+- **18 September 2026 — Phase 6 parked; Phase 7 next:** Updated plan status — Client Portal foundation complete (sessions, isolation, dropdown, Option B invoices, open modules, DocFlow Client Portal display name). Parked 6B multi-role gating, Essentials module enforcement, and 6C MFA/invites. Active next phase: AP generalisation (Account ID, CAAPS profile, AP-only). Plan remains local until explicitly committed to DocFlow-Website.
+- **18 September 2026 — First-release open Client Portal:** Commercial service choice retained; portal modules fully open for activated Client Portal users until Essentials-specific pages exist. Legacy org-size tiers no longer hide Insights. Plan kept local; CSA entitlements updated.
+- **18 September 2026 — CSA billing Option B:** Confirmed Plan & Usage plus invoice centre (list, due dates, paid/unpaid, PDF). Net-14 style terms; Automation unit-based, Analytics monthly, Assurance optional add-on. No card-on-file checkout. APIs `/api/account/plan-usage` and `/api/account/invoices` added.
+- **18 September 2026 — Account ID + first-release access:** Confirmed go-live org identity unifies on DocFlow Account ID (DocFlow IP; CAAPS codes stay integration/workspace only). First-release Client Portal = one Owner-equivalent login per client; multi-role later. Billing/payment UI in CSA still open — advisory options recorded under Open Decision #6.
+- **18 September 2026 — Phase 6A sessions + isolation:** Added CSA signed access tokens, `/api/me`/`/api/logout`, tenant-bound `client_code`/`user_id`, protected account/Xero/analytics/budget/export routes, ingest integration secret, and frontend Bearer attachment. Role-route enforcement deferred pending clarification (Phase 6B).
+- **18 September 2026 — Phase 6 access model confirmed:** Membership roles (Owner / Client Admin / Member / Billing / Read Only) stay separate from production services (Automation Delivery / Client Essentials / Client Intelligence). CSA Account content retained; top-nav Account replaced by user-name dropdown. Entitlements foundation added in CSA_Portal.
 - **18 September 2026 — Assurance Reporting deferred:** Clarified Assurance architecture as baseline Automation integrity; recorded first-release tiers as Automation Delivery, Client Essentials, and Client Intelligence; retained Assurance Reporting structure for later add-on consideration.
 - **18 September 2026 — Phase 5 local acceptance:** Completed production build, route smoke checks, local Pilot/production/Contact intake tests, and working-tree review; remaining steps are Git remote decision, selective commit, and Vercel deploy after approval.
 - **18 September 2026 — Phase 5 gate clarified:** Defined Phase 5 as local acceptance, selective commit, and deployment readiness, while keeping live email/bot providers as public go-live blockers.

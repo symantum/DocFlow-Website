@@ -78,6 +78,8 @@ class PublicSubmissionResponse(BaseModel):
 class EmailVerificationResponse(BaseModel):
     application_id: str
     status: str
+    account_id: str | None = None
+    provision_status: str | None = None
 
 
 class ApplicationStatusUpdate(BaseModel):

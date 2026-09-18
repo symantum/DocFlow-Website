@@ -17,6 +17,7 @@ from .models import (
     SubmissionAttempt,
 )
 from .providers import deliver_email, queue_email, verify_bot_token
+from .provision import provision_application_to_ap
 from .schemas import (
     ApplicationStatusUpdate,
     EmailVerificationResponse,
@@ -243,6 +244,8 @@ async def verify_application_email(
     return EmailVerificationResponse(
         application_id=application.application_id,
         status=application.status,
+        account_id=application.account_id,
+        provision_status=application.provision_status,
     )
 
 
@@ -287,8 +290,49 @@ def update_application_review_status(
             details={"previous_status": previous_status},
         )
     )
+
+    if update.status == "APPROVED":
+        # Coordinator: mint Account ID + AP provision (does not roll back approval on AP failure).
+        provision_application_to_ap(db, application, settings)
+
     db.commit()
+    db.refresh(application)
     return EmailVerificationResponse(
         application_id=application.application_id,
         status=application.status,
+        account_id=application.account_id,
+        provision_status=application.provision_status,
+    )
+
+
+@router.post(
+    "/internal/applications/{application_id}/provision",
+    response_model=EmailVerificationResponse,
+)
+def retry_application_provision(
+    application_id: str,
+    internal_api_key: str = Header(..., alias="X-Internal-API-Key"),
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> EmailVerificationResponse:
+    """Retry AP provision for an already-approved application."""
+    if not constant_time_equal(internal_api_key, settings.internal_api_key):
+        raise HTTPException(status_code=401, detail="Invalid internal credentials")
+
+    application = db.scalar(
+        select(Application).where(Application.application_id == application_id)
+    )
+    if not application:
+        raise HTTPException(status_code=404, detail="Application was not found")
+    if application.status != "APPROVED":
+        raise HTTPException(status_code=409, detail="Only APPROVED applications can be provisioned")
+
+    provision_application_to_ap(db, application, settings, force=True)
+    db.commit()
+    db.refresh(application)
+    return EmailVerificationResponse(
+        application_id=application.application_id,
+        status=application.status,
+        account_id=application.account_id,
+        provision_status=application.provision_status,
     )
