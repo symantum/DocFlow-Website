@@ -24,3 +24,22 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Onboarding API local state and secrets
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.db
+*.pytest_cache/
+
+# Office/temp artifacts
+~$*
+*.tmp
+
+# Legacy static exports / prototypes (not part of the Vite app)
+analytics/
+automation/
+data-integrity/
+resources/
+symantum-v2.html

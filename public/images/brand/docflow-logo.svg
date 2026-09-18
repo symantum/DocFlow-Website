@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" fill="none" role="img" aria-label="DocFlow">
+  <defs>
+    <linearGradient id="symantumGradLogo" x1="6" y1="50" x2="50" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B4A8C"/>
+      <stop offset="55%" stop-color="#1A7BB8"/>
+      <stop offset="100%" stop-color="#4CC9E8"/>
+    </linearGradient>
+    <mask id="symantumCutLogo">
+      <rect width="56" height="56" fill="white"/>
+      <path d="M4 46 C16 32, 24 22, 52 4 L49 9 C24 22, 16 32, 7 48 Z" fill="black"/>
+      <path d="M9 50 C20 36, 28 26, 52 14 L49 18 C28 28, 20 38, 12 52 Z" fill="black"/>
+    </mask>
+  </defs>
+  <g transform="translate(0, 0)">
+    <circle cx="28" cy="28" r="26" fill="url(#symantumGradLogo)" mask="url(#symantumCutLogo)"/>
+  </g>
+  <text
+    x="64"
+    y="36"
+    font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="26"
+    font-weight="700"
+    fill="#1A7BB8"
+    letter-spacing="-0.02em"
+  >DocFlow</text>
+</svg>
