@@ -1,6 +1,14 @@
-# Host DocFlow Onboarding API on DigitalOcean (staging)
+# Host DocFlow Onboarding API on DigitalOcean
 
-AP Portal team can keep testing — this is a **new** App, not a change to `symantum` AP.
+> **First release:** Prefer bundling into the **existing** AP App at `/onboarding`
+> (`AP_Portal/backend/onboarding/`) — **no second App**, no extra monthly container bill.
+> Cancel any in-progress separate onboarding App create if you started one for cost reasons.
+>
+> The rest of this file is the **optional later** split (own App at `onboarding.symantum.com`).
+
+## Optional later: separate App (staging)
+
+AP Portal team can keep testing — this would be a **new** App, not a change to `symantum-ap-api`.
 
 ## Goal
 

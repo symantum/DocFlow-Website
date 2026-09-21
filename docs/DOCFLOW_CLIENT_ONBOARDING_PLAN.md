@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Phase 8A complete** (coordinator → AP + Dashboard review tab). Next website track: **host Onboarding API on DO (staging)**. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 Vercel path ready (DNS + Postmark/Turnstile + custom domain deferred).  
+**Status:** **Phase 8A complete.** First-release hosting: **Onboarding API bundled into AP Portal** (`/onboarding`, like CSA) — no separate DO App. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 Vercel path ready (DNS + Postmark/Turnstile deferred).  
 **Product owner:** Symantum  
 **Last updated:** 21 September 2026  
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
@@ -620,7 +620,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile.
 
-**Next (21 September 2026):** Host Onboarding API on DigitalOcean as a **separate** app (`onboarding.symantum.com`, `ENVIRONMENT=staging`) — see `onboarding_api/DEPLOY_DO.md`. Does not pause AP Portal testing. After health is green, wire AP `ONBOARDING_API_URL` / `ONBOARDING_INTERNAL_API_KEY` and website `VITE_ONBOARDING_API_URL`. Optional: desktop/mobile visual walkthrough on `.vercel.app` in parallel.
+**Next (21 September 2026):** Bundle Onboarding API into existing AP App Platform service at `/onboarding` (CSA-style), using DB `docflow_onboarding` on `symantum-pg-prod`. Set `ONBOARDING_DATABASE_URL` + keys on **existing** AP app — **do not** create a second paid App. After deploy: `ONBOARDING_API_URL=https://api.ap.symantum.com/onboarding`. Optional: desktop/mobile walkthrough on `.vercel.app`. Public DNS/`df` + Postmark/Turnstile still deferred.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -675,8 +675,8 @@ Checklist:
 ### Phase 8 — Provisioning and data integration — **in progress**
 
 - [x] **8A — Coordinator → AP provision** (on `APPROVED`: mint Account ID; call AP `internal-provision`; retry endpoint; `provision_status` on application).
-- [x] **8A+ — AP Dashboard Onboarding review tab** (proxy `/api/v1/onboarding/*`; delivery_mode; review before approve). Live only after Onboarding API is hosted and AP `ONBOARDING_*` env is set.
-- [ ] **8B — Host Onboarding API (staging)** on DO at `onboarding.symantum.com`; wire AP + Vercel URLs (see `onboarding_api/DEPLOY_DO.md`).
+- [x] **8A+ — AP Dashboard Onboarding review tab** (proxy `/api/v1/onboarding/*`; delivery_mode; review before approve).
+- [ ] **8B — First-release host:** mount Onboarding API inside AP Portal at `/onboarding` (bundle `backend/onboarding/`, `ONBOARDING_DATABASE_URL` on existing DO app). Separate DO App deferred.
 - Implement remaining onboarding coordinator (Client Portal when not `ap_only`).
 - Configure routing, storage, integration, and delivery beyond default alias.
 - Connect verified AP outputs to Client Portal where enabled.
@@ -730,6 +730,7 @@ Each update must:
 
 ### Revision history
 
+- **21 September 2026 — First-release in-AP Onboarding mount:** Chose CSA-style bundle (`AP_Portal/backend/onboarding` → `/onboarding`) instead of a second App Platform app (~$5–24/mo). DB remains separate `docflow_onboarding` on `symantum-pg-prod`. Cancel separate onboarding App if started. Plan remains local until committed.
 - **21 September 2026 — Host Onboarding API next; 8A closed:** AP Dashboard Onboarding review tab + proxy shipped; DO AP deploy lessons noted. Next: separate DO app for Onboarding API (`onboarding_api/DEPLOY_DO.md`, `ENVIRONMENT=staging`). AP registry testing unblocked; Onboarding tab waits on hosting. DNS/`df` + Postmark/Turnstile still public go-live. Plan remains local until DocFlow-Website commit.
 - **19 September 2026 — Phase 8A started:** Onboarding coordinator on APPROVED mints Account ID and calls AP `internal-provision` (S2S). Client Portal provisioning and pilot conversion remain later Phase 8. Plan remains local.
 - **19 September 2026 — Phase 7 complete (AP foundation):** S2S secret on `internal-provision`, `ap_only` flag, workspace_code naming, user_group hygiene documented. Website→provision wiring = Phase 8. Plan remains local.
