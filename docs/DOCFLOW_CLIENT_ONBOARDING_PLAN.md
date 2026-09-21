@@ -1,8 +1,8 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Phase 8A in progress** (coordinator → AP provision on approval). Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 website ship ready (DNS + public form providers deferred).  
+**Status:** **Phase 8A complete** (coordinator → AP + Dashboard review tab). Next website track: **host Onboarding API on DO (staging)**. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 Vercel path ready (DNS + Postmark/Turnstile + custom domain deferred).  
 **Product owner:** Symantum  
-**Last updated:** 19 September 2026  
+**Last updated:** 21 September 2026  
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
 
 ---
@@ -618,7 +618,9 @@ Local acceptance evidence recorded on 18 September 2026:
 - Git remote configured: `origin` → `https://github.com/symantum/DocFlow-Website.git`.
 - Selective commit pushed: `26fa761` on `master`; Vercel trigger `1fd3384`.
 
-Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile, and Onboarding API hosting. Optional: desktop/mobile visual walkthrough on `.vercel.app`.
+Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile.
+
+**Next (21 September 2026):** Host Onboarding API on DigitalOcean as a **separate** app (`onboarding.symantum.com`, `ENVIRONMENT=staging`) — see `onboarding_api/DEPLOY_DO.md`. Does not pause AP Portal testing. After health is green, wire AP `ONBOARDING_API_URL` / `ONBOARDING_INTERNAL_API_KEY` and website `VITE_ONBOARDING_API_URL`. Optional: desktop/mobile visual walkthrough on `.vercel.app` in parallel.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -673,6 +675,8 @@ Checklist:
 ### Phase 8 — Provisioning and data integration — **in progress**
 
 - [x] **8A — Coordinator → AP provision** (on `APPROVED`: mint Account ID; call AP `internal-provision`; retry endpoint; `provision_status` on application).
+- [x] **8A+ — AP Dashboard Onboarding review tab** (proxy `/api/v1/onboarding/*`; delivery_mode; review before approve). Live only after Onboarding API is hosted and AP `ONBOARDING_*` env is set.
+- [ ] **8B — Host Onboarding API (staging)** on DO at `onboarding.symantum.com`; wire AP + Vercel URLs (see `onboarding_api/DEPLOY_DO.md`).
 - Implement remaining onboarding coordinator (Client Portal when not `ap_only`).
 - Configure routing, storage, integration, and delivery beyond default alias.
 - Connect verified AP outputs to Client Portal where enabled.
@@ -726,6 +730,7 @@ Each update must:
 
 ### Revision history
 
+- **21 September 2026 — Host Onboarding API next; 8A closed:** AP Dashboard Onboarding review tab + proxy shipped; DO AP deploy lessons noted. Next: separate DO app for Onboarding API (`onboarding_api/DEPLOY_DO.md`, `ENVIRONMENT=staging`). AP registry testing unblocked; Onboarding tab waits on hosting. DNS/`df` + Postmark/Turnstile still public go-live. Plan remains local until DocFlow-Website commit.
 - **19 September 2026 — Phase 8A started:** Onboarding coordinator on APPROVED mints Account ID and calls AP `internal-provision` (S2S). Client Portal provisioning and pilot conversion remain later Phase 8. Plan remains local.
 - **19 September 2026 — Phase 7 complete (AP foundation):** S2S secret on `internal-provision`, `ap_only` flag, workspace_code naming, user_group hygiene documented. Website→provision wiring = Phase 8. Plan remains local.
 - **19 September 2026 — Phase 7B/7C:** UI Account / Account ID labels on Operations Portal; `POST /clients/internal-provision` + alias-file append helper. Existing EIP/`client_code` behaviour and CAAPS JSON keys retained. Plan remains local.

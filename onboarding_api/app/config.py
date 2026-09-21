@@ -8,7 +8,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    environment: Literal["development", "test", "production"] = "development"
+    # staging = hosted on DO before Postmark/Turnstile; production = public forms go-live
+    environment: Literal["development", "test", "staging", "production"] = "development"
     database_url: str = "sqlite:///./docflow_onboarding.db"
     auto_create_tables: bool = True
     allowed_origins: str = "http://localhost:5173"
@@ -42,19 +43,26 @@ class Settings(BaseSettings):
         return value
 
     @model_validator(mode="after")
-    def validate_production_security(self) -> "Settings":
-        if self.environment != "production":
+    def validate_deployed_security(self) -> "Settings":
+        if self.environment not in ("staging", "production"):
             return self
-        if len(self.app_secret) < 32 or "change" in self.app_secret.lower():
-            raise ValueError("Production APP_SECRET must be a strong environment secret")
-        if len(self.internal_api_key) < 32 or "development" in self.internal_api_key.lower():
-            raise ValueError("Production INTERNAL_API_KEY must be a strong environment secret")
+        if len(self.app_secret) < 32 or "change" in self.app_secret.lower() or "local-" in self.app_secret.lower():
+            raise ValueError("Deployed APP_SECRET must be a strong environment secret")
+        if (
+            len(self.internal_api_key) < 32
+            or "development" in self.internal_api_key.lower()
+            or "local-" in self.internal_api_key.lower()
+        ):
+            raise ValueError("Deployed INTERNAL_API_KEY must be a strong environment secret")
+        if self.auto_create_tables:
+            raise ValueError("Deployed environments must use migrations, not AUTO_CREATE_TABLES")
+        if self.environment == "staging":
+            # Hosted intake + AP review before public email/bot providers.
+            return self
         if self.email_provider != "postmark" or not self.postmark_server_token:
             raise ValueError("Production requires a configured transactional email provider")
         if self.bot_provider != "turnstile" or not self.turnstile_secret_key:
             raise ValueError("Production requires configured bot protection")
-        if self.auto_create_tables:
-            raise ValueError("Production must use migrations, not AUTO_CREATE_TABLES")
         return self
 
     @property

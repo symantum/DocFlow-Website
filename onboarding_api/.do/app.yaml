@@ -1,0 +1,86 @@
+# DigitalOcean App Platform — DocFlow Onboarding API
+#
+# Create this as a NEW App (do not add to the existing AP Portal app).
+# Source: GitHub repo that contains onboarding_api/ (e.g. DocFlow-Website),
+# with source directory set to onboarding_api.
+#
+# Replace PLACEHOLDER values in the DO UI after create; do not commit secrets.
+
+name: docflow-onboarding
+region: syd
+
+services:
+  - name: onboarding-api
+    github:
+      repo: symantum/DocFlow-Website
+      branch: master
+      deploy_on_push: true
+    source_dir: onboarding_api
+    dockerfile_path: Dockerfile
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 20
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 6
+    envs:
+      - key: ENVIRONMENT
+        value: staging
+        scope: RUN_TIME
+      - key: AUTO_CREATE_TABLES
+        value: "false"
+        scope: RUN_TIME
+      - key: PORT
+        value: "8080"
+        scope: RUN_TIME
+      - key: DATABASE_URL
+        scope: RUN_TIME
+        type: SECRET
+      - key: APP_SECRET
+        scope: RUN_TIME
+        type: SECRET
+      - key: INTERNAL_API_KEY
+        scope: RUN_TIME
+        type: SECRET
+      - key: ALLOWED_ORIGINS
+        value: "https://df.symantum.com,https://www.symantum.com,https://symantum.com"
+        scope: RUN_TIME
+      - key: PUBLIC_WEBSITE_URL
+        value: "https://df.symantum.com"
+        scope: RUN_TIME
+      - key: EMAIL_PROVIDER
+        value: outbox
+        scope: RUN_TIME
+      - key: BOT_PROVIDER
+        value: disabled
+        scope: RUN_TIME
+      - key: AP_PROVISION_ENABLED
+        value: "true"
+        scope: RUN_TIME
+      - key: AP_PORTAL_URL
+        value: "https://api.ap.symantum.com"
+        scope: RUN_TIME
+      - key: AP_PORTAL_INTEGRATION_SECRET
+        scope: RUN_TIME
+        type: SECRET
+      - key: EMAIL_ALIAS_DOMAIN
+        value: df.symantum.com
+        scope: RUN_TIME
+      - key: EMAIL_FROM
+        value: "DocFlow by Symantum <onboarding@localhost>"
+        scope: RUN_TIME
+      - key: INTERNAL_NOTIFICATION_EMAIL
+        value: onboarding@localhost
+        scope: RUN_TIME
+      - key: CONSENT_VERSION
+        value: "2026-09-17"
+        scope: RUN_TIME
+
+# After first deploy: App Settings → Domains → add onboarding.symantum.com
+# Then on AP Portal DO app set:
+#   ONBOARDING_API_URL=https://onboarding.symantum.com
+#   ONBOARDING_INTERNAL_API_KEY=<same as INTERNAL_API_KEY above>

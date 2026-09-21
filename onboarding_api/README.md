@@ -67,16 +67,13 @@ alembic upgrade head
 
 Production must set `AUTO_CREATE_TABLES=false`.
 
-## Deferred deployment providers
+## DigitalOcean staging
 
-Development can continue without provider accounts. Public deployment remains blocked until:
+See **[DEPLOY_DO.md](./DEPLOY_DO.md)** for creating a separate App Platform service at
+`https://onboarding.symantum.com` without changing the live AP Portal app.
 
-1. A transactional email provider is configured and its sending domain is authenticated.
-2. A Turnstile-equivalent bot provider is configured and enforced server-side.
-3. Production rate limits and allowed origins are verified.
-
-Do not adopt `onboarding@df.symantum.com` until domain support confirms replies cannot enter the
-supplier-document ingestion route.
+Use `ENVIRONMENT=staging` until Postmark and Turnstile are configured; then switch to
+`ENVIRONMENT=production`.
 
 ## Tests
 

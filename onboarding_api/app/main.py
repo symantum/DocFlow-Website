@@ -23,15 +23,15 @@ app = FastAPI(
     title="DocFlow Onboarding API",
     version="0.1.0",
     lifespan=lifespan,
-    docs_url="/docs" if settings.environment != "production" else None,
+    docs_url="/docs" if settings.environment in ("development", "test", "staging") else None,
     redoc_url=None,
 )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.origin_list,
     allow_credentials=False,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "Idempotency-Key"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "OPTIONS"],
+    allow_headers=["Content-Type", "Idempotency-Key", "X-Internal-API-Key"],
 )
 app.include_router(router)
 
