@@ -34,6 +34,8 @@ class Application(Base):
     provision_status: Mapped[str | None] = mapped_column(String(30), index=True)
     provisioned_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     provision_detail: Mapped[dict | None] = mapped_column(JSON)
+    # Symantum review confirmation before AP provision (not the raw public form).
+    review_payload: Mapped[dict | None] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, onupdate=utcnow

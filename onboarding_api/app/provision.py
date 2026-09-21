@@ -36,33 +36,44 @@ def resolve_ap_only(application: Application) -> bool:
 
 
 def build_email_aliases(application: Application, account_id: str, settings: Settings) -> list[str]:
+    """Aliases come from Symantum review when present; otherwise the default DF alias."""
+    review = application.review_payload or {}
     aliases: list[str] = []
-    local = account_id_email_local_part(account_id)
-    domain = (settings.email_alias_domain or "df.symantum.com").strip().lstrip("@")
-    aliases.append(f"{local}@{domain}")
+    use_symantum = review.get("use_symantum_alias", True)
+    if use_symantum:
+        local = account_id_email_local_part(account_id)
+        domain = (settings.email_alias_domain or "df.symantum.com").strip().lstrip("@")
+        aliases.append(f"{local}@{domain}")
 
-    payload = application.payload or {}
-    for key in ("intakeEmail", "intake_email", "invoiceEmail", "invoice_email"):
-        raw = payload.get(key)
-        if isinstance(raw, str) and "@" in raw.strip():
-            addr = raw.strip()
-            if addr.lower() not in {a.lower() for a in aliases}:
-                aliases.append(addr)
+    client_email = (review.get("client_intake_email") or "").strip()
+    if "@" in client_email and client_email.lower() not in {a.lower() for a in aliases}:
+        aliases.append(client_email)
 
+    if not aliases:
+        local = account_id_email_local_part(account_id)
+        domain = (settings.email_alias_domain or "df.symantum.com").strip().lstrip("@")
+        aliases.append(f"{local}@{domain}")
     return aliases
 
 
 def build_ap_provision_body(application: Application, account_id: str, settings: Settings) -> dict[str, Any]:
+    review = application.review_payload or {}
     aliases = build_email_aliases(application, account_id, settings)
+    display = (review.get("display_name") or application.organisation_name or "").strip()
+    ap_only = review.get("ap_only")
+    if ap_only is None:
+        ap_only = resolve_ap_only(application)
+    delivery = (review.get("delivery_mode") or "email").strip()
     return {
-        "display_name": application.organisation_name,
+        "display_name": display or application.organisation_name,
         "docflow_account_id": account_id,
         "workspace_code": account_id,
         "email_aliases": aliases,
-        "invoice_email": aliases[0],
+        "invoice_email": aliases[0] if aliases else "",
         "reject_receiver": application.work_email,
         "append_aliases_file": True,
-        "ap_only": resolve_ap_only(application),
+        "ap_only": bool(ap_only),
+        "delivery_mode": delivery,
     }
 
 

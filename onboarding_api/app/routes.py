@@ -19,6 +19,8 @@ from .models import (
 from .providers import deliver_email, queue_email, verify_bot_token
 from .provision import provision_application_to_ap
 from .schemas import (
+    ApplicationReviewIn,
+    ApplicationReviewOut,
     ApplicationStatusUpdate,
     EmailVerificationResponse,
     INTAKE_MODELS,
@@ -249,6 +251,109 @@ async def verify_application_email(
     )
 
 
+def _require_internal_key(internal_api_key: str, settings: Settings) -> None:
+    if not constant_time_equal(internal_api_key, settings.internal_api_key):
+        raise HTTPException(status_code=401, detail="Invalid internal credentials")
+
+
+def _application_out(application: Application) -> ApplicationReviewOut:
+    created = application.created_at.isoformat() if application.created_at else None
+    return ApplicationReviewOut(
+        application_id=application.application_id,
+        kind=application.kind,
+        status=application.status,
+        work_email=application.work_email,
+        organisation_name=application.organisation_name,
+        account_id=application.account_id,
+        provision_status=application.provision_status,
+        payload=application.payload or {},
+        review=application.review_payload,
+        created_at=created,
+    )
+
+
+@router.get("/internal/applications", response_model=list[ApplicationReviewOut])
+def list_applications_for_review(
+    internal_api_key: str = Header(..., alias="X-Internal-API-Key"),
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> list[ApplicationReviewOut]:
+    """Symantum review queue. Excludes contact inquiries and unverified applications."""
+    _require_internal_key(internal_api_key, settings)
+    rows = db.scalars(
+        select(Application)
+        .where(Application.status.in_(("EMAIL_VERIFIED", "UNDER_REVIEW", "APPROVED", "REJECTED")))
+        .order_by(Application.created_at.desc())
+    ).all()
+    return [_application_out(row) for row in rows]
+
+
+@router.get("/internal/applications/{application_id}", response_model=ApplicationReviewOut)
+def get_application_for_review(
+    application_id: str,
+    internal_api_key: str = Header(..., alias="X-Internal-API-Key"),
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> ApplicationReviewOut:
+    _require_internal_key(internal_api_key, settings)
+    application = db.scalar(
+        select(Application).where(Application.application_id == application_id)
+    )
+    if not application:
+        raise HTTPException(status_code=404, detail="Application was not found")
+    return _application_out(application)
+
+
+@router.put("/internal/applications/{application_id}/review", response_model=ApplicationReviewOut)
+def save_application_review(
+    application_id: str,
+    review: ApplicationReviewIn,
+    internal_api_key: str = Header(..., alias="X-Internal-API-Key"),
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> ApplicationReviewOut:
+    """Save confirmed intake/delivery before approval. Does not provision AP."""
+    _require_internal_key(internal_api_key, settings)
+    application = db.scalar(
+        select(Application).where(Application.application_id == application_id)
+    )
+    if not application:
+        raise HTTPException(status_code=404, detail="Application was not found")
+    if application.status not in ("EMAIL_VERIFIED", "UNDER_REVIEW"):
+        raise HTTPException(status_code=409, detail="Review can only be saved before approval")
+
+    client_email = (review.client_intake_email or "").strip()
+    if client_email and "@" not in client_email:
+        raise HTTPException(status_code=422, detail="Client intake email must be a valid address")
+    if not review.use_symantum_alias and not client_email:
+        raise HTTPException(
+            status_code=422,
+            detail="Provide a client intake email or keep the Symantum alias",
+        )
+
+    application.review_payload = {
+        "display_name": review.display_name.strip(),
+        "ap_only": review.ap_only,
+        "use_symantum_alias": review.use_symantum_alias,
+        "client_intake_email": client_email or None,
+        "delivery_mode": review.delivery_mode,
+    }
+    if application.status == "EMAIL_VERIFIED":
+        application.status = "UNDER_REVIEW"
+    db.add(
+        AuditEvent(
+            entity_type="application",
+            entity_id=application.id,
+            event_type="APPLICATION_REVIEW_SAVED",
+            actor="internal-api",
+            details={"ap_only": review.ap_only, "delivery_mode": review.delivery_mode},
+        )
+    )
+    db.commit()
+    db.refresh(application)
+    return _application_out(application)
+
+
 @router.patch(
     "/internal/applications/{application_id}/status",
     response_model=EmailVerificationResponse,
@@ -277,6 +382,12 @@ def update_application_review_status(
         raise HTTPException(
             status_code=409,
             detail=f"Cannot transition {application.status} to {update.status}",
+        )
+
+    if update.status == "APPROVED" and not application.review_payload:
+        raise HTTPException(
+            status_code=409,
+            detail="Save review confirmation before approval",
         )
 
     previous_status = application.status

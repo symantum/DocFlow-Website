@@ -86,6 +86,29 @@ class ApplicationStatusUpdate(BaseModel):
     status: Literal["UNDER_REVIEW", "APPROVED", "REJECTED"]
 
 
+class ApplicationReviewIn(BaseModel):
+    """Confirmed by Symantum before APPROVED provisions AP. Not a public form."""
+
+    display_name: str = Field(min_length=1, max_length=200)
+    ap_only: bool = True
+    use_symantum_alias: bool = True
+    client_intake_email: str | None = Field(default=None, max_length=320)
+    delivery_mode: Literal["email", "sftp", "email_and_sftp"] = "email"
+
+
+class ApplicationReviewOut(BaseModel):
+    application_id: str
+    kind: str
+    status: str
+    work_email: str
+    organisation_name: str
+    account_id: str | None = None
+    provision_status: str | None = None
+    payload: dict
+    review: dict | None = None
+    created_at: str | None = None
+
+
 INTAKE_MODELS = {
     "pilot": PilotData,
     "production": ProductionData,

@@ -90,8 +90,32 @@ def _approve_through_review(client: TestClient, idempotency_key: str) -> str:
     return application_id
 
 
+def _save_review(client: TestClient, application_id: str, **overrides) -> None:
+    body = {
+        "display_name": "Example Pty Ltd",
+        "ap_only": True,
+        "use_symantum_alias": True,
+        "client_intake_email": None,
+        "delivery_mode": "email",
+    }
+    body.update(overrides)
+    saved = client.put(
+        f"/internal/applications/{application_id}/review",
+        json=body,
+        headers={"X-Internal-API-Key": "test-internal-api-key"},
+    )
+    assert saved.status_code == 200
+
+
 def test_approve_mints_account_id_and_skips_when_ap_unconfigured(client: TestClient):
     application_id = _approve_through_review(client, "pilot-provision-key-0001")
+    blocked = client.patch(
+        f"/internal/applications/{application_id}/status",
+        json={"status": "APPROVED"},
+        headers={"X-Internal-API-Key": "test-internal-api-key"},
+    )
+    assert blocked.status_code == 409
+    _save_review(client, application_id, client_intake_email="invoice@example.com", delivery_mode="sftp")
     approved = client.patch(
         f"/internal/applications/{application_id}/status",
         json={"status": "APPROVED"},
@@ -114,6 +138,8 @@ def test_approve_mints_account_id_and_skips_when_ap_unconfigured(client: TestCli
         assert planned["workspace_code"] == application.account_id
         assert planned["ap_only"] is True
         assert planned["email_aliases"][0].endswith("@df.symantum.com")
+        assert "invoice@example.com" in planned["email_aliases"]
+        assert planned["delivery_mode"] == "sftp"
 
 
 def test_approve_calls_ap_when_configured(client: TestClient, monkeypatch):
@@ -131,6 +157,7 @@ def test_approve_calls_ap_when_configured(client: TestClient, monkeypatch):
     monkeypatch.setattr("app.provision.call_ap_internal_provision", fake_call)
 
     application_id = _approve_through_review(client, "pilot-provision-key-0002")
+    _save_review(client, application_id)
 
     approved = client.patch(
         f"/internal/applications/{application_id}/status",
