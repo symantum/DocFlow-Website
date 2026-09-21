@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Phase 8A + 8B complete** (Onboarding mounted at `/onboarding`; intake wiring #2 verified). Next: **#1 website visual polish**. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked). Phase 5 Vercel path ready (DNS + Postmark/Turnstile deferred).  
+**Status:** **Phase 8A + 8B + E2E coordinator path complete** (Approve→provision, CSA when not ap_only, pilot convert, delivery_mode). Next day: **#3 Postmark/Turnstile/DNS**. Website visual polish parked until after go-live plumbing. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked).  
 **Product owner:** Symantum  
 **Last updated:** 21 September 2026  
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
@@ -620,7 +620,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile.
 
-**Next (21 September 2026):** **#1 Website visual polish** (Navbar/footer/login walkthrough). **#2 Intake wiring complete** — mount health ok, CORS ok for `www` + `symantum-website.vercel.app`, live `POST /public-submissions` → `APP-3UY9EGZ6`, Vercel bake confirmed. Form smoke URL: `https://symantum-website.vercel.app` (`www.symantum.com` still old builder until DNS). Outbox verify before Dashboard queue until Postmark. See `AP_Portal/backend/onboarding/INTAKE_WIRING.md`. Public DNS/`df` + Postmark/Turnstile still deferred.
+**Next (21 September 2026):** Tomorrow **#3 Postmark/Turnstile/DNS**. Functional E2E (#1) and Phase 8 remainder (#2) shipped: Approve→provision, CSA when not ap_only, pilot convert, delivery_mode. Website visual polish remains parked. Form smoke: `https://symantum-website.vercel.app`. See `AP_Portal/backend/onboarding/INTAKE_WIRING.md`.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -677,11 +677,12 @@ Checklist:
 - [x] **8A — Coordinator → AP provision** (on `APPROVED`: mint Account ID; call AP `internal-provision`; retry endpoint; `provision_status` on application).
 - [x] **8A+ — AP Dashboard Onboarding review tab** (proxy `/api/v1/onboarding/*`; delivery_mode; review before approve).
 - [x] **8B — First-release host:** Onboarding API mounted inside AP Portal at `/onboarding` (`ONBOARDING_MOUNT=1` lazy; `ONBOARDING_DATABASE_URL` → `docflow_onboarding`). Separate DO App deferred.
-- Implement remaining onboarding coordinator (Client Portal when not `ap_only`).
-- Configure routing, storage, integration, and delivery beyond default alias.
-- Connect verified AP outputs to Client Portal where enabled.
-- Implement pilot expiry and full-account conversion.
-- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path.
+- [x] **Dashboard Approve → provision** (proxy calls coordinator on APPROVED; Retry provision; outbox force-verify for staging).
+- [x] **Client Portal provision when not `ap_only`** (`CSA /api/internal/docflow-provision`; coordinator step + outbox credentials email).
+- [x] **Delivery beyond default alias** (`delivery_mode` on AP client; csv_deliver prefers SFTP when review chose sftp/email_and_sftp; CSA push skipped for `ap_only`).
+- [x] **Pilot expiry + conversion** (`pilot_expires_at` on approve; Convert pilot → production + re-provision).
+- Connect richer retention / CAAPS profile / EIP beyond alias still later.
+- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path (Postmark #3).
 
 ---
 
@@ -730,6 +731,7 @@ Each update must:
 
 ### Revision history
 
+- **21 September 2026 — E2E + Phase 8 remainder:** Dashboard Approve now provisions; outbox force-verify; CSA `/api/internal/docflow-provision` when not ap_only; pilot convert; delivery_mode drives SFTP preference; CSA push skipped for ap_only. Next day: Postmark/Turnstile/DNS. Website polish parked.
 - **21 September 2026 — #2 Intake wiring complete:** Live `/onboarding/health` ok; CORS for `www.symantum.com` + `symantum-website.vercel.app`; smoke `POST /public-submissions` → `APP-3UY9EGZ6`; Vercel `VITE_ONBOARDING_API_URL` baked on `symantum-website.vercel.app`. Next: #1 website visual polish. DNS/`df` + Postmark/Turnstile still deferred.
 - **21 September 2026 — First-release in-AP Onboarding mount:** Chose CSA-style bundle (`AP_Portal/backend/onboarding` → `/onboarding`) instead of a second App Platform app (~$5–24/mo). DB remains separate `docflow_onboarding` on `symantum-pg-prod`. Cancel separate onboarding App if started. Plan remains local until committed.
 - **21 September 2026 — Host Onboarding API next; 8A closed:** AP Dashboard Onboarding review tab + proxy shipped; DO AP deploy lessons noted. Next: separate DO app for Onboarding API (`onboarding_api/DEPLOY_DO.md`, `ENVIRONMENT=staging`). AP registry testing unblocked; Onboarding tab waits on hosting. DNS/`df` + Postmark/Turnstile still public go-live. Plan remains local until DocFlow-Website commit.
