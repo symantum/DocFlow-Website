@@ -620,7 +620,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Deferred until public go-live: custom DNS (`symantum.com` / `www` / `df.symantum.com`), `@df` mailboxes, Postmark/Turnstile.
 
-**Next (21 September 2026):** Bundle Onboarding API into existing AP App Platform service at `/onboarding` (CSA-style), using DB `docflow_onboarding` on `symantum-pg-prod`. Set `ONBOARDING_DATABASE_URL` + keys on **existing** AP app — **do not** create a second paid App. After deploy: `ONBOARDING_API_URL=https://api.ap.symantum.com/onboarding`. Optional: desktop/mobile walkthrough on `.vercel.app`. Public DNS/`df` + Postmark/Turnstile still deferred.
+**Next (21 September 2026):** **#2 Intake wiring** — `ONBOARDING_MOUNT=1` (lazy), `VITE_ONBOARDING_API_URL=https://api.ap.symantum.com/onboarding`, `ONBOARDING_DATABASE_URL` with privileges (`doadmin` or GRANTs). See `AP_Portal/backend/onboarding/INTAKE_WIRING.md`. Website visual polish (#1) deferred until wiring works. Public DNS/`df` + Postmark/Turnstile still deferred.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
