@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Postmark (#3a) complete** (support@symantum.com; DKIM/Return-Path; live verify + review notify; Approve→DF-P53NCW provision SUCCESS). **Next: Turnstile (#3b)**, then DNS. Website polish parked. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
+**Status:** **Postmark (#3a) complete.** **Turnstile (#3b) complete** (smoke Pilot `APP-FJ23LDAF`, Get Started `APP-XP9QYW8D`, Contact `INQ-AX3BXCZT`; Contact kept as enquiry form via footer → `/contact`). **Next: DNS cutover (#3c)** — see `AP_Portal/backend/onboarding/DNS_WIRING.md`. Website polish parked. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
 **Product owner:** Symantum  
 **Last updated:** 22 September 2026
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
@@ -582,10 +582,10 @@ Current status:
 - [x] Confirm a monitored transactional sender address with Symantum domain support (support@symantum.com).
 - [x] Verify the sender domain and publish the required DKIM + Return-Path records (Webcentral/Netregistry DNS).
 - [x] Store the production email API token only in the Onboarding API environment (DO POSTMARK_SERVER_TOKEN).
-- [ ] Create a Cloudflare account and a DocFlow Public Forms Turnstile widget, or approve an equivalent provider.
-- [ ] Register production website hostnames in Turnstile.
-- [ ] Store the Turnstile site key in website configuration and its secret only in the Onboarding API environment.
-- [ ] Verify server-side Turnstile enforcement and production rate limits before enabling submissions.
+- [x] Create a Cloudflare account and a DocFlow Public Forms Turnstile widget, or approve an equivalent provider.
+- [x] Register production website hostnames in Turnstile (`symantum-website.vercel.app`, `www.symantum.com`, `df.symantum.com`).
+- [x] Store the Turnstile site key in website configuration and its secret only in the Onboarding API environment (Vercel + DO).
+- [x] Verify server-side Turnstile enforcement and production rate limits before enabling submissions (smoke Pilot APP-FJ23LDAF + Get Started APP-XP9QYW8D + Contact INQ-AX3BXCZT on Production).
 
 The provisional address onboarding@df.symantum.com must not be adopted until support confirms
 that replies will not enter the DocFlow Gateway supplier-document ingestion route. Provider and
@@ -618,9 +618,9 @@ Local acceptance evidence recorded on 18 September 2026:
 - Git remote configured: origin → https://github.com/symantum/DocFlow-Website.git.
 - Selective commit pushed: 26fa761 on master; Vercel trigger 1fd3384.
 
-Phase 5 website release path is ready. Deferred until public go-live: custom DNS (symantum.com / www / df.symantum.com), @df mailboxes, Postmark/Turnstile.
+Phase 5 website release path is ready. Deferred until public go-live: custom DNS (symantum.com / www / df.symantum.com), @df mailboxes.
 
-**Next (22 September 2026):** **#3b Cloudflare Turnstile** — create widget, set Vercel VITE_TURNSTILE_SITE_KEY + DO BOT_PROVIDER=turnstile / TURNSTILE_SECRET_KEY (see AP_Portal/backend/onboarding/TURNSTILE_WIRING.md). Then DNS cutover. Postmark Request approval when emailing non-@symantum.com applicants. Website polish parked.
+**Next (22 September 2026):** **#3c DNS cutover** — Vercel domains + Netregistry records for `www.symantum.com` (apex / optional `df`); leave `api.ap` + `csa` + Postmark/MX alone (checklist: `AP_Portal/backend/onboarding/DNS_WIRING.md`). Postmark Request approval when emailing non-@symantum.com applicants. Website polish parked.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -731,6 +731,8 @@ Each update must:
 
 ### Revision history
 
+- **22 September 2026 — Turnstile smoke complete; DNS next:** Live Pilot APP-FJ23LDAF + Get Started APP-XP9QYW8D + Contact INQ-AX3BXCZT; Contact kept as enquiry (footer → /contact). Added DNS_WIRING.md for www/apex/df cutover without moving nameservers or breaking Postmark/MX. Next: DNS. Website polish parked.
+- **22 September 2026 — Turnstile env live:** Widget DocFlow Public Forms; Vercel site key + DO BOT_PROVIDER=turnstile / TURNSTILE_SECRET_KEY. Next: form smoke, then DNS. Website polish parked.
 - **22 September 2026 — Postmark live:** Domain symantum.com DKIM/Return-Path verified; sender support@symantum.com; DO EMAIL_PROVIDER=postmark; smoke APP-R4EMXCLM verify + review notify + Approve→DF-P53NCW provision SUCCESS. Next: Turnstile, then DNS. Website polish parked.
 - **21 September 2026 — E2E + Phase 8 remainder:** Dashboard Approve now provisions; outbox force-verify; CSA /api/internal/docflow-provision when not ap_only; pilot convert; delivery_mode drives SFTP preference; CSA push skipped for ap_only. Next day: Postmark/Turnstile/DNS. Website polish parked.
 - **21 September 2026 — #2 Intake wiring complete:** Live /onboarding/health ok; CORS for www.symantum.com + symantum-website.vercel.app; smoke POST /public-submissions → APP-3UY9EGZ6; Vercel VITE_ONBOARDING_API_URL baked on symantum-website.vercel.app. Next: #1 website visual polish. DNS/df + Postmark/Turnstile still deferred.
