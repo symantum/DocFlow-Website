@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { ArrowRight, Mail } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { submitPublicIntake } from '../services/publicIntake'
+import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
 
 const inquiryTypes = [
   'General enquiry',
@@ -21,6 +22,7 @@ export default function ContactPage() {
     message: '',
     consent: false,
   })
+  const [botToken, setBotToken] = useState<string | undefined>()
   const [submission, setSubmission] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error'
     reference?: string
@@ -44,9 +46,16 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (turnstileRequired() && !botToken) {
+      setSubmission({
+        status: 'error',
+        message: 'Please complete the security check before submitting.',
+      })
+      return
+    }
     setSubmission({ status: 'submitting' })
     try {
-      const result = await submitPublicIntake('contact', formData)
+      const result = await submitPublicIntake('contact', formData, botToken)
       setSubmission({ status: 'success', reference: result.reference })
     } catch (error) {
       setSubmission({
@@ -220,6 +229,8 @@ export default function ContactPage() {
                       .
                     </span>
                   </label>
+
+                  <TurnstileField onTokenChange={setBotToken} className="pt-1" />
 
                   {submission.status === 'error' && (
                     <div

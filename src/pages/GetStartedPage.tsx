@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import FaqAccordion from '../components/FaqAccordion'
+import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
 import { submitPublicIntake } from '../services/publicIntake'
 
 type ServiceChoice = 'ap-only' | 'client-portal' | 'intelligence'
@@ -74,6 +75,7 @@ export default function GetStartedPage() {
     consent: false,
   })
 
+  const [botToken, setBotToken] = useState<string | undefined>()
   const [submission, setSubmission] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error'
     reference?: string
@@ -99,9 +101,16 @@ export default function GetStartedPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (turnstileRequired() && !botToken) {
+      setSubmission({
+        status: 'error',
+        message: 'Please complete the security check before submitting.',
+      })
+      return
+    }
     setSubmission({ status: 'submitting' })
     try {
-      const result = await submitPublicIntake('production', formData)
+      const result = await submitPublicIntake('production', formData, botToken)
       setSubmission({ status: 'success', reference: result.reference })
     } catch (error) {
       setSubmission({
@@ -460,6 +469,8 @@ export default function GetStartedPage() {
                       .
                     </span>
                   </label>
+
+                  <TurnstileField onTokenChange={setBotToken} className="pt-1" />
 
                   {submission.status === 'error' && (
                     <div

@@ -1,8 +1,8 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Phase 8A + 8B + E2E coordinator path complete** (Approve→provision, CSA when not ap_only, pilot convert, delivery_mode). Next day: **#3 Postmark/Turnstile/DNS**. Website visual polish parked until after go-live plumbing. Phase 7 AP foundation complete. Phase 6 Client Portal foundation complete (6B/MFA parked).  
+**Status:** **Postmark (#3a) complete** (support@symantum.com; DKIM/Return-Path; live verify + review notify; Approve→DF-P53NCW provision SUCCESS). **Next: Turnstile (#3b)**, then DNS. Website polish parked. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
 **Product owner:** Symantum  
-**Last updated:** 21 September 2026  
+**Last updated:** 22 September 2026
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
 
 ---
@@ -578,10 +578,10 @@ Current status:
 > **Deployment blocker — do not forget:** Phase 4 development may use local adapters, but public
 > forms must not go live until transactional email and bot protection are configured and tested.
 
-- [ ] Create a company-controlled Postmark account, or approve an equivalent transactional-email provider.
-- [ ] Confirm a monitored transactional sender address with Symantum domain support.
-- [ ] Verify the sender domain and publish the required SPF/DKIM records.
-- [ ] Store the production email API token only in the Onboarding API environment.
+- [x] Create a company-controlled Postmark account, or approve an equivalent transactional-email provider.
+- [x] Confirm a monitored transactional sender address with Symantum domain support (support@symantum.com).
+- [x] Verify the sender domain and publish the required DKIM + Return-Path records (Webcentral/Netregistry DNS).
+- [x] Store the production email API token only in the Onboarding API environment (DO POSTMARK_SERVER_TOKEN).
 - [ ] Create a Cloudflare account and a DocFlow Public Forms Turnstile widget, or approve an equivalent provider.
 - [ ] Register production website hostnames in Turnstile.
 - [ ] Store the Turnstile site key in website configuration and its secret only in the Onboarding API environment.
@@ -620,7 +620,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Deferred until public go-live: custom DNS (symantum.com / www / df.symantum.com), @df mailboxes, Postmark/Turnstile.
 
-**Next (22 September 2026):** **#3 Postmark first** — verify support@symantum.com in Postmark, set DO EMAIL_PROVIDER=postmark + token + PUBLIC_WEBSITE_URL (see AP_Portal/backend/onboarding/POSTMARK_WIRING.md). Then Turnstile; DNS last. Website polish parked.
+**Next (22 September 2026):** **#3b Cloudflare Turnstile** — create widget, set Vercel VITE_TURNSTILE_SITE_KEY + DO BOT_PROVIDER=turnstile / TURNSTILE_SECRET_KEY (see AP_Portal/backend/onboarding/TURNSTILE_WIRING.md). Then DNS cutover. Postmark Request approval when emailing non-@symantum.com applicants. Website polish parked.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -731,6 +731,7 @@ Each update must:
 
 ### Revision history
 
+- **22 September 2026 — Postmark live:** Domain symantum.com DKIM/Return-Path verified; sender support@symantum.com; DO EMAIL_PROVIDER=postmark; smoke APP-R4EMXCLM verify + review notify + Approve→DF-P53NCW provision SUCCESS. Next: Turnstile, then DNS. Website polish parked.
 - **21 September 2026 — E2E + Phase 8 remainder:** Dashboard Approve now provisions; outbox force-verify; CSA /api/internal/docflow-provision when not ap_only; pilot convert; delivery_mode drives SFTP preference; CSA push skipped for ap_only. Next day: Postmark/Turnstile/DNS. Website polish parked.
 - **21 September 2026 — #2 Intake wiring complete:** Live /onboarding/health ok; CORS for www.symantum.com + symantum-website.vercel.app; smoke POST /public-submissions → APP-3UY9EGZ6; Vercel VITE_ONBOARDING_API_URL baked on symantum-website.vercel.app. Next: #1 website visual polish. DNS/df + Postmark/Turnstile still deferred.
 - **21 September 2026 — First-release in-AP Onboarding mount:** Chose CSA-style bundle (AP_Portal/backend/onboarding → /onboarding) instead of a second App Platform app (~$5–24/mo). DB remains separate docflow_onboarding on symantum-pg-prod. Cancel separate onboarding App if started. Plan remains local until committed.

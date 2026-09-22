@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowRight, Check, CheckCircle2, Clock3, Gauge, Workflow } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { submitPublicIntake } from '../services/publicIntake'
+import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
 
 const pilotStages = [
   {
@@ -40,6 +41,7 @@ export default function PilotPage() {
     reference?: string
     message?: string
   }>({ status: 'idle' })
+  const [botToken, setBotToken] = useState<string | undefined>()
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -73,9 +75,16 @@ export default function PilotPage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    if (turnstileRequired() && !botToken) {
+      setSubmission({
+        status: 'error',
+        message: 'Please complete the security check before submitting.',
+      })
+      return
+    }
     setSubmission({ status: 'submitting' })
     try {
-      const result = await submitPublicIntake('pilot', formData)
+      const result = await submitPublicIntake('pilot', formData, botToken)
       setSubmission({ status: 'success', reference: result.reference })
     } catch (error) {
       setSubmission({
@@ -468,6 +477,8 @@ export default function PilotPage() {
                     .
                   </span>
                 </label>
+
+                <TurnstileField onTokenChange={setBotToken} className="pt-1" />
 
                 {submission.status === 'error' && (
                   <div
