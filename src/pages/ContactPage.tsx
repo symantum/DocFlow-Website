@@ -274,14 +274,23 @@ export default function ContactPage() {
       <section className="section-pad-home section-band-d">
         <div className="home-container-narrow text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-            Ready to Start a Pilot?
+            Prefer a Structured Path?
           </h2>
           <p className="text-white text-base mb-8 max-w-lg mx-auto leading-relaxed font-medium">
-            Tell us about your document volume and modules — we will map DocFlow to your workflow.
+            Use Pilot for a 30-day operating test, or Get Started when you are ready for production
+            onboarding.
           </p>
-          <Link to="/pilot#pilot-request" className="btn-primary text-sm px-8 py-3.5 font-bold">
-            Request a DocFlow pilot <ArrowRight size={16} />
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/pilot#pilot-request" className="btn-primary text-sm px-8 py-3.5 font-bold">
+              Request a DocFlow pilot <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/get-started"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-8 py-3.5 text-sm font-bold text-white hover:bg-white/20 transition-colors"
+            >
+              Get Started <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

@@ -5,7 +5,6 @@ import {
   BarChart3,
   FolderTree,
   Mail,
-  Play,
   Plug,
   ScanLine,
 } from 'lucide-react'
@@ -94,17 +93,16 @@ export default function HomePage() {
               <span className="block">Efficiency and Intelligence</span>
             </h1>
             <p className="hero-lead mb-8 max-w-2xl mx-auto">
-              DocFlow is a digital factory for your back office, it automates your accounts payable
-              lifecycle and unlocks real-time spending insights for operational intelligence
+              DocFlow is a digital factory for your back office. It automates your accounts payable
+              lifecycle and unlocks real-time spending insights for operational intelligence.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/pilot#pilot-request" className="btn-primary text-sm px-8 py-3.5 font-bold">
                 Request a DocFlow pilot <ArrowRight size={16} />
               </Link>
-              <a href="#demo" className="btn-ghost-dark text-sm px-8 py-3.5 font-bold">
-                <Play size={16} className="text-sky-600" />
-                Watch a Demo
-              </a>
+              <Link to="/get-started" className="btn-ghost-dark text-sm px-8 py-3.5 font-bold">
+                Get Started <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>
@@ -248,21 +246,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Band B — Demo */}
-      <section id="demo" className="section-pad-home section-band-b">
+      {/* Band B — Guided next step (no placeholder demo video) */}
+      <section id="next-step" className="section-pad-home section-band-b">
         <div className="home-container-narrow">
           <div className="section-panel text-center !py-8 sm:!py-10">
-            <h2 className="type-h2 mb-3">See DocFlow in Action</h2>
-            <p className="mb-5 text-[13px] sm:text-sm font-medium text-slate-900 leading-snug sm:whitespace-nowrap">
-              From supplier document to spend analytics — end to end.
+            <h2 className="type-h2 mb-3">See DocFlow Against Your Workflow</h2>
+            <p className="mb-6 text-sm sm:text-base font-medium text-slate-600 leading-relaxed max-w-xl mx-auto">
+              Start with a complimentary 30-day pilot, or request production onboarding when scope
+              and volume are already defined.
             </p>
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-sky-50 via-white to-[#F4F7FB] shadow-[0_12px_32px_-24px_rgba(15,23,42,0.28)] group max-w-md mx-auto">
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5">
-                <div className="w-11 h-11 rounded-full bg-sky-600 text-white flex items-center justify-center shadow-lg shadow-sky-600/25 group-hover:scale-105 transition-transform">
-                  <Play size={20} className="ml-0.5" fill="currentColor" />
-                </div>
-                <p className="text-xs font-semibold text-slate-600">Demo video coming soon</p>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/pilot#pilot-request" className="btn-primary text-sm px-8 py-3.5 font-bold">
+                Request a DocFlow pilot <ArrowRight size={16} />
+              </Link>
+              <Link to="/get-started" className="btn-ghost-dark text-sm px-8 py-3.5 font-bold">
+                Get Started <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>

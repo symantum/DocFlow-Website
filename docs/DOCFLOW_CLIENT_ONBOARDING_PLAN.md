@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **#3 complete for soft-launch.** Postmark + Turnstile + **`docflow.symantum.com`** live (Turnstile/DO/smoke confirmed). Keep `df` for mail; `www` redirect deferred. **Next:** website polish (parked) **or** later `www` → docflow cutover when ready. Postmark Request approval when emailing non-@symantum.com. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
+**Status:** **#3 soft-launch complete** (`docflow.symantum.com`). **#1 website visual polish in progress** (home CTAs + Contact dual path). `www` redirect deferred. Postmark Request approval when emailing non-@symantum.com. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
 **Product owner:** Symantum  
 **Last updated:** 22 September 2026
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
@@ -599,7 +599,7 @@ Checklist:
 
 - [x] Run lint and production build.
 - [x] Smoke-test public routes for Home, Automation, Analytics, Data Integrity, Resources, Pricing, Pilot, Get Started, Contact, Privacy, Terms, verify-email, and legacy activation redirect.
-- [ ] Complete a visual desktop and mobile browser walkthrough of Navbar, footer, and Client Login (optional before public DNS; use .vercel.app).
+- [x] Complete a visual desktop and mobile browser walkthrough of Navbar, footer, and Client Login (soft-launch on docflow.symantum.com; Client Login → csa.symantum.com).
 - [x] Submit local test Pilot, Get Started, and Contact applications against the Onboarding API (outbox mode).
 - [x] Confirm the website keeps an honest unavailable path when VITE_ONBOARDING_API_URL is unset.
 - [x] Review the existing uncommitted working tree; exclude unrelated docs, Office temp files, secrets, and local databases.
@@ -620,7 +620,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Soft-launch **complete** on **`https://docflow.symantum.com`**. Deferred: `www`/apex redirect, `@df` mailboxes.
 
-**Next (22 September 2026):** Soft-launch closed. Choose **website visual polish (#1 parked)** or later **`www` → docflow** redirect. Postmark Request approval when emailing non-@symantum.com applicants.
+**Next (22 September 2026):** **#1 website visual polish** underway (home honest CTAs; Contact dual Pilot/Get Started). Soft-launch host `docflow.symantum.com`. Defer `www` redirect. Postmark Request approval when emailing non-@symantum.com applicants.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -731,6 +731,7 @@ Each update must:
 
 ### Revision history
 
+- **22 September 2026 — #1 polish started:** Soft-launch closed on docflow.symantum.com. Home: fix hero copy; replace placeholder demo with Pilot + Get Started; Contact bottom CTA dual path. Navbar/footer/Client Login walkthrough OK (Client Login → csa.symantum.com).
 - **22 September 2026 — DNS soft-launch closed:** docflow.symantum.com live with Turnstile hostname, DO ALLOWED_ORIGINS + PUBLIC_WEBSITE_URL, and form smoke confirmed. www redirect deferred; df stays mail. Next: website polish (parked) or later www cutover.
 - **22 September 2026 — DNS soft-launch host live:** `docflow.symantum.com` on DocFlow-Website Vercel (Valid); Netregistry CNAME; df kept for Outlook mail; www deferred. Wrong-project attach to CSA avoided. Next: Turnstile/DO/smoke on docflow, then later www redirect. Website polish parked.
 - **22 September 2026 — Turnstile smoke complete; DNS next:** Live Pilot APP-FJ23LDAF + Get Started APP-XP9QYW8D + Contact INQ-AX3BXCZT; Contact kept as enquiry (footer → /contact). Added DNS_WIRING.md for www/apex/df cutover without moving nameservers or breaking Postmark/MX. Next: DNS. Website polish parked.
