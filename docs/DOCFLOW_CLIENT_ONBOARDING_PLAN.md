@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Postmark (#3a) complete.** **Turnstile (#3b) complete** (smoke Pilot `APP-FJ23LDAF`, Get Started `APP-XP9QYW8D`, Contact `INQ-AX3BXCZT`; Contact kept as enquiry form via footer → `/contact`). **Next: DNS cutover (#3c)** — see `AP_Portal/backend/onboarding/DNS_WIRING.md`. Website polish parked. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
+**Status:** **Postmark (#3a) complete.** **Turnstile (#3b) complete.** **DNS soft-launch host live:** `https://docflow.symantum.com` on DocFlow-Website Vercel (keep `df` for mail; `www` deferred). **Next: close soft-launch** — Turnstile hostname + DO `ALLOWED_ORIGINS` / `PUBLIC_WEBSITE_URL` + form smoke on `docflow`. Then later www redirect; website polish parked. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
 **Product owner:** Symantum  
 **Last updated:** 22 September 2026
 **Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
@@ -618,9 +618,9 @@ Local acceptance evidence recorded on 18 September 2026:
 - Git remote configured: origin → https://github.com/symantum/DocFlow-Website.git.
 - Selective commit pushed: 26fa761 on master; Vercel trigger 1fd3384.
 
-Phase 5 website release path is ready. Deferred until public go-live: custom DNS (symantum.com / www / df.symantum.com), @df mailboxes.
+Phase 5 website release path is ready. Soft-launch hostname live: **`docflow.symantum.com`**. Deferred: `www`/apex redirect, `@df` mailboxes.
 
-**Next (22 September 2026):** **#3c DNS cutover** — Vercel domains + Netregistry records for `www.symantum.com` (apex / optional `df`); leave `api.ap` + `csa` + Postmark/MX alone (checklist: `AP_Portal/backend/onboarding/DNS_WIRING.md`). Postmark Request approval when emailing non-@symantum.com applicants. Website polish parked.
+**Next (22 September 2026):** **Close DNS soft-launch** — confirm Turnstile + DO origins/`PUBLIC_WEBSITE_URL` for `https://docflow.symantum.com`, smoke forms on that host (`DNS_WIRING.md`). Defer `www` → docflow redirect. Website polish parked. Postmark Request approval when emailing non-@symantum.com applicants.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -731,6 +731,7 @@ Each update must:
 
 ### Revision history
 
+- **22 September 2026 — DNS soft-launch host live:** `docflow.symantum.com` on DocFlow-Website Vercel (Valid); Netregistry CNAME; df kept for Outlook mail; www deferred. Wrong-project attach to CSA avoided. Next: Turnstile/DO/smoke on docflow, then later www redirect. Website polish parked.
 - **22 September 2026 — Turnstile smoke complete; DNS next:** Live Pilot APP-FJ23LDAF + Get Started APP-XP9QYW8D + Contact INQ-AX3BXCZT; Contact kept as enquiry (footer → /contact). Added DNS_WIRING.md for www/apex/df cutover without moving nameservers or breaking Postmark/MX. Next: DNS. Website polish parked.
 - **22 September 2026 — Turnstile env live:** Widget DocFlow Public Forms; Vercel site key + DO BOT_PROVIDER=turnstile / TURNSTILE_SECRET_KEY. Next: form smoke, then DNS. Website polish parked.
 - **22 September 2026 — Postmark live:** Domain symantum.com DKIM/Return-Path verified; sender support@symantum.com; DO EMAIL_PROVIDER=postmark; smoke APP-R4EMXCLM verify + review notify + Approve→DF-P53NCW provision SUCCESS. Next: Turnstile, then DNS. Website polish parked.
