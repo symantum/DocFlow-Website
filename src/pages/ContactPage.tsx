@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { ArrowRight, Mail } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { submitPublicIntake } from '../services/publicIntake'
+import { InboxHint } from '../components/InboxHint'
 import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
 
 const inquiryTypes = [
@@ -91,9 +92,12 @@ export default function ContactPage() {
                   <Mail size={32} className="text-sky-600" />
                 </div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-3">Thank You</h2>
-                <p className="text-slate-600 font-medium mb-6 leading-relaxed">
+                <p className="text-slate-600 font-medium mb-4 leading-relaxed">
                   We have received your inquiry and will respond within one business day.
                 </p>
+                <div className="mb-6">
+                  <InboxHint />
+                </div>
                 {submission.reference && (
                   <p className="text-sm font-bold text-sky-700 mb-6">
                     Reference: {submission.reference}
@@ -261,10 +265,10 @@ export default function ContactPage() {
             <p className="text-sm text-slate-500">
               General enquiries:{' '}
               <a
-                href="mailto:hello@df.symantum.com"
+                href="mailto:support@symantum.com"
                 className="text-sky-600 font-bold hover:text-sky-700"
               >
-                hello@df.symantum.com
+                support@symantum.com
               </a>
             </p>
           </div>

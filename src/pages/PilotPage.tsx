@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowRight, Check, CheckCircle2, Clock3, Gauge, Workflow } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { submitPublicIntake } from '../services/publicIntake'
+import { InboxHint } from '../components/InboxHint'
 import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
 
 const pilotStages = [
@@ -230,10 +231,13 @@ export default function PilotPage() {
                   <CheckCircle2 size={30} />
                 </span>
                 <h3 className="type-h3 mb-3">Pilot Request Received</h3>
-                <p className="text-sm text-slate-700 leading-relaxed font-medium max-w-md mx-auto mb-6">
-                  We have received your request and will contact you after reviewing the proposed
-                  workflow.
+                <p className="text-sm text-slate-700 leading-relaxed font-medium max-w-md mx-auto mb-4">
+                  We have received your request. Verify your work email when prompted; we will
+                  contact you after reviewing the proposed workflow.
                 </p>
+                <div className="mb-6">
+                  <InboxHint verify />
+                </div>
                 {submission.reference && (
                   <p className="text-sm font-bold text-sky-700 mb-6">
                     Application ID: {submission.reference}

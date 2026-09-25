@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import FaqAccordion from '../components/FaqAccordion'
 import { TurnstileField, turnstileRequired } from '../components/TurnstileField'
+import { InboxHint } from '../components/InboxHint'
 import { submitPublicIntake } from '../services/publicIntake'
 
 type ServiceChoice = 'ap-only' | 'client-portal' | 'intelligence'
@@ -188,10 +189,13 @@ export default function GetStartedPage() {
                     <CheckCircle2 size={32} className="text-emerald-500" />
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-3">Thank you!</h3>
-                  <p className="text-slate-600 mb-6 text-sm">
+                  <p className="text-slate-600 mb-4 text-sm">
                     Your production request has been received. Verify your work email when prompted;
                     provisioning will occur only after review and approval.
                   </p>
+                  <div className="mb-6">
+                    <InboxHint verify />
+                  </div>
                   {submission.reference && (
                     <p className="text-sm font-bold text-sky-700 mb-6">
                       Application ID: {submission.reference}
