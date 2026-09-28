@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Soft-launch live** on `https://docflow.symantum.com` (#3 Postmark/Turnstile/DNS). **#1 first polish pass shipped** (home CTAs + Contact dual path; Turnstile hostname typo `doclfow`→`docflow` fixed). Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`** (script, AI voice, free tools, YouTube). **Next options:** commercial content review · more #1 polish · later `www`→docflow · Postmark approval for non-@symantum.com. Phase 8A/8B + E2E complete.
+**Status:** **Soft-launch live** on `https://docflow.symantum.com` (#3 Postmark/Turnstile/DNS). **DocFlow Admin live** at `https://admin.symantum.com` (Applications / Accounts / Finance; `staff.symantum.com` removed, no redirect). Website application review is Admin Applications, not AP. Phase 8A/8B + E2E complete. **#1 first polish pass shipped.** Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`**. **Next:** one live Pilot → Admin Applications path, then Remove from queue. Parked: commercial content · more #1 polish · later `www`→docflow · Postmark approval for non-@symantum.com · Sales/BA logins · MFA/invites · Client Help copy.
 **Product owner:** Symantum  
 **Last updated:** 28 September 2026
 **Source of truth:** This document governs four surfaces: the public website, DocFlow Operations Portal (AP Review), DocFlow Admin (Applications / Accounts / Finance), and DocFlow Client Portal.
@@ -546,14 +546,9 @@ Current status:
 - [x] Client Login opens the DocFlow Client Portal login route and is identified as activated-client access.
 - [x] Public forms show success only after a configured intake endpoint returns successfully.
 - [x] Missing intake connectivity produces an honest unavailable message with an email fallback.
-- Durable server-side intake, Application IDs, verification, and review remain Phase 4 work.
-- CSA authentication does not yet provide a durable secure session.
-- Several CSA APIs trust caller-provided account/user values.
-- Existing-organisation registration is not invitation-controlled.
-- CSA-to-AP registration is not protected by robust service authentication.
-- AP and CSA use separate identity and database models.
-- client_code is currently overloaded as an operational identifier.
-- AP-to-CSA invoice transfer is incomplete.
+- [x] Durable server-side intake, Application IDs, work-email verification, Postmark, and Turnstile (Phase 4).
+- [x] CSA signed sessions + `/api/me` (Phase 6A). Website application review on DocFlow Admin Applications (28 September 2026).
+- Remaining (do not block the first Admin Applications path): invitation-only organisation join (Phase 6C); leftover CSA GET tightening; AP and CSA remain separate identity stores by design; `client_code` stays the workspace identifier beside Account ID; AP→CSA verified-invoice visibility (Open Decision #7); richer retention / CAAPS / EIP beyond alias.
 
 ---
 
@@ -566,7 +561,7 @@ Current status:
 - [x] Confirm CAAPS code is integration-specific.
 - [x] Confirm AP-only subscription support.
 - [x] Confirm portal responsibilities.
-- [ ] Resolve the open decisions in Section 12 before backend provisioning work.
+- [x] Resolve the §12 decisions that blocked provisioning (Account ID owner/format, Postmark, Turnstile). Remaining open items do not block the Admin Applications path.
 
 ### Phase 2 — Website information architecture
 
@@ -598,7 +593,7 @@ Current status:
 - [x] Add hashed, expiring, single-use work-email verification.
 - [x] Add local email outbox, Postmark adapter, audit events, and internal review notification.
 - [x] Enforce that application intake does not provision operational accounts.
-- [ ] Configure and test live email and bot providers before public deployment.
+- [x] Configure and test live email and bot providers (Postmark + Turnstile; form smoke on `docflow.symantum.com`).
 
 #### Mandatory provider setup before public deployment
 
@@ -610,7 +605,7 @@ Current status:
 - [x] Verify the sender domain and publish the required DKIM + Return-Path records (Webcentral/Netregistry DNS).
 - [x] Store the production email API token only in the Onboarding API environment (DO POSTMARK_SERVER_TOKEN).
 - [x] Create a Cloudflare account and a DocFlow Public Forms Turnstile widget, or approve an equivalent provider.
-- [x] Register production website hostnames in Turnstile (`symantum-website.vercel.app`, `www.symantum.com`, `df.symantum.com`).
+- [x] Register production website hostnames in Turnstile (`docflow.symantum.com` primary; also `symantum-website.vercel.app`, `www.symantum.com`, `df.symantum.com`).
 - [x] Store the Turnstile site key in website configuration and its secret only in the Onboarding API environment (Vercel + DO).
 - [x] Verify server-side Turnstile enforcement and production rate limits before enabling submissions (smoke Pilot APP-FJ23LDAF + Get Started APP-XP9QYW8D + Contact INQ-AX3BXCZT on Production).
 
@@ -647,11 +642,11 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Soft-launch **complete** on **`https://docflow.symantum.com`**. Deferred: `www`/apex redirect, `@df` mailboxes.
 
-**Next (22 September 2026):** Soft-launch + first #1 polish pass done. Optional: continue #1 (Pricing/Automation/mobile spacing), add demo video when ready, or later `www` → docflow redirect. Postmark Request approval when emailing non-@symantum.com applicants.
+**Next (28 September 2026):** DocFlow Admin live. Prove one Pilot on `docflow.symantum.com` through Admin Applications, then Remove from queue. Parked: continue #1 polish, demo video, later `www` → docflow, Postmark Request approval for non-@symantum.com applicants.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
-**Gate status (18 September 2026):** Foundation **complete** for first-release Client Portal work. Next active build phase is **Phase 7**. Items below marked *parked* are deferred — they do not block starting Account ID / AP generalisation.
+**Gate status (28 September 2026):** Foundation **complete**. Phase 7 and Phase 8 core are complete. DocFlow Admin is the operator desk. Items marked *parked* stay parked (6B multi-role, 6C MFA/invites, Client Help copy).
 
 #### Phase 6A — Secure sessions + API tenant isolation — complete
 - [x] Signed access token on login (access_token + HttpOnly csa_session cookie).
@@ -684,7 +679,7 @@ Phase 5 website release path is ready. Soft-launch **complete** on **`https://do
 
 ### Phase 7 — AP generalisation — **complete (AP foundation)**
 
-Active focus after Phase 6 foundation. Website auto-provision remains **Phase 8**.
+Active focus after Phase 6 foundation. Website auto-provision is **Phase 8** (core complete 21–28 September 2026).
 
 **Non-breaking rule (confirmed):** All existing AP_Portal implementations and behaviours stay intact. Account ID is additive beside client_code. Spaces / EIP / CAAPS / watch-folder / export paths continue to use workspace client_code until later phases explicitly migrate callers.
 
@@ -699,17 +694,19 @@ Checklist:
 - [x] **7F — Secure S2S** (X-Integration-Secret / AP_PORTAL_INTEGRATION_SECRET on internal-provision; localhost still allowed).
 - [x] **7G — user_group hygiene** (documented: not used for DocFlow Account / EIP routing in new AP work; CSA analytics field unchanged).
 
-### Phase 8 — Provisioning and data integration — **in progress**
+### Phase 8 — Provisioning and data integration — **core complete**
 
 - [x] **8A — Coordinator → AP provision** (on APPROVED: mint Account ID; call AP internal-provision; retry endpoint; provision_status on application).
-- [x] **8A+ — AP Dashboard Onboarding review tab** (proxy /api/v1/onboarding/*; delivery_mode; review before approve).
+- [x] **8A+ — Website application review** originally shipped as the AP Dashboard Onboarding tab; **moved 28 September 2026 to DocFlow Admin Applications** (`https://admin.symantum.com`). AP Operations Onboarding tab removed. Onboarding API and `docflow_onboarding` stay mounted at AP `/onboarding`. Remove-from-queue is a permanent Admin Applications action.
 - [x] **8B — First-release host:** Onboarding API mounted inside AP Portal at /onboarding (ONBOARDING_MOUNT=1 lazy; ONBOARDING_DATABASE_URL → docflow_onboarding). Separate DO App deferred.
-- [x] **Dashboard Approve → provision** (proxy calls coordinator on APPROVED; Retry provision; outbox force-verify for staging).
+- [x] **Approve → provision** from DocFlow Admin Applications (proxy calls coordinator on APPROVED; Retry provision; outbox force-verify for staging).
 - [x] **Client Portal provision when not ap_only** (CSA /api/internal/docflow-provision; coordinator step + outbox credentials email).
 - [x] **Delivery beyond default alias** (delivery_mode on AP client; csv_deliver prefers SFTP when review chose sftp/email_and_sftp; CSA push skipped for ap_only).
 - [x] **Pilot expiry + conversion** (pilot_expires_at on approve; Convert pilot → production + re-provision).
+- [x] **DocFlow Admin host** (`admin.symantum.com`; `staff.symantum.com` removed 28 September 2026, no redirect). Owner/accountant sees Finance; later Sales/BA get Applications + Accounts only.
 - Connect richer retention / CAAPS profile / EIP beyond alias still later.
-- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path (Postmark #3).
+- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path (Postmark is live).
+- **Next path:** one live Pilot on `docflow.symantum.com` through Admin Applications, then Remove from queue. Do not mix Finance with AP Review. Do not run Phase 1 registry cleanup (AhrensCAAPS/DESA/SUPP).
 
 ---
 
@@ -733,14 +730,14 @@ For that deployment:
 
 These items require explicit confirmation before their implementation phase:
 
-1. Should AP-only clients receive a minimal generic Account Centre, or no portal credentials?
-2. Which durable system owns applications and canonical Account IDs? *(Phase 7/8 — decide with Account ID ownership.)*
-3. What human-readable Account ID format should be used? *(Example in §2.2: DF-… — confirm as canonical.)*
-4. Which service stores consent and application-review history?
-5. Which bot-protection and email-verification providers will be used? *(Public go-live blocker — Phase 4.)*
+1. Should AP-only clients receive a minimal generic Account Centre, or no portal credentials? **Open.** Until then: no CSA credentials for AP-only.
+2. Which durable system owns applications and canonical Account IDs? **Confirmed (Phase 8):** Onboarding API (`docflow_onboarding`, mounted at AP `/onboarding`) owns applications and mints Account IDs on approve. AP `clients.docflow_account_id` is the operational copy.
+3. What human-readable Account ID format should be used? **Confirmed in use:** `DF-` plus opaque characters (example §2.2: DF-8K4M2P).
+4. Which service stores consent and application-review history? **Confirmed:** the Onboarding API / `docflow_onboarding` application record (consent at intake; review on DocFlow Admin Applications).
+5. Which bot-protection and email-verification providers will be used? **Confirmed:** Cloudflare Turnstile + Postmark (`support@symantum.com`). Soft-launch host `docflow.symantum.com`.
 6. Is billing / payment UI required inside the Client Portal for the first production onboarding release?
    - **Confirmed — Option B:** Plan & Usage plus invoice centre. No card-on-file self-serve checkout.
-7. At which AP lifecycle event should verified invoice data become visible in the Client Portal?
+7. At which AP lifecycle event should verified invoice data become visible in the Client Portal? **Open.** Do not mix Finance Confirm with AP Review.
 
 ---
 
@@ -758,6 +755,7 @@ Each update must:
 
 ### Revision history
 
+- **28 September 2026 — DocFlow Admin live; plan catch-up:** Operator desk is `https://admin.symantum.com` (Applications / Accounts / Finance). `staff.symantum.com` and `csa.symantum.com/staff` removed (no redirect). AP Onboarding tab removed; website review is Admin Applications. Owner/accountant Finance only. Status, §9, Phase 8A+, Turnstile `docflow` host, and Open Decisions 2–5 updated to match production. **Next:** one live Pilot through Admin Applications, then Remove from queue.
 - **22 September 2026 — Demo video guide documented:** `DEMO_VIDEO_GUIDE.md` — YouTube (free), AI voice-only VO, storyboard, full + teaser scripts, Clipchamp/OBS/Resolve tools, bring-back wiring checklist. Produce offline; wire URL when ready.
 - **22 September 2026 — #1 first polish pass + Turnstile host fix:** Home CTAs honest (Pilot + Get Started; no fake demo); Contact dual exit; Turnstile 110200 fixed (`doclfow` typo → `docflow.symantum.com`). Demo video deferred. Next: more polish optional, or www redirect later.
 - **22 September 2026 — #1 polish started:** Soft-launch closed on docflow.symantum.com. Home: fix hero copy; replace placeholder demo with Pilot + Get Started; Contact bottom CTA dual path. Navbar/footer/Client Login walkthrough OK (Client Login → csa.symantum.com).
