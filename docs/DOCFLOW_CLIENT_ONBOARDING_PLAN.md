@@ -26,7 +26,7 @@ The public website must describe DocFlow as a general digital operations platfor
 
 - **SymantumWeb** (symantum/DocFlow-Website) is the public marketing, application, and onboarding entry point.
 - **DocFlow Operations Portal** (technical repo/deploy: AP_Portal) is Symantum's internal document-processing workspace: Review, extract, and Deliver. It is not the application-review desk and does not host Finance.
-- **DocFlow Admin** (`https://admin.symantum.com`, same CSA deploy) is the Symantum operator desk for website **Applications**, **Accounts**, and **Finance**. There is no `/staff` or `/admin` path on the Client Portal host. There is no separate staff table; access uses `users.system_role` plus `user_group`. `staff.symantum.com` is a temporary alias until Admin is confirmed and that hostname is removed.
+- **DocFlow Admin** (`https://admin.symantum.com`, same CSA deploy) is the Symantum operator desk for website **Applications**, **Accounts**, and **Finance**. There is no `/staff` or `/admin` path on the Client Portal host. There is no separate staff table; access uses `users.system_role` plus `user_group`.
 - **DocFlow Client Portal** (`https://csa.symantum.com` and `https://csa.symantum.com/login`) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services. Admin and client sessions are mutually exclusive.
 - Public forms must not write independently to both portal databases.
 - A server-side onboarding service must control approval and provisioning.
@@ -173,7 +173,7 @@ Confirmed 28 September 2026:
 - Seed `admin` / `admin` (system_role `superuser`) is the owner/accountant SUPERUSER. That account sees Applications, Accounts, and Finance.
 - Later staff credentials (Sales, BA, and similar `system_role` values) see everything they are entitled to except Finance. Sales/BA get Accounts without Finance.
 - Client seed credentials `sme_user` / `corp_user` / `ent_user` (password = username) log into the Client Portal only. They never receive Accounts or Finance.
-- DocFlow Admin host is **`https://admin.symantum.com`**. `https://csa.symantum.com/staff` is removed (not redirected). Keep `staff.symantum.com` as an Admin alias until Admin is confirmed, then remove that hostname (no redirect to admin).
+- DocFlow Admin host is **only** `https://admin.symantum.com`. `https://csa.symantum.com/staff` is removed (not redirected). `staff.symantum.com` is removed (not redirected).
 - Website application review lives on DocFlow Admin **Applications**. The AP Operations Onboarding tab is removed. Onboarding API and `docflow_onboarding` stay; provisioning still coordinates AP (+ optional Client Portal).
 - Finance remains CSA-only. Do not mix Finance with AP Review.
 
