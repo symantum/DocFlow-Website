@@ -1,9 +1,9 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **#3 soft-launch complete** (`docflow.symantum.com`). **#1 website visual polish in progress** (home CTAs + Contact dual path). `www` redirect deferred. Postmark Request approval when emailing non-@symantum.com. Phase 8A/8B + E2E coordinator path complete. Phase 7/6 foundations complete.
+**Status:** **Soft-launch live** on `https://docflow.symantum.com` (#3 Postmark/Turnstile/DNS). **#1 first polish pass shipped** (home CTAs + Contact dual path; Turnstile hostname typo `doclfow`→`docflow` fixed). Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`** (script, AI voice, free tools, YouTube). **Next options:** commercial content review · more #1 polish · later `www`→docflow · Postmark approval for non-@symantum.com. Phase 8A/8B + E2E complete.
 **Product owner:** Symantum  
-**Last updated:** 22 September 2026
-**Source of truth:** This document governs the public website, client onboarding, and the hand-off to AP Portal and CSA Portal (presented as DocFlow Operations Portal and DocFlow Client Portal).
+**Last updated:** 28 September 2026
+**Source of truth:** This document governs four surfaces: the public website, DocFlow Operations Portal (AP Review), DocFlow Staff Portal (Applications / Accounts / Finance), and DocFlow Client Portal.
 
 ---
 
@@ -25,8 +25,9 @@ The public website must describe DocFlow as a general digital operations platfor
 ### 2.1 System responsibilities
 
 - **SymantumWeb** (symantum/DocFlow-Website) is the public marketing, application, and onboarding entry point.
-- **DocFlow Operations Portal** (technical repo/deploy: AP_Portal) is Symantum's internal document-processing and human-validation workspace.
-- **DocFlow Client Portal** (technical repo/deploy: CSA_Portal) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services.
+- **DocFlow Operations Portal** (technical repo/deploy: AP_Portal) is Symantum's internal document-processing workspace: Review, extract, and Deliver. It is not the application-review desk and does not host Finance.
+- **DocFlow Staff Portal** (`https://csa.symantum.com/staff`, same CSA deploy) is the Symantum operator desk for website **Applications**, **Accounts**, and **Finance**. There is no separate staff table; access uses `users.system_role` plus `user_group`.
+- **DocFlow Client Portal** (`https://csa.symantum.com/login`) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services. Staff and client sessions are mutually exclusive.
 - Public forms must not write independently to both portal databases.
 - A server-side onboarding service must control approval and provisioning.
 - First-release commercial posture: low barrier to apply; clients still **choose** production services; Client Portal modules stay **open** until Essentials-specific pages exist; avoid org-size or volume bars as entry gates.
@@ -119,7 +120,7 @@ AP Portal remains an internal Symantum system. Any future client participation i
 - DocFlow is positioned as a managed digital operations platform operated by Symantum for outcomes, not software the client must configure and run.
 - Client Portal access provides account information, subscribed outputs, and Analytics when entitled; it does not make clients operators of the processing platform.
 - The internal AP_Portal application will be presented to operators as the **DocFlow Operations Portal** when its user interface is generalised.
-- CSA_Portal will be presented to clients as the **DocFlow Client Portal**.
+- CSA_Portal presents two branded doors: **DocFlow Staff Portal** at `/staff` and **DocFlow Client Portal** at `/login`.
 - Repository names, deployment identifiers, and existing domains may remain unchanged during the branding transition.
 - The public website must not expose AP_Portal or CSA_Portal as product names.
 
@@ -164,6 +165,16 @@ Keep out of Assurance Reporting:
 - Raw unverified extraction dumps.
 
 ---
+
+### 2.10 Staff Portal access
+
+Confirmed 28 September 2026:
+
+- Seed `admin` / `admin` (system_role `superuser`) is the owner/accountant SUPERUSER. That account sees Applications, Accounts, and Finance.
+- Later staff credentials (Sales, BA, and similar `system_role` values) see everything they are entitled to except Finance. Sales/BA get Accounts without Finance.
+- Client seed credentials `sme_user` / `corp_user` / `ent_user` (password = username) log into the Client Portal only. They never receive Accounts or Finance.
+- Website application review lives on Staff Portal **Applications**. The AP Operations Onboarding tab is removed. Onboarding API and `docflow_onboarding` stay; provisioning still coordinates AP (+ optional Client Portal).
+- Finance remains CSA-only. Do not mix Finance with AP Review.
 
 ## 3. Website Entry Points
 
@@ -255,6 +266,13 @@ Client Login is not a public registration path. The login experience must eventu
 - Account-aware routing based on subscriptions and roles.
 
 AP-only clients without a client portal do not receive CSA credentials. A generic Account Centre for those clients is a future product decision; until then, their service is operated and delivered through the agreed external channel.
+
+### 3.3a Staff Login
+
+**Current destination:** https://csa.symantum.com/staff  
+**Purpose:** Authenticate Symantum operators on the DocFlow Staff Portal.
+
+Staff Login is not a client path. Client credentials are rejected here and directed to `/login`. Owner/accountant (`admin` superuser) lands on Applications with Accounts and Finance. Later Sales/BA credentials land on Applications with Accounts, without Finance.
 
 ### 3.4 Contact Us
 
@@ -428,8 +446,16 @@ Examples:
 - Maintain operational client/workspace relationships using Account ID.
 - Keep connector-specific codes in integration configuration.
 - Do not expose internal operator roles through public registration.
+- Do not host website application review (that is Staff Portal Applications) and do not host Finance.
 
-### 6.3 DocFlow Client Portal (currently CSA_Portal)
+### 6.3 DocFlow Staff Portal (currently CSA `/staff`)
+
+- Review website Pilot and Get Started applications, confirm intake/delivery, approve or reject, and trigger provision.
+- Maintain Accounts (tenant profile, field config, Release to AP).
+- Finance (rates, quantity to invoice, confirm/publish invoices) is owner/accountant only.
+- Uses the same `users` table as the Client Portal; staff vs client is `system_role` / `user_group`, not a second staff table.
+
+### 6.4 DocFlow Client Portal (currently CSA_Portal)
 
 - Client authentication and account activation.
 - Personal profile and organisation account.
@@ -620,7 +646,7 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Soft-launch **complete** on **`https://docflow.symantum.com`**. Deferred: `www`/apex redirect, `@df` mailboxes.
 
-**Next (22 September 2026):** **#1 website visual polish** underway (home honest CTAs; Contact dual Pilot/Get Started). Soft-launch host `docflow.symantum.com`. Defer `www` redirect. Postmark Request approval when emailing non-@symantum.com applicants.
+**Next (22 September 2026):** Soft-launch + first #1 polish pass done. Optional: continue #1 (Pricing/Automation/mobile spacing), add demo video when ready, or later `www` → docflow redirect. Postmark Request approval when emailing non-@symantum.com applicants.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
@@ -731,6 +757,8 @@ Each update must:
 
 ### Revision history
 
+- **22 September 2026 — Demo video guide documented:** `DEMO_VIDEO_GUIDE.md` — YouTube (free), AI voice-only VO, storyboard, full + teaser scripts, Clipchamp/OBS/Resolve tools, bring-back wiring checklist. Produce offline; wire URL when ready.
+- **22 September 2026 — #1 first polish pass + Turnstile host fix:** Home CTAs honest (Pilot + Get Started; no fake demo); Contact dual exit; Turnstile 110200 fixed (`doclfow` typo → `docflow.symantum.com`). Demo video deferred. Next: more polish optional, or www redirect later.
 - **22 September 2026 — #1 polish started:** Soft-launch closed on docflow.symantum.com. Home: fix hero copy; replace placeholder demo with Pilot + Get Started; Contact bottom CTA dual path. Navbar/footer/Client Login walkthrough OK (Client Login → csa.symantum.com).
 - **22 September 2026 — DNS soft-launch closed:** docflow.symantum.com live with Turnstile hostname, DO ALLOWED_ORIGINS + PUBLIC_WEBSITE_URL, and form smoke confirmed. www redirect deferred; df stays mail. Next: website polish (parked) or later www cutover.
 - **22 September 2026 — DNS soft-launch host live:** `docflow.symantum.com` on DocFlow-Website Vercel (Valid); Netregistry CNAME; df kept for Outlook mail; www deferred. Wrong-project attach to CSA avoided. Next: Turnstile/DO/smoke on docflow, then later www redirect. Website polish parked.
