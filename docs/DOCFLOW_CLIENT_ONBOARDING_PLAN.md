@@ -26,8 +26,8 @@ The public website must describe DocFlow as a general digital operations platfor
 
 - **SymantumWeb** (symantum/DocFlow-Website) is the public marketing, application, and onboarding entry point.
 - **DocFlow Operations Portal** (technical repo/deploy: AP_Portal) is Symantum's internal document-processing workspace: Review, extract, and Deliver. It is not the application-review desk and does not host Finance.
-- **DocFlow Staff Portal** (`https://csa.symantum.com/staff`, same CSA deploy) is the Symantum operator desk for website **Applications**, **Accounts**, and **Finance**. There is no separate staff table; access uses `users.system_role` plus `user_group`.
-- **DocFlow Client Portal** (`https://csa.symantum.com/login`) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services. Staff and client sessions are mutually exclusive.
+- **DocFlow Staff Portal** (`https://staff.symantum.com`, same CSA deploy) is the Symantum operator desk for website **Applications**, **Accounts**, and **Finance**. There is no `/staff` path on the Client Portal host. There is no separate staff table; access uses `users.system_role` plus `user_group`.
+- **DocFlow Client Portal** (`https://csa.symantum.com` and `https://csa.symantum.com/login`) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services. Staff and client sessions are mutually exclusive.
 - Public forms must not write independently to both portal databases.
 - A server-side onboarding service must control approval and provisioning.
 - First-release commercial posture: low barrier to apply; clients still **choose** production services; Client Portal modules stay **open** until Essentials-specific pages exist; avoid org-size or volume bars as entry gates.
@@ -120,7 +120,7 @@ AP Portal remains an internal Symantum system. Any future client participation i
 - DocFlow is positioned as a managed digital operations platform operated by Symantum for outcomes, not software the client must configure and run.
 - Client Portal access provides account information, subscribed outputs, and Analytics when entitled; it does not make clients operators of the processing platform.
 - The internal AP_Portal application will be presented to operators as the **DocFlow Operations Portal** when its user interface is generalised.
-- CSA_Portal presents two branded doors: **DocFlow Staff Portal** at `/staff` and **DocFlow Client Portal** at `/login`.
+- CSA_Portal presents two branded hosts: **DocFlow Staff Portal** at `https://staff.symantum.com` and **DocFlow Client Portal** at `https://csa.symantum.com`. There is no `/staff` path on the Client Portal.
 - Repository names, deployment identifiers, and existing domains may remain unchanged during the branding transition.
 - The public website must not expose AP_Portal or CSA_Portal as product names.
 
@@ -173,6 +173,7 @@ Confirmed 28 September 2026:
 - Seed `admin` / `admin` (system_role `superuser`) is the owner/accountant SUPERUSER. That account sees Applications, Accounts, and Finance.
 - Later staff credentials (Sales, BA, and similar `system_role` values) see everything they are entitled to except Finance. Sales/BA get Accounts without Finance.
 - Client seed credentials `sme_user` / `corp_user` / `ent_user` (password = username) log into the Client Portal only. They never receive Accounts or Finance.
+- Staff Portal host is **only** `https://staff.symantum.com`. `https://csa.symantum.com/staff` is removed (not redirected).
 - Website application review lives on Staff Portal **Applications**. The AP Operations Onboarding tab is removed. Onboarding API and `docflow_onboarding` stay; provisioning still coordinates AP (+ optional Client Portal).
 - Finance remains CSA-only. Do not mix Finance with AP Review.
 
@@ -269,10 +270,10 @@ AP-only clients without a client portal do not receive CSA credentials. A generi
 
 ### 3.3a Staff Login
 
-**Current destination:** https://csa.symantum.com/staff  
+**Current destination:** https://staff.symantum.com  
 **Purpose:** Authenticate Symantum operators on the DocFlow Staff Portal.
 
-Staff Login is not a client path. Client credentials are rejected here and directed to `/login`. Owner/accountant (`admin` superuser) lands on Applications with Accounts and Finance. Later Sales/BA credentials land on Applications with Accounts, without Finance.
+Staff Login is not a client path and is not served on `csa.symantum.com`. Client credentials are rejected here. Owner/accountant (`admin` superuser) lands on Applications with Accounts and Finance. Later Sales/BA credentials land on Applications with Accounts, without Finance.
 
 ### 3.4 Contact Us
 
@@ -448,7 +449,7 @@ Examples:
 - Do not expose internal operator roles through public registration.
 - Do not host website application review (that is Staff Portal Applications) and do not host Finance.
 
-### 6.3 DocFlow Staff Portal (currently CSA `/staff`)
+### 6.3 DocFlow Staff Portal (currently `https://staff.symantum.com`)
 
 - Review website Pilot and Get Started applications, confirm intake/delivery, approve or reject, and trigger provision.
 - Maintain Accounts (tenant profile, field config, Release to AP).
