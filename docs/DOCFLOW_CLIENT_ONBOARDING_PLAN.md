@@ -1,6 +1,6 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Soft-launch live** on `https://docflow.symantum.com`. **DocFlow Admin live** at `https://admin.symantum.com`. **Phase 8 onboarding E2E proven (30 September 2026):** live Get Started ×3 (Automation Delivery / AP-only · Client Essentials · Client Intelligence) plus Pilot → Admin Applications → provision → Remove from queue. Portal package is owned by `service_subscription` (not SME/Corporate). Setup invite + real password-reset links shipped. **#1 first polish pass shipped.** Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`**. **Next:** first real prospect go-live readiness (ops checklist + Postmark for non-@symantum.com applicants) · AP→CSA verified-invoice visibility (Open Decision #7) · optional `www`→docflow. Parked: commercial fixed pricing · Sales/BA staff logins · MFA · Client Help copy · richer CAAPS/EIP beyond alias.
+**Status:** **Soft-launch live** on `https://docflow.symantum.com`. **DocFlow Admin live** at `https://admin.symantum.com`. **Phase 8 onboarding E2E proven (30 September 2026):** live Get Started ×3 (Automation Delivery / AP-only · Client Essentials · Client Intelligence) plus Pilot → Admin Applications → provision → Remove from queue. Portal package is owned by `service_subscription` (not SME/Corporate). Setup invite + real password-reset links shipped. **#1 first polish pass shipped.** Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`**. **Next:** first real prospect go-live readiness (ops checklist + Postmark for non-@symantum.com applicants) · AP→CSA verified-invoice visibility (Open Decision #7) · optional `www`→docflow. Parked: commercial fixed pricing · Sales/BA staff logins · **optional Owner 2FA build** (policy confirmed) · Team multi-user · Client Help copy · richer CAAPS/EIP beyond alias.
 **Product owner:** Symantum  
 **Last updated:** 30 September 2026
 **Source of truth:** This document governs four surfaces: the public website, DocFlow Operations Portal (AP Review), DocFlow Admin (Applications / Accounts / Finance), and DocFlow Client Portal.
@@ -265,7 +265,7 @@ Client Login is not a public registration path. Current support (30 September 20
 - One-time `/setup/{token}` invitation activation (set username + password; 48-hour expiry).
 - Account-aware routing from `service_subscription` entitlements.
 
-Still later: multi-factor authentication; identity-provider SSO.
+**Confirmed (30 September 2026) — MFA policy:** Optional 2FA for the Owner login in the first production wave. MFA lives under Account → Settings (sign-in / security), not Team. When Team invites ship later, MFA can become required for invited users. Preferred factor: authenticator app (TOTP); SMS not required for first wave. Identity-provider SSO remains later.
 
 AP-only clients without a client portal do not receive CSA credentials. A generic Account Centre for those clients is a future product decision; until then, their service is operated and delivered through the agreed external channel.
 
@@ -671,7 +671,7 @@ Phase 5 website release path is ready. Soft-launch **complete** on **`https://do
 #### Phase 6C — Auth hardening — partial complete
 - [x] One-time setup invite (`/setup/{token}`) from provision; accept-invite sets username + password.
 - [x] Verified password-reset tokens (Postmark; production host URLs; 1-hour expiry; common UX labels).
-- [ ] MFA.
+- [ ] **Optional Owner 2FA (TOTP)** — confirmed for first production wave; not started. Place under Settings / security, not Team. Team multi-user remains parked.
 - Further generic account/profile presentation polish beyond dropdown + Plan/Invoices.
 
 #### Phase 6 delivered summary
@@ -762,7 +762,8 @@ Each update must:
 
 ### Revision history
 
-- **30 September 2026 — Phase 8 onboarding E2E complete:** Live-tested Get Started ×3 (AP-only / Essentials / Intelligence) and Admin Applications path. Confirmed `service_subscription` owns portal package (not SME/Corporate). Shipped portal-request note gate, setup invite, Essentials vs Intelligence UI, production/pilot mail wording, and real password-reset (Postmark + production URLs). Updated §2.1, §3.3, §5.2, §9, Phase 6B/6C, Phase 8. **Next:** real-prospect go-live readiness · Open Decision #7 (AP→CSA verified invoice visibility) · optional `www`→docflow. Parked: MFA · Sales/BA logins · Client Help · fixed public pricing · richer CAAPS/EIP.
+- **30 September 2026 — Optional Owner 2FA confirmed:** First production wave = optional 2FA for Owner (TOTP preferred); Settings/security, not Team. Team invites stay parked. MFA implementation not started — still after prospect readiness / Open Decision #7 unless a client requires it sooner.
+- **30 September 2026 — Phase 8 onboarding E2E complete:** Live-tested Get Started ×3 (AP-only / Essentials / Intelligence) and Admin Applications path. Confirmed `service_subscription` owns portal package (not SME/Corporate). Shipped portal-request note gate, setup invite, Essentials vs Intelligence UI, production/pilot mail wording, and real password-reset (Postmark + production URLs). Updated §2.1, §3.3, §5.2, §9, Phase 6B/6C, Phase 8. **Next:** real-prospect go-live readiness · Open Decision #7 (AP→CSA verified invoice visibility) · optional `www`→docflow. Parked: Owner 2FA build · Sales/BA logins · Client Help · fixed public pricing · richer CAAPS/EIP.
 - **28 September 2026 — DocFlow Admin live; plan catch-up:** Operator desk is `https://admin.symantum.com` (Applications / Accounts / Finance). `staff.symantum.com` and `csa.symantum.com/staff` removed (no redirect). AP Onboarding tab removed; website review is Admin Applications. Owner/accountant Finance only. Status, §9, Phase 8A+, Turnstile `docflow` host, and Open Decisions 2–5 updated to match production. **Next:** one live Pilot through Admin Applications, then Remove from queue.
 - **22 September 2026 — Demo video guide documented:** `DEMO_VIDEO_GUIDE.md` — YouTube (free), AI voice-only VO, storyboard, full + teaser scripts, Clipchamp/OBS/Resolve tools, bring-back wiring checklist. Produce offline; wire URL when ready.
 - **22 September 2026 — #1 first polish pass + Turnstile host fix:** Home CTAs honest (Pilot + Get Started; no fake demo); Contact dual exit; Turnstile 110200 fixed (`doclfow` typo → `docflow.symantum.com`). Demo video deferred. Next: more polish optional, or www redirect later.
