@@ -1,8 +1,8 @@
 # DocFlow Client Onboarding Plan
 
-**Status:** **Soft-launch live** on `https://docflow.symantum.com` (#3 Postmark/Turnstile/DNS). **DocFlow Admin live** at `https://admin.symantum.com` (Applications / Accounts / Finance; `staff.symantum.com` removed, no redirect). Website application review is Admin Applications, not AP. Phase 8A/8B + E2E complete. **#1 first polish pass shipped.** Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`**. **Next:** one live Pilot → Admin Applications path, then Remove from queue. Parked: commercial content · more #1 polish · later `www`→docflow · Postmark approval for non-@symantum.com · Sales/BA logins · MFA/invites · Client Help copy.
+**Status:** **Soft-launch live** on `https://docflow.symantum.com`. **DocFlow Admin live** at `https://admin.symantum.com`. **Phase 8 onboarding E2E proven (30 September 2026):** live Get Started ×3 (Automation Delivery / AP-only · Client Essentials · Client Intelligence) plus Pilot → Admin Applications → provision → Remove from queue. Portal package is owned by `service_subscription` (not SME/Corporate). Setup invite + real password-reset links shipped. **#1 first polish pass shipped.** Demo video deferred — see **`DEMO_VIDEO_GUIDE.md`**. **Next:** first real prospect go-live readiness (ops checklist + Postmark for non-@symantum.com applicants) · AP→CSA verified-invoice visibility (Open Decision #7) · optional `www`→docflow. Parked: commercial fixed pricing · Sales/BA staff logins · MFA · Client Help copy · richer CAAPS/EIP beyond alias.
 **Product owner:** Symantum  
-**Last updated:** 28 September 2026
+**Last updated:** 30 September 2026
 **Source of truth:** This document governs four surfaces: the public website, DocFlow Operations Portal (AP Review), DocFlow Admin (Applications / Accounts / Finance), and DocFlow Client Portal.
 
 ---
@@ -30,7 +30,7 @@ The public website must describe DocFlow as a general digital operations platfor
 - **DocFlow Client Portal** (`https://csa.symantum.com` and `https://csa.symantum.com/login`) is the authenticated client-facing portal for profile, account, settings, analytics, plan/invoices, and enabled client services. Admin and client sessions are mutually exclusive.
 - Public forms must not write independently to both portal databases.
 - A server-side onboarding service must control approval and provisioning.
-- First-release commercial posture: low barrier to apply; clients still **choose** production services; Client Portal modules stay **open** until Essentials-specific pages exist; avoid org-size or volume bars as entry gates.
+- First-release commercial posture: low barrier to apply; clients **choose** production services on Get Started. **Confirmed (30 September 2026):** Client Portal depth is owned by `users.service_subscription` (`client_essentials` / `client_intelligence`). Essentials hides Insights / Reports / Budgets / Intelligence widgets; Intelligence keeps the full module set. Legacy `user_group` (SME / Corporate / Enterprise) is volume labelling only and must not drive portal package. Automation Delivery remains no Client Portal login.
 
 ### 2.2 Public identifiers
 
@@ -258,13 +258,14 @@ Applicants do not enter or select their Account ID.
 **Current destination:** https://csa.symantum.com/login  
 **Purpose:** Authenticate an already activated client.
 
-Client Login is not a public registration path. The login experience must eventually support:
+Client Login is not a public registration path. Current support (30 September 2026):
 
-- Email/password or approved identity-provider authentication.
-- Password reset.
-- Multi-factor authentication.
-- Invitation activation from a valid single-use token.
-- Account-aware routing based on subscriptions and roles.
+- Username/password authentication (seed + provisioned owners).
+- Forgot-password with tokenised reset link (Postmark; 1-hour expiry; production host URLs).
+- One-time `/setup/{token}` invitation activation (set username + password; 48-hour expiry).
+- Account-aware routing from `service_subscription` entitlements.
+
+Still later: multi-factor authentication; identity-provider SSO.
 
 AP-only clients without a client portal do not receive CSA credentials. A generic Account Centre for those clients is a future product decision; until then, their service is operated and delivered through the agreed external channel.
 
@@ -376,7 +377,7 @@ The account model must not embed CAAPS assumptions in its core identity.
 
 **Confirmed (18 September 2026) — first release access:** One Client Portal login per organisation, treated as **Owner**-equivalent. Multi-user roles (Client Admin / Member / Billing / Read Only) remain in the model for later scale-up; do not implement multi-role invite/RBAC matrices in the first release.
 
-**Confirmed (18 September 2026) — first release portal openness:** Clients still **choose** production services commercially (Automation Delivery / Client Essentials / Client Intelligence). Until Essentials-specific Client Portal pages are ready, **all activated Client Portal users** receive the full portal module set (Overview, Spending, Insights, Reports, Budgets, Plan/Invoices, Help). Do not gate Insights/Reports on legacy org-size user_group. Module enforcement by subscribed service returns when Essentials surfaces are ready. Automation Delivery remains no Client Portal login. Platform superuser/dev always see the full portal.
+**Confirmed (30 September 2026) — service_subscription owns portal depth:** Get Started / provision writes `service_subscription`. Essentials → Overview, Spending, Settings, Help (no Insights / Reports / Budgets / Intelligence widgets). Intelligence → full Client Portal modules. Do **not** map SME→Essentials / Corporate→Intelligence as the package model; those `user_group` values remain compatibility/volume labels only. Automation Delivery remains no Client Portal login. Platform superuser/dev always see Admin desk modules, not client Analytics by default.
 
 ### 5.3 Service subscription
 
@@ -548,7 +549,7 @@ Current status:
 - [x] Missing intake connectivity produces an honest unavailable message with an email fallback.
 - [x] Durable server-side intake, Application IDs, work-email verification, Postmark, and Turnstile (Phase 4).
 - [x] CSA signed sessions + `/api/me` (Phase 6A). Website application review on DocFlow Admin Applications (28 September 2026).
-- Remaining (do not block the first Admin Applications path): invitation-only organisation join (Phase 6C); leftover CSA GET tightening; AP and CSA remain separate identity stores by design; `client_code` stays the workspace identifier beside Account ID; AP→CSA verified-invoice visibility (Open Decision #7); richer retention / CAAPS / EIP beyond alias.
+- Remaining after Phase 8 E2E: leftover CSA GET tightening; AP and CSA remain separate identity stores by design; `client_code` stays the workspace identifier beside Account ID; **AP→CSA verified-invoice visibility (Open Decision #7)**; richer retention / CAAPS / EIP beyond alias; Postmark approval for non-@symantum.com applicants; optional `www`→docflow; Sales/BA staff credentials; MFA; Client Help copy.
 
 ---
 
@@ -642,11 +643,11 @@ Local acceptance evidence recorded on 18 September 2026:
 
 Phase 5 website release path is ready. Soft-launch **complete** on **`https://docflow.symantum.com`**. Deferred: `www`/apex redirect, `@df` mailboxes.
 
-**Next (28 September 2026):** DocFlow Admin live. Prove one Pilot on `docflow.symantum.com` through Admin Applications, then Remove from queue. Parked: continue #1 polish, demo video, later `www` → docflow, Postmark Request approval for non-@symantum.com applicants.
+**Next (30 September 2026):** Phase 8 E2E proven. Focus shifts to real-prospect readiness and Open Decision #7. Parked: continue #1 polish, demo video, later `www` → docflow, Postmark approval for non-@symantum.com applicants.
 
 ### Phase 6 — CSA / Client Portal security and account experience
 
-**Gate status (28 September 2026):** Foundation **complete**. Phase 7 and Phase 8 core are complete. DocFlow Admin is the operator desk. Items marked *parked* stay parked (6B multi-role, 6C MFA/invites, Client Help copy).
+**Gate status (30 September 2026):** Foundation **complete**. Phase 7 and Phase 8 E2E complete. DocFlow Admin is the operator desk. Essentials-vs-Intelligence module enforcement **shipped** via `service_subscription`. Multi-role RBAC and MFA remain parked. Client Help copy parked.
 
 #### Phase 6A — Secure sessions + API tenant isolation — complete
 - [x] Signed access token on login (access_token + HttpOnly csa_session cookie).
@@ -658,24 +659,27 @@ Phase 5 website release path is ready. Soft-launch **complete** on **`https://do
 - [x] Frontend stores Bearer token and attaches it on fetch / axios; session restore via /api/me.
 - [x] Client-facing product name **DocFlow Client Portal** (header, login, Help, titles); technical CSA_Portal repo/deploy names retained.
 - [x] Option B Plan & Usage + invoice centre (/api/account/plan-usage, /api/account/invoices).
-- [x] First-release open portal modules (Insights included for activated Client Portal users; commercial service choice retained).
 - *Parked polish:* tighten any leftover open GETs; production CSA_SESSION_SECRET; ensure AP Portal sends integration secret on ingest.
 
-#### Phase 6B — Role / module enforcement — parked
-- First release: one Owner-equivalent login; full Client Portal modules until Essentials pages exist.
-- Multi-role RBAC and Essentials-vs-Intelligence **module** enforcement deferred.
-- Platform superuser / dev retain full portal access.
+#### Phase 6B — Role / module enforcement — partial complete
+- [x] One Owner-equivalent login per organisation (first release).
+- [x] Essentials vs Intelligence modules and Intelligence widgets from `service_subscription` (not SME/Corporate).
+- Multi-role RBAC (Client Admin / Member / Billing / Read Only) deferred.
+- Platform superuser / dev retain DocFlow Admin access.
 - Open for later: which membership roles may mutate Settings vs read-only (when multi-user ships).
 
-#### Phase 6C — Auth hardening — parked (may resume with Phase 8 activation)
-- MFA, invitations, verified password-reset tokens (replace predictable dev reset tokens).
+#### Phase 6C — Auth hardening — partial complete
+- [x] One-time setup invite (`/setup/{token}`) from provision; accept-invite sets username + password.
+- [x] Verified password-reset tokens (Postmark; production host URLs; 1-hour expiry; common UX labels).
+- [ ] MFA.
 - Further generic account/profile presentation polish beyond dropdown + Plan/Invoices.
 
 #### Phase 6 delivered summary
 - [x] Replace Account navigation with the user-name dropdown (/settings#… retained).
-- [x] Membership roles vs production-service entitlements foundation (login//me payload).
+- [x] Membership roles vs production-service entitlements (login/`/me` + `service_subscription`).
 - [x] Sessions + tenant isolation foundation.
-- End-to-end subscription enforcement and multi-role routes: **parked** until Essentials surfaces and multi-user are required.
+- [x] Essentials vs Intelligence portal depth enforcement.
+- Multi-role routes and MFA: **parked**.
 
 ### Phase 7 — AP generalisation — **complete (AP foundation)**
 
@@ -694,19 +698,22 @@ Checklist:
 - [x] **7F — Secure S2S** (X-Integration-Secret / AP_PORTAL_INTEGRATION_SECRET on internal-provision; localhost still allowed).
 - [x] **7G — user_group hygiene** (documented: not used for DocFlow Account / EIP routing in new AP work; CSA analytics field unchanged).
 
-### Phase 8 — Provisioning and data integration — **core complete**
+### Phase 8 — Provisioning and data integration — **E2E complete (30 September 2026)**
 
 - [x] **8A — Coordinator → AP provision** (on APPROVED: mint Account ID; call AP internal-provision; retry endpoint; provision_status on application).
-- [x] **8A+ — Website application review** originally shipped as the AP Dashboard Onboarding tab; **moved 28 September 2026 to DocFlow Admin Applications** (`https://admin.symantum.com`). AP Operations Onboarding tab removed. Onboarding API and `docflow_onboarding` stay mounted at AP `/onboarding`. Remove-from-queue is a permanent Admin Applications action.
+- [x] **8A+ — Website application review** on DocFlow Admin Applications (`https://admin.symantum.com`). AP Operations Onboarding tab removed. Onboarding API and `docflow_onboarding` stay mounted at AP `/onboarding`. Remove-from-queue is a permanent Admin Applications action.
 - [x] **8B — First-release host:** Onboarding API mounted inside AP Portal at /onboarding (ONBOARDING_MOUNT=1 lazy; ONBOARDING_DATABASE_URL → docflow_onboarding). Separate DO App deferred.
 - [x] **Approve → provision** from DocFlow Admin Applications (proxy calls coordinator on APPROVED; Retry provision; outbox force-verify for staging).
-- [x] **Client Portal provision when not ap_only** (CSA /api/internal/docflow-provision; coordinator step + outbox credentials email).
-- [x] **Delivery beyond default alias** (delivery_mode on AP client; csv_deliver prefers SFTP when review chose sftp/email_and_sftp; CSA push skipped for ap_only).
+- [x] **Client Portal provision when not ap_only** (CSA `/api/internal/docflow-provision`; `service_subscription` + setup invite; coordinator credentials/setup email).
+- [x] **Get Started three options live-tested:** (1) Automation Delivery / AP-only — AP workspace, no CSA tenant; (2) Client Essentials — CSA tenant + Essentials modules; (3) Client Intelligence — CSA tenant + full Intelligence modules.
+- [x] **Portal request gate** — Client Portal requires form request or BA written `portal_request_note` (min length) before provision.
+- [x] **Delivery beyond default alias** (delivery_mode on AP client; csv_deliver prefers SFTP when review chose sftp/email_and_sftp; CSA push skipped for ap_only; Pilot default delivery = email).
 - [x] **Pilot expiry + conversion** (pilot_expires_at on approve; Convert pilot → production + re-provision).
-- [x] **DocFlow Admin host** (`admin.symantum.com`; `staff.symantum.com` removed 28 September 2026, no redirect). Owner/accountant sees Finance; later Sales/BA get Applications + Accounts only.
+- [x] **DocFlow Admin host** (`admin.symantum.com`; `staff.symantum.com` removed). Owner/accountant sees Finance; later Sales/BA get Applications + Accounts only.
+- [x] **Activation / reset UX** — setup invite page; forgot-password labels; show/hide password; tokenised reset email (Postmark).
 - Connect richer retention / CAAPS profile / EIP beyond alias still later.
-- Resume parked Phase 6C (invitations / MFA) when activation emails are on the critical path (Postmark is live).
-- **Next path:** one live Pilot on `docflow.symantum.com` through Admin Applications, then Remove from queue. Do not mix Finance with AP Review. Do not run Phase 1 registry cleanup (AhrensCAAPS/DESA/SUPP).
+- MFA remains parked (invites + password reset done).
+- **Next path:** first real-prospect readiness (ops checklist, non-@symantum.com Postmark approval, confirm production Postmark env on CSA) · decide Open Decision #7 (when verified invoices appear in Client Portal) · optional `www`→docflow. Do not mix Finance with AP Review. Do not run Phase 1 registry cleanup (AhrensCAAPS/DESA/SUPP).
 
 ---
 
@@ -755,6 +762,7 @@ Each update must:
 
 ### Revision history
 
+- **30 September 2026 — Phase 8 onboarding E2E complete:** Live-tested Get Started ×3 (AP-only / Essentials / Intelligence) and Admin Applications path. Confirmed `service_subscription` owns portal package (not SME/Corporate). Shipped portal-request note gate, setup invite, Essentials vs Intelligence UI, production/pilot mail wording, and real password-reset (Postmark + production URLs). Updated §2.1, §3.3, §5.2, §9, Phase 6B/6C, Phase 8. **Next:** real-prospect go-live readiness · Open Decision #7 (AP→CSA verified invoice visibility) · optional `www`→docflow. Parked: MFA · Sales/BA logins · Client Help · fixed public pricing · richer CAAPS/EIP.
 - **28 September 2026 — DocFlow Admin live; plan catch-up:** Operator desk is `https://admin.symantum.com` (Applications / Accounts / Finance). `staff.symantum.com` and `csa.symantum.com/staff` removed (no redirect). AP Onboarding tab removed; website review is Admin Applications. Owner/accountant Finance only. Status, §9, Phase 8A+, Turnstile `docflow` host, and Open Decisions 2–5 updated to match production. **Next:** one live Pilot through Admin Applications, then Remove from queue.
 - **22 September 2026 — Demo video guide documented:** `DEMO_VIDEO_GUIDE.md` — YouTube (free), AI voice-only VO, storyboard, full + teaser scripts, Clipchamp/OBS/Resolve tools, bring-back wiring checklist. Produce offline; wire URL when ready.
 - **22 September 2026 — #1 first polish pass + Turnstile host fix:** Home CTAs honest (Pilot + Get Started; no fake demo); Contact dual exit; Turnstile 110200 fixed (`doclfow` typo → `docflow.symantum.com`). Demo video deferred. Next: more polish optional, or www redirect later.
