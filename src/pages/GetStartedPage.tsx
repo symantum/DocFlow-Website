@@ -197,16 +197,10 @@ export default function GetStartedPage() {
                     <InboxHint verify />
                   </div>
                   {submission.reference && (
-                    <p className="text-sm font-bold text-sky-700 mb-6">
+                    <p className="text-sm font-bold text-sky-700">
                       Application ID: {submission.reference}
                     </p>
                   )}
-                  <button
-                    onClick={() => setSubmission({ status: 'idle' })}
-                    className="text-sky-600 hover:text-sky-700 font-semibold text-sm transition-colors"
-                  >
-                    Submit another request
-                  </button>
                 </div>
               ) : (
                 <form
