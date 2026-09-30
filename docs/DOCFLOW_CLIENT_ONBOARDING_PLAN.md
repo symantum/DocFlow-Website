@@ -671,7 +671,7 @@ Phase 5 website release path is ready. Soft-launch **complete** on **`https://do
 #### Phase 6C — Auth hardening — partial complete
 - [x] One-time setup invite (`/setup/{token}`) from provision; accept-invite sets username + password.
 - [x] Verified password-reset tokens (Postmark; production host URLs; 1-hour expiry; common UX labels).
-- [ ] **Optional Owner 2FA (TOTP)** — confirmed for first production wave; not started. Place under Settings / security, not Team. Team multi-user remains parked.
+- [ ] **Optional Owner 2FA (TOTP)** — confirmed; **next build** before external go-live test. Scope: Owner can enroll/disable authenticator; login challenges when enabled; recovery codes; Settings / security (not Team). Team multi-user remains parked.
 - Further generic account/profile presentation polish beyond dropdown + Plan/Invoices.
 
 #### Phase 6 delivered summary
@@ -762,7 +762,8 @@ Each update must:
 
 ### Revision history
 
-- **30 September 2026 — Optional Owner 2FA confirmed:** First production wave = optional 2FA for Owner (TOTP preferred); Settings/security, not Team. Team invites stay parked. MFA implementation not started — still after prospect readiness / Open Decision #7 unless a client requires it sooner.
+- **30 September 2026 — Optional Owner 2FA next before go-live:** Sequence confirmed — build optional Owner TOTP 2FA first (full auth cycle), then external / non-@symantum.com go-live test, then Open Decision #7. Settings/security, not Team; Team invites stay parked.
+- **30 September 2026 — Optional Owner 2FA confirmed:** First production wave = optional 2FA for Owner (TOTP preferred); Settings/security, not Team. Team invites stay parked.
 - **30 September 2026 — Phase 8 onboarding E2E complete:** Live-tested Get Started ×3 (AP-only / Essentials / Intelligence) and Admin Applications path. Confirmed `service_subscription` owns portal package (not SME/Corporate). Shipped portal-request note gate, setup invite, Essentials vs Intelligence UI, production/pilot mail wording, and real password-reset (Postmark + production URLs). Updated §2.1, §3.3, §5.2, §9, Phase 6B/6C, Phase 8. **Next:** real-prospect go-live readiness · Open Decision #7 (AP→CSA verified invoice visibility) · optional `www`→docflow. Parked: Owner 2FA build · Sales/BA logins · Client Help · fixed public pricing · richer CAAPS/EIP.
 - **28 September 2026 — DocFlow Admin live; plan catch-up:** Operator desk is `https://admin.symantum.com` (Applications / Accounts / Finance). `staff.symantum.com` and `csa.symantum.com/staff` removed (no redirect). AP Onboarding tab removed; website review is Admin Applications. Owner/accountant Finance only. Status, §9, Phase 8A+, Turnstile `docflow` host, and Open Decisions 2–5 updated to match production. **Next:** one live Pilot through Admin Applications, then Remove from queue.
 - **22 September 2026 — Demo video guide documented:** `DEMO_VIDEO_GUIDE.md` — YouTube (free), AI voice-only VO, storyboard, full + teaser scripts, Clipchamp/OBS/Resolve tools, bring-back wiring checklist. Produce offline; wire URL when ready.
