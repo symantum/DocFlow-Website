@@ -170,7 +170,7 @@ export default function Navbar() {
 
       }`}>
 
-      <nav className="max-w-5xl mx-auto px-6 md:px-8 flex items-center justify-between" style={{ height: '72px' }}>
+      <nav className="max-w-7xl mx-auto px-4 md:px-5 lg:px-6 flex items-center justify-between" style={{ height: '72px' }}>
 
 
 
@@ -324,7 +324,7 @@ export default function Navbar() {
 
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-xl">
 
-          <div className="max-w-5xl mx-auto px-6 py-4 space-y-3">
+          <div className="max-w-7xl mx-auto px-4 md:px-5 lg:px-6 py-4 space-y-3">
 
             {navMenu.map(menu => (
 

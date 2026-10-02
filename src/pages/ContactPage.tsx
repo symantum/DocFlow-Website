@@ -37,6 +37,19 @@ export default function ContactPage() {
     }
   }, [searchParams])
 
+  // Land on the contact form (not the bottom pilot CTA strip).
+  useEffect(() => {
+    const scrollToForm = () => {
+      const el = document.getElementById('contact-form')
+      if (!el) return false
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      return true
+    }
+    if (scrollToForm()) return
+    const t = window.setTimeout(scrollToForm, 80)
+    return () => window.clearTimeout(t)
+  }, [])
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
@@ -83,7 +96,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="section-pad-home section-band-b">
+      <section id="contact-form" className="section-pad-home section-band-b scroll-mt-28">
         <div className="home-container max-w-3xl mx-auto">
           <div className="rounded-2xl bg-white shadow-[0_16px_36px_-28px_rgba(15,23,42,0.35)] px-6 py-8 sm:px-10 sm:py-10">
             {submission.status === 'success' ? (

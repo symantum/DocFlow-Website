@@ -28,7 +28,7 @@ const productLinks = [
 const actionLinks = [
   { to: '/pilot#pilot-request', label: 'Request a Pilot' },
   { to: '/get-started', label: 'Get Started' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/contact#contact-form', label: 'Contact Us' },
   { href: 'https://csa.symantum.com/login', label: 'Client Login', external: true },
 ]
 
@@ -51,17 +51,20 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200">
-      <div className="max-w-5xl mx-auto px-6 pt-8 pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-5 lg:px-6 pt-8 pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         <div>
-          <Link to="/" className="flex items-center gap-2.5 mb-3 group">
+          <Link to="/" className="flex items-center gap-3 mb-3 group">
             <img
               src="/favicon.svg"
               alt="DocFlow"
-              className="w-8 h-8 object-contain group-hover:scale-105 transition-transform duration-300"
+              className="w-9 h-9 object-contain group-hover:scale-105 transition-transform duration-300"
             />
-            <span className="font-extrabold text-lg tracking-tighter" style={{ color: '#1A7BB8' }}>
-              DocFlow
-            </span>
+            <div className="flex flex-col leading-none">
+              <span className="font-extrabold text-lg tracking-tighter" style={{ color: '#1A7BB8' }}>
+                DocFlow
+              </span>
+              <span className="text-[9px] text-slate-400 font-medium tracking-wide">by Symantum</span>
+            </div>
           </Link>
           <p className="text-slate-700 text-sm leading-snug max-w-xs">
             A digital factory for your back office. Operated by {siteConfig.company.name}.
@@ -107,7 +110,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-slate-100 bg-slate-50/60">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 md:px-5 lg:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             {socialLinks.map(({ label, href, icon: Icon }) => (
               <a
