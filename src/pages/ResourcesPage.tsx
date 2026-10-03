@@ -88,23 +88,21 @@ export default function ResourcesPage() {
 
       <section id="company" className="section-pad-home section-band-b scroll-mt-28">
         <div className="home-container max-w-3xl mx-auto text-center">
-          <p className="text-sm font-bold text-sky-600 tracking-wide mb-3">Company</p>
-          <h2 className="type-h2 mb-5">From Process Expertise to Digital Operations</h2>
-          <p className="hero-lead mb-6">
-            Symantum began in Melbourne in 2004 as an Australian-owned outsourced business process
-            services provider. Over more than two decades, we have built practical expertise in
-            complex document processing, data extraction, workflow design, quality control and
-            client-specific service delivery across document-intensive operations.
-          </p>
-          <p className="text-[13px] sm:text-sm text-slate-700 leading-relaxed font-medium">
-            Advances in cloud technology, intelligent automation and AI enabled us to transform
-            that accumulated operating experience into a more scalable digital service. DocFlow
-            is the natural outcome: a cloud-based service platform that brings controlled Gateway
-            intake, Automation, contextual AI, human verification, validated delivery and optional
-            spend intelligence into one managed workflow. Delivered through a BPaaS model,
-            DocFlow combines technology with Symantum&apos;s operational expertise, giving clients
-            a dependable digital capability while we remain accountable for operating the process
-            and delivering the outcome.
+          <h2 className="type-h2 mb-5">Symantum — From Process Expertise to Digital Operations</h2>
+          <p className="hero-lead">
+            Symantum is an Australian-owned outsourced business process services provider
+            established in Melbourne in 2004. With more than two decades dedicated to corporate
+            back-office services, we have built practical expertise in complex document processing,
+            workflow automation and data extraction across document-intensive operations for
+            clients in a range of industries. Advances in cloud technology, intelligent automation
+            and AI enabled us to transform that accumulated operating experience into a more
+            scalable digital service. DocFlow is the natural outcome: a cloud-based service
+            platform that brings controlled Gateway intake, Automation, contextual AI,
+            human-in-the-loop audit, Data Analytics and spend intelligence into one managed
+            workflow. Delivered through a BPaaS model, DocFlow combines technology with
+            Symantum&apos;s operational expertise — committing ourselves to the efficiency,
+            productivity and integrity of every process we operate, and to outcomes our clients
+            can trust.
           </p>
         </div>
       </section>
