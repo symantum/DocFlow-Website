@@ -90,10 +90,10 @@ const gears: Gear[] = [
     title: 'Bundle',
     icon: Layers,
     iconWrap: 'bg-amber-100 text-amber-700',
-    summary: 'Separate bundled files into individual documents without losing the original.',
+    summary: 'Separate bundled files into individual documents without missing any supplier document.',
     capabilities: [
-      'Split bundled files into separate documents.',
-      'Keep the original linked to each document it is split into.',
+      'Auto-detect bundled files in multi-page supplier documents.',
+      'Smart-split bundled files into separate documents.',
     ],
   },
   {
@@ -101,7 +101,7 @@ const gears: Gear[] = [
     title: 'Triage',
     icon: FolderTree,
     iconWrap: 'bg-violet-100 text-violet-700',
-    summary: 'Recognise each document type and send it down the right path.',
+    summary: 'Automatically recognise each document type and send it down the right path.',
     capabilities: [
       'Identify invoices, credit notes, statements, and other supported types.',
       'Send each type down the right processing and delivery path.',
@@ -113,11 +113,12 @@ const gears: Gear[] = [
     title: 'Extract',
     icon: ScanLine,
     iconWrap: 'bg-lime-100 text-lime-800',
-    summary: 'IDP reads the key figures. AI checks those values against the document.',
+    summary:
+      'Automatically extract key data with Intelligent Document Processing (IDP) and AI verification.',
     capabilities: [
       'IDP reads vendor, totals, tax, purchase order, and line items for each document type.',
       'AI checks those values against the document.',
-      'Checked figures move on for validation.',
+      'Checked data moves on for validation.',
     ],
   },
   {
@@ -126,9 +127,9 @@ const gears: Gear[] = [
     icon: ShieldCheck,
     iconWrap: 'bg-rose-100 text-rose-700',
     summary:
-      'AI checks the figures before anything is synced. HITL clears exceptions so mismatches do not reach your books.',
+      'AI checks and validates the data before anything is synced. HITL audits and clears exceptions so mismatches do not reach your books.',
     capabilities: [
-      'Check invoice figures and line items with AI.',
+      'Check invoice data and line items with AI.',
       'Surface mismatches for a controlled check.',
       'Release only data that has passed AI-powered validation and HITL.',
     ],

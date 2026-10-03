@@ -275,7 +275,7 @@ export default function HomePage() {
           </h2>
           <p className="text-white text-base mb-8 max-w-4xl mx-auto leading-relaxed font-medium">
             <span className="block">
-              DocFlow is a managed digital operations platform operated by Symantum.
+              DocFlow is a managed digital operations platform.
             </span>
             <span className="block">
               You provide supplier documents; we deliver verified data, integrated outputs and actionable intelligence.
