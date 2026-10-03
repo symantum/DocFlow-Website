@@ -143,7 +143,7 @@ const gears: Gear[] = [
       'Sync clean, verified data into your accounting workflow — and into DocFlow Analytics when you want spend intelligence.',
     capabilities: [
       'Send clean data to your accounting systems.',
-      'Bring the same verified figures into DocFlow Analytics when you want spend intelligence.',
+      'Bring the same verified data into DocFlow Analytics when you want spend intelligence.',
       'Set up Xero, MYOB, SFTP, API, or CSV during onboarding.',
     ],
   },
