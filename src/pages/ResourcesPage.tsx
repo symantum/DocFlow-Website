@@ -157,7 +157,7 @@ export default function ResourcesPage() {
       <section className="section-pad-home section-band-d">
         <div className="home-container-narrow text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-            Ready to Test This on Your Documents?
+            Ready to Run a Pilot on Your Documents?
           </h2>
           <p className="text-white text-base mb-8 max-w-lg mx-auto leading-relaxed font-medium">
             Request a DocFlow pilot — we map Automation and optional Analytics to your volume and
