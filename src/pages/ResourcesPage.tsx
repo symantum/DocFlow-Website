@@ -57,7 +57,7 @@ const essays: {
     takeaway:
       'Analytics protects margin only after Automation makes the figures trustworthy; it does not replace AP control.',
     paragraphs: [
-      'Purchase analytics built on messy or half-checked invoices creates confident nonsense: wrong vendor concentration, false spikes, and budget alerts on totals nobody trusts. Spend control has to sit on verified invoice data — the same records that were fit to sync.',
+      'Spend analytics built on messy or half-checked invoices creates confident nonsense: wrong vendor concentration, false spikes, and budget alerts on totals nobody trusts. Spend control has to sit on verified invoice data — the same records that were fit to sync.',
       'When that foundation is in place, Analytics earns its keep: monthly spend you can open to the invoice, vendor and category share, anomaly signals, and budgetary guardrails while the period is still open. That is margin protection and operating visibility — not another capture product.',
       'When it does not apply: if your immediate problem is still inbox chaos, brittle extraction, or early push to the ledger, fix Automation and integrity first. Analytics will not heal bad inputs. Add it when you want to act on spend patterns — not when you still cannot trust the line.',
     ],
