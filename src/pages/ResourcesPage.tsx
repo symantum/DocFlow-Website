@@ -91,17 +91,17 @@ export default function ResourcesPage() {
           <h2 className="type-h2 mb-5">Symantum — From Process Expertise to Digital Operations</h2>
           <p className="hero-lead mb-6">
             Symantum is an Australian-owned outsourced business process services provider
-            established in Melbourne in 2004. With more than two decades dedicated to corporate
-            back-office services, we have built practical expertise in complex document processing,
-            workflow automation and data extraction across document-intensive operations for
-            clients in a range of industries.
+            established in Melbourne in 2004. With more than two decades of dedicated focus on
+            corporate back-office services, we have built practical expertise in complex document
+            processing, workflow automation and data extraction across document-intensive
+            operations for clients in a range of industries.
           </p>
           <p className="hero-lead">
             Advances in cloud technology, intelligent automation and AI enabled us to transform
             that accumulated operating experience into a more scalable digital service. DocFlow is
             the natural outcome: a cloud-based service platform that brings controlled Gateway
-            intake, Automation, contextual AI, human-in-the-loop audit, Data Analytics and spend
-            intelligence into one managed workflow. Delivered through a BPaaS model, DocFlow
+            intake, Automation, contextual AI, human-in-the-loop audit, data analytics, and spend
+            intelligence, into one managed workflow. Delivered through a BPaaS model, DocFlow
             combines technology with Symantum&apos;s operational expertise — committing ourselves
             to the efficiency, productivity and integrity of every process we operate, and to
             outcomes our clients can trust.
