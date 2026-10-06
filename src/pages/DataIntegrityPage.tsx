@@ -257,7 +257,7 @@ export default function DataIntegrityPage() {
               <span className="block">Security, Governance, and Integrity</span>
             </h1>
             <p className="hero-lead mb-8 max-w-2xl mx-auto">
-              DocFlow combines deterministic extraction, AI verification, and human review to
+              DocFlow combines deterministic extraction, AI verification, and human audit to
               produce reliable operational data from inconsistent supplier documents
             </p>
             <Link
@@ -302,7 +302,8 @@ export default function DataIntegrityPage() {
           <div className="text-center mb-8 max-w-2xl mx-auto">
             <h2 className="type-h2 mb-3">Triple-Filtered Data Integrity Architecture</h2>
             <p className="hero-lead max-w-xl mx-auto">
-              Three layers before data reaches your ledger — rules, AI check, then human confirm.
+              Three validation layers before data reaches your ledger — rules, AI check, then human
+              confirm.
             </p>
           </div>
 
