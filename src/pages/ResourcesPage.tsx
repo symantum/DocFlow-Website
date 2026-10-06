@@ -102,9 +102,9 @@ export default function ResourcesPage() {
             the natural outcome: a cloud-based service platform that brings controlled Gateway
             intake, Automation, contextual AI, human-in-the-loop audit, data analytics, and spend
             intelligence, into one managed workflow. Delivered through a BPaaS model, DocFlow
-            combines technology with Symantum&apos;s operational expertise — committing ourselves
-            to the value, productivity, and integrity of every process we operate, and to
-            outcomes our clients can trust.
+            combines digital technology with Symantum&apos;s operational expertise — committing
+            ourselves to the value, productivity, and integrity of every process we operate, and
+            to outcomes our clients can trust.
           </p>
         </div>
       </section>
