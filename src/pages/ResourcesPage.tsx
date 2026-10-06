@@ -103,7 +103,7 @@ export default function ResourcesPage() {
             intake, Automation, contextual AI, human-in-the-loop audit, data analytics, and spend
             intelligence, into one managed workflow. Delivered through a BPaaS model, DocFlow
             combines technology with Symantum&apos;s operational expertise — committing ourselves
-            to the efficiency, productivity and integrity of every process we operate, and to
+            to the value, productivity, and integrity of every process we operate, and to
             outcomes our clients can trust.
           </p>
         </div>
