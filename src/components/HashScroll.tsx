@@ -15,6 +15,7 @@ const NAV_HASH_ALIASES: Record<string, string> = {
   validate: 'audit',
 
   // Analytics — Phase 1 nav → capability cards
+  // vendor-category id kept for stable anchors; card copy is supplier share + billing mix.
   spending: 'spend-dashboard',
   insights: 'vendor-category',
   detections: 'anomalies',
@@ -24,6 +25,8 @@ const NAV_HASH_ALIASES: Record<string, string> = {
   advice: 'vendor-category',
   'spend-dashboard': 'spend-dashboard',
   'vendor-category': 'vendor-category',
+  'supplier-share': 'vendor-category',
+  'billing-mix': 'vendor-category',
   anomalies: 'anomalies',
   budget: 'budget',
 

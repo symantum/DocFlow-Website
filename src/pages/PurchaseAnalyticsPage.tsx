@@ -17,25 +17,25 @@ import { Link } from 'react-router-dom'
 const vulnerabilities: { title: string; desc: string; icon: LucideIcon; iconWrap: string }[] = [
   {
     title: 'Silent Spend Growth',
-    desc: 'Monthly vendor or category spend can rise without a clear trigger.',
+    desc: 'Monthly supplier spend can rise without a clear trigger.',
     icon: TrendingUp,
     iconWrap: 'bg-sky-100 text-sky-700',
   },
   {
     title: 'Vendor Concentration',
-    desc: 'Too much spend can accumulate with a single vendor or category.',
+    desc: 'Too much spend can accumulate with a single supplier.',
     icon: Building2,
     iconWrap: 'bg-amber-100 text-amber-700',
   },
   {
     title: 'Budget Drift',
-    desc: 'Teams need live budget progress and alerts, not retrospective spreadsheet checks.',
+    desc: 'Teams need live envelope and supplier-cap progress, not retrospective spreadsheet checks.',
     icon: Gauge,
     iconWrap: 'bg-violet-100 text-violet-700',
   },
   {
-    title: 'Category Blind Spots',
-    desc: 'Vendor ABNs and names need enrichment before spend can be grouped usefully.',
+    title: 'Supplier Blind Spots',
+    desc: 'Incomplete ABNs and names make supplier share hard to trust until enrichment catches up.',
     icon: EyeOff,
     iconWrap: 'bg-rose-100 text-rose-700',
   },
@@ -82,44 +82,44 @@ const intelligenceAreas: {
   },
   {
     id: 'vendor-category',
-    title: 'Vendor and category',
-    subtitle: 'The vendor taking the share',
+    title: 'Supplier share and billing mix',
+    subtitle: 'Who holds the share — and how it was billed',
     icon: Building2,
     iconWrap: 'bg-violet-500 text-white',
     accent: 'bg-violet-500',
     wash: 'bg-violet-50',
     items: [
-      'See which vendor or category holds the share.',
-      'Compare spend across vendors, categories, and document types.',
-      'Read vendor performance next to the total.',
+      'See which suppliers hold the share of period spend.',
+      'Read billing mix across tax invoices, credits, and adjustments.',
+      'Compare supplier performance next to the total.',
     ],
   },
   {
     id: 'enrichment',
     title: 'Supplier enrichment',
-    subtitle: 'Spend that will not group',
+    subtitle: 'Names you can trust in the ranking',
     icon: Layers,
     iconWrap: 'bg-lime-500 text-white',
     accent: 'bg-lime-500',
     wash: 'bg-lime-50',
     items: [
       'Match suppliers to the business register.',
-      'Enrich names and map categories so spend can be grouped.',
+      'Enrich names so supplier share is readable.',
       'Keep those supplier records current.',
     ],
   },
   {
     id: 'budget',
     title: 'Budget and cashflow',
-    subtitle: 'Drift before the month closes',
+    subtitle: 'Envelope and caps before the month closes',
     icon: Gauge,
     iconWrap: 'bg-emerald-500 text-white',
     accent: 'bg-emerald-500',
     wash: 'bg-emerald-50',
     items: [
-      'Watch budget progress before the month closes.',
-      'See cash leaving while the period is still open.',
-      'Review suggestions while there is still time to act.',
+      'Set a monthly spend envelope on verified tax invoices, credits, and adjustments.',
+      'Add optional caps on selected suppliers and watch progress while the period is open.',
+      'See cash leaving and use own-history suggestions while there is still time to act.',
     ],
   },
   {
@@ -133,7 +133,7 @@ const intelligenceAreas: {
     items: [
       'Flag a spike that does not fit the pattern.',
       'Surface the same invoice appearing twice.',
-      'Read the signal across totals, vendors, and categories.',
+      'Read the signal across totals, suppliers, and billing mix.',
     ],
   },
   {
@@ -159,10 +159,10 @@ const monthSpend = [
   { month: 'Mar', amount: '48,260', height: '100%', current: true },
 ]
 
-const categorySpend = [
-  { label: 'Paper and packaging', spent: '18,420', limit: '22,000', share: '38%', width: '84%', swatch: 'bg-sky-500', tone: 'bg-sky-500' },
-  { label: 'Logistics', spent: '16,880', limit: '18,000', share: '35%', width: '94%', swatch: 'bg-amber-500', tone: 'bg-amber-500' },
-  { label: 'Facilities', spent: '12,960', limit: '20,000', share: '27%', width: '65%', swatch: 'bg-emerald-500', tone: 'bg-emerald-500' },
+const controlSpend = [
+  { label: 'Period envelope', spent: '48,260', limit: '55,000', width: '88%', tone: 'bg-sky-500' },
+  { label: 'Northline Paper', spent: '18,420', limit: '20,000', width: '92%', tone: 'bg-amber-500' },
+  { label: 'Civic Freight', spent: '11,200', limit: '12,000', width: '93%', tone: 'bg-emerald-500' },
 ]
 
 const supplierSpend = [
@@ -224,7 +224,7 @@ function InsightsStill() {
           </li>
         </ul>
         <p className="border-t border-slate-100 pt-2 text-[11px] font-medium text-slate-700 leading-relaxed">
-          Logistics holds 35% of March spend.
+          Northline Paper holds 38% of March spend.
         </p>
       </div>
     </div>
@@ -288,9 +288,9 @@ function BudgetsStill() {
     <div className="rounded-xl p-3 h-full" aria-hidden>
       <div className="rounded-lg bg-white shadow-[0_8px_24px_-16px_rgba(15,23,42,0.35)] px-3.5 py-3 h-full flex flex-col">
         <StillStatus label="Mar 2026" badge="Open" badgeClass="text-emerald-700 bg-emerald-100" />
-        <PanelLabel>Category thresholds</PanelLabel>
+        <PanelLabel>Envelope and supplier caps</PanelLabel>
         <ul className="space-y-3 mb-3">
-          {categorySpend.map((row) => (
+          {controlSpend.map((row) => (
             <li key={row.label}>
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="text-[11px] font-bold text-slate-900 truncate">{row.label}</span>
@@ -306,7 +306,7 @@ function BudgetsStill() {
           ))}
         </ul>
         <p className="mt-auto border-t border-slate-100 pt-2 text-[11px] font-medium text-slate-700 leading-relaxed">
-          Logistics is at 94% of its limit, with the month still open.
+          Northline Paper is at 92% of its cap, with the month still open.
         </p>
       </div>
     </div>
@@ -332,7 +332,7 @@ const intelligenceFrames = [
   },
   {
     kicker: 'Budgets',
-    title: 'Thresholds while the month is open',
+    title: 'Envelope and caps while the month is open',
     icon: Gauge,
     iconWrap: 'bg-emerald-100 text-emerald-700',
     frame: 'bg-emerald-100',
@@ -433,8 +433,8 @@ export default function PurchaseAnalyticsPage() {
             <p className="hero-lead max-w-5xl mx-auto lg:text-base">
               Verified invoice data becomes a live spending layer —
               <br className="hidden lg:block" />
-              supplier, category, budget, cashflow, and anomaly views, with Xero delivery where you
-              use it.
+              supplier share, billing mix, budget controls, cashflow, and anomaly views, with Xero
+              delivery where you use it.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto items-stretch">
