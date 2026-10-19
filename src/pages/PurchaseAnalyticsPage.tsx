@@ -29,7 +29,7 @@ const vulnerabilities: { title: string; desc: string; icon: LucideIcon; iconWrap
   },
   {
     title: 'Budget Drift',
-    desc: 'Teams need live envelope and supplier-cap progress, not retrospective spreadsheet checks.',
+    desc: 'Teams need live monthly-budget and supplier-cap progress, not retrospective spreadsheet checks.',
     icon: Gauge,
     iconWrap: 'bg-violet-100 text-violet-700',
   },
@@ -111,13 +111,13 @@ const intelligenceAreas: {
   {
     id: 'budget',
     title: 'Budget and cashflow',
-    subtitle: 'Envelope and caps before the month closes',
+    subtitle: 'Monthly budget and caps before the month closes',
     icon: Gauge,
     iconWrap: 'bg-emerald-500 text-white',
     accent: 'bg-emerald-500',
     wash: 'bg-emerald-50',
     items: [
-      'Set a monthly spend envelope on verified tax invoices, credits, and adjustments.',
+      'Set a monthly budget on verified tax invoices, credits, and adjustments.',
       'Add optional caps on selected suppliers and watch progress while the period is open.',
       'See cash leaving and use own-history suggestions while there is still time to act.',
     ],
@@ -160,7 +160,7 @@ const monthSpend = [
 ]
 
 const controlSpend = [
-  { label: 'Period envelope', spent: '48,260', limit: '55,000', width: '88%', tone: 'bg-sky-500' },
+  { label: 'Monthly budget', spent: '48,260', limit: '55,000', width: '88%', tone: 'bg-sky-500' },
   { label: 'Northline Paper', spent: '18,420', limit: '20,000', width: '92%', tone: 'bg-amber-500' },
   { label: 'Civic Freight', spent: '11,200', limit: '12,000', width: '93%', tone: 'bg-emerald-500' },
 ]
@@ -288,7 +288,7 @@ function BudgetsStill() {
     <div className="rounded-xl p-3 h-full" aria-hidden>
       <div className="rounded-lg bg-white shadow-[0_8px_24px_-16px_rgba(15,23,42,0.35)] px-3.5 py-3 h-full flex flex-col">
         <StillStatus label="Mar 2026" badge="Open" badgeClass="text-emerald-700 bg-emerald-100" />
-        <PanelLabel>Envelope and supplier caps</PanelLabel>
+        <PanelLabel>Monthly budget and supplier caps</PanelLabel>
         <ul className="space-y-3 mb-3">
           {controlSpend.map((row) => (
             <li key={row.label}>
@@ -332,7 +332,7 @@ const intelligenceFrames = [
   },
   {
     kicker: 'Budgets',
-    title: 'Envelope and caps while the month is open',
+    title: 'Monthly budget and caps while the month is open',
     icon: Gauge,
     iconWrap: 'bg-emerald-100 text-emerald-700',
     frame: 'bg-emerald-100',

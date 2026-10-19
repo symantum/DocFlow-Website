@@ -11,7 +11,7 @@ const apFeatures = [
 
 const csaFeatures = [
   { icon: TrendingUp,      title: 'Spend Analytics',       desc: 'Visual dashboards showing spend by supplier, billing mix, and time period. Drill into any segment to see the underlying invoices.' },
-  { icon: BarChart3,       title: 'Budget Radar',           desc: 'Monthly spend envelope and supplier caps on verified tax invoices, credits, and adjustments — plus cash-outflow views from due dates.' },
+  { icon: BarChart3,       title: 'Budget Radar',           desc: 'Monthly budget and supplier caps on verified tax invoices, credits, and adjustments — plus cash-outflow views from due dates.' },
   { icon: AlertTriangle,   title: 'Anomaly Detection',      desc: 'AI-powered flagging of duplicate invoices, price spikes, unusual vendors and policy breaches before they become problems.' },
   { icon: RefreshCw,       title: 'Xero Integration',       desc: 'Bi-directional sync with Xero — approved invoices appear as Draft Bills, and payment status flows back into the dashboard.' },
   { icon: FileSpreadsheet, title: 'Reports & Export',       desc: 'Generate period-over-period spending reports, vendor consolidation summaries and tax-ready exports in one click.' },
