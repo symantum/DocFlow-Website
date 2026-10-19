@@ -340,7 +340,7 @@ const intelligenceFrames = [
   },
 ]
 
-export default function PurchaseAnalyticsPage() {
+export default function SpendAnalyticsPage() {
   return (
     <div className="bg-white">
       <section className="relative overflow-hidden hero-section-pad section-band-a">

@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage'
 
 import APAutomationPage from './pages/APAutomationPage'
 
-import PurchaseAnalyticsPage from './pages/PurchaseAnalyticsPage'
+import SpendAnalyticsPage from './pages/SpendAnalyticsPage'
 
 import DataIntegrityPage from './pages/DataIntegrityPage'
 
@@ -40,7 +40,7 @@ export default function App() {
 
         <Route path="/automation"          element={<APAutomationPage />} />
 
-        <Route path="/analytics"           element={<PurchaseAnalyticsPage />} />
+        <Route path="/analytics"           element={<SpendAnalyticsPage />} />
 
         <Route path="/data-integrity"      element={<DataIntegrityPage />} />
 
