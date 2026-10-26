@@ -125,7 +125,7 @@ const intelligenceAreas: {
   {
     id: 'anomalies',
     title: 'Anomaly signals',
-    subtitle: 'The bill that should not be there',
+    subtitle: 'Spend that sits outside the usual pattern',
     icon: AlertTriangle,
     iconWrap: 'bg-amber-500 text-white',
     accent: 'bg-amber-500',
@@ -139,7 +139,7 @@ const intelligenceAreas: {
   {
     id: 'xero',
     title: 'Xero delivery',
-    subtitle: 'Still not in the books',
+    subtitle: 'Into the accounting workflow you use',
     icon: ArrowRightLeft,
     iconWrap: 'bg-indigo-500 text-white',
     accent: 'bg-indigo-500',
@@ -147,7 +147,7 @@ const intelligenceAreas: {
     items: [
       'Export clean figures for the books.',
       'Connect to Xero where that path is enabled.',
-      'See whether the figures have actually gone across.',
+      'Sync the confirmed figures into that accounting workflow.',
     ],
   },
 ]

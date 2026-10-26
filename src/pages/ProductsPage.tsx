@@ -12,10 +12,9 @@ const apFeatures = [
 const csaFeatures = [
   { icon: TrendingUp,      title: 'Spend Analytics',       desc: 'Visual dashboards showing spend by supplier, billing mix, and time period. Drill into any segment to see the underlying invoices.' },
   { icon: BarChart3,       title: 'Budget Radar',           desc: 'Monthly budget and supplier caps on verified tax invoices, credits, and adjustments — plus cash-outflow views from due dates.' },
-  { icon: AlertTriangle,   title: 'Anomaly Detection',      desc: 'AI-powered flagging of duplicate invoices, price spikes, unusual vendors and policy breaches before they become problems.' },
-  { icon: RefreshCw,       title: 'Xero Integration',       desc: 'Bi-directional sync with Xero — approved invoices appear as Draft Bills, and payment status flows back into the dashboard.' },
+  { icon: AlertTriangle,   title: 'Anomaly signals',        desc: 'Spend that sits outside the usual pattern: a spike that does not fit, the same invoice appearing twice, read across totals, suppliers, and billing mix.' },
+  { icon: RefreshCw,       title: 'Xero delivery',          desc: 'Export clean figures for the books, and connect to Xero where that path is enabled. DocFlow Automation syncs the confirmed invoices into the accounting workflow you use.' },
   { icon: FileSpreadsheet, title: 'Reports & Export',       desc: 'Generate period-over-period spending reports, vendor consolidation summaries and tax-ready exports in one click.' },
-  { icon: Brain,           title: 'CFO "Chat With Data"',   desc: 'LLM-powered semantic search lets executives query their data in plain English: "Show me Q2 travel spend by department."' },
 ]
 
 export default function ProductsPage() {
