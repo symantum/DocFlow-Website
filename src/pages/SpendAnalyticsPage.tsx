@@ -145,9 +145,9 @@ const intelligenceAreas: {
     accent: 'bg-indigo-500',
     wash: 'bg-indigo-50',
     items: [
-      'Export clean figures for the books.',
       'Connect to Xero where that path is enabled.',
-      'Sync the confirmed figures into that accounting workflow.',
+      'Export clean data into your accounting system or workflow.',
+      'Sync supplier documents with the books.',
     ],
   },
 ]

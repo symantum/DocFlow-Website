@@ -13,7 +13,7 @@ const csaFeatures = [
   { icon: TrendingUp,      title: 'Spend Analytics',       desc: 'Visual dashboards showing spend by supplier, billing mix, and time period. Drill into any segment to see the underlying invoices.' },
   { icon: BarChart3,       title: 'Budget Radar',           desc: 'Monthly budget and supplier caps on verified tax invoices, credits, and adjustments — plus cash-outflow views from due dates.' },
   { icon: AlertTriangle,   title: 'Anomaly signals',        desc: 'Spend that sits outside the usual pattern: a spike that does not fit, the same invoice appearing twice, read across totals, suppliers, and billing mix.' },
-  { icon: RefreshCw,       title: 'Xero delivery',          desc: 'Export clean figures for the books, and connect to Xero where that path is enabled. DocFlow Automation syncs the confirmed invoices into the accounting workflow you use.' },
+  { icon: RefreshCw,       title: 'Xero delivery',          desc: 'Connect to Xero where that path is enabled. Export clean data into your accounting system or workflow, and sync supplier documents with the books.' },
   { icon: FileSpreadsheet, title: 'Reports & Export',       desc: 'Generate period-over-period spending reports, vendor consolidation summaries and tax-ready exports in one click.' },
 ]
 
