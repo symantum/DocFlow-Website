@@ -9,7 +9,6 @@ import {
   Link2,
   ListChecks,
   Mail,
-  Play,
   ScanLine,
   ShieldCheck,
   Sparkles,
@@ -462,10 +461,6 @@ export default function APAutomationPage() {
               >
                 Request a DocFlow pilot <ArrowRight size={16} />
               </Link>
-              <a href="/#demo" className="btn-ghost-dark text-sm px-8 py-3.5 font-bold">
-                <Play size={16} className="text-sky-600" />
-                Watch the Demo
-              </a>
             </div>
           </div>
         </div>
@@ -647,13 +642,6 @@ export default function APAutomationPage() {
             >
               Request a DocFlow pilot <ArrowRight size={16} />
             </Link>
-            <a
-              href="/#demo"
-              className="btn-ghost-dark text-sm px-8 py-3.5 font-bold !bg-white !text-sky-800 hover:!bg-sky-50"
-            >
-              <Play size={16} className="text-sky-700" />
-              Watch the Demo
-            </a>
           </div>
         </div>
       </section>
