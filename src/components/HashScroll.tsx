@@ -15,7 +15,7 @@ const NAV_HASH_ALIASES: Record<string, string> = {
   validate: 'audit',
 
   // Analytics — Phase 1 nav → capability cards
-  // vendor-category id kept for stable anchors; card copy is supplier share + billing mix.
+  // vendor-category id kept for stable anchors; the card is now Pareto Point.
   spending: 'spend-dashboard',
   insights: 'vendor-category',
   detections: 'anomalies',

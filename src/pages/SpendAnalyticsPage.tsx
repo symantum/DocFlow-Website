@@ -1,15 +1,15 @@
 import {
   AlertTriangle,
   ArrowRight,
-  ArrowRightLeft,
   BarChart3,
   Building2,
-  EyeOff,
+  Copy,
   FileWarning,
   Gauge,
-  Layers,
   LineChart,
+  PieChart,
   TrendingUp,
+  Wallet,
   type LucideIcon,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -34,9 +34,9 @@ const vulnerabilities: { title: string; desc: string; icon: LucideIcon; iconWrap
     iconWrap: 'bg-violet-100 text-violet-700',
   },
   {
-    title: 'Supplier Blind Spots',
-    desc: 'Incomplete ABNs and names make supplier share hard to trust until enrichment catches up.',
-    icon: EyeOff,
+    title: 'Near-term cash load',
+    desc: 'Several invoices can look due in the same 30 days, so the cash needed soon can jump above a normal month.',
+    icon: Wallet,
     iconWrap: 'bg-rose-100 text-rose-700',
   },
   {
@@ -55,7 +55,7 @@ const vulnerabilities: { title: string; desc: string; icon: LucideIcon; iconWrap
 
 // >>> HASH BRIDGE TARGET IDS (Analytics) — content-stable card ids.
 // Public nav uses #spending|#insights|#detections|#guardrails → see HashScroll NAV_HASH_ALIASES.
-// Revert ids only: spending, insights, detections, guardrails (and drop those four aliases).
+// spend-dashboard, vendor-category, anomalies, and budget stay so those hashes still land.
 const intelligenceAreas: {
   id: string
   title: string
@@ -68,58 +68,30 @@ const intelligenceAreas: {
 }[] = [
   {
     id: 'spend-dashboard',
-    title: 'Monthly spend',
-    subtitle: 'The invoice behind the total',
+    title: 'Spend and volume',
+    subtitle: 'Invoice counts and amounts, for the account and each supplier',
     icon: BarChart3,
     iconWrap: 'bg-sky-500 text-white',
     accent: 'bg-sky-500',
     wash: 'bg-sky-50',
     items: [
-      'See monthly spend and how it is trending.',
-      'Open the invoice behind the total.',
-      'Follow recent transactions as they land.',
+      'See period spend and the invoice count behind it, for the whole account and for each supplier.',
+      'Read the average invoice, and how the amount and the count moved since the last period.',
+      'See the mix of tax invoices, credits, and adjustments.',
     ],
   },
   {
-    id: 'vendor-category',
-    title: 'Supplier share and billing mix',
-    subtitle: 'Who holds the share — and how it was billed',
-    icon: Building2,
-    iconWrap: 'bg-violet-500 text-white',
-    accent: 'bg-violet-500',
-    wash: 'bg-violet-50',
+    id: 'duplicate-invoices',
+    title: 'Duplicate invoices',
+    subtitle: 'The same bill received more than once',
+    icon: Copy,
+    iconWrap: 'bg-rose-500 text-white',
+    accent: 'bg-rose-500',
+    wash: 'bg-rose-50',
     items: [
-      'See which suppliers hold the share of period spend.',
-      'Read billing mix across tax invoices, credits, and adjustments.',
-      'Compare supplier performance next to the total.',
-    ],
-  },
-  {
-    id: 'enrichment',
-    title: 'Supplier enrichment',
-    subtitle: 'Names you can trust in the ranking',
-    icon: Layers,
-    iconWrap: 'bg-lime-500 text-white',
-    accent: 'bg-lime-500',
-    wash: 'bg-lime-50',
-    items: [
-      'Match suppliers to the business register.',
-      'Enrich names so supplier share is readable.',
-      'Keep those supplier records current.',
-    ],
-  },
-  {
-    id: 'budget',
-    title: 'Budget and cashflow',
-    subtitle: 'Monthly budget and caps before the month closes',
-    icon: Gauge,
-    iconWrap: 'bg-emerald-500 text-white',
-    accent: 'bg-emerald-500',
-    wash: 'bg-emerald-50',
-    items: [
-      'Set a monthly budget on verified tax invoices, credits, and adjustments.',
-      'Add optional caps on selected suppliers and watch progress while the period is open.',
-      'See cash leaving and use own-history suggestions while there is still time to act.',
+      'Match supplier, invoice reference, issue date, and amount.',
+      'Show every copy that arrived.',
+      'Keep that list separate from spend spikes.',
     ],
   },
   {
@@ -131,23 +103,51 @@ const intelligenceAreas: {
     accent: 'bg-amber-500',
     wash: 'bg-amber-50',
     items: [
-      'Flag a spike that does not fit the pattern.',
-      'Surface the same invoice appearing twice.',
-      'Read the signal across totals, suppliers, and billing mix.',
+      'Flag a supplier month that jumps above that supplier’s usual level.',
+      'Flag a month total that sits outside the usual band.',
+      'Read the signal from the confirmed record.',
     ],
   },
   {
-    id: 'xero',
-    title: 'Xero delivery',
-    subtitle: 'Into the accounting workflow you use',
-    icon: ArrowRightLeft,
-    iconWrap: 'bg-indigo-500 text-white',
-    accent: 'bg-indigo-500',
-    wash: 'bg-indigo-50',
+    id: 'vendor-category',
+    title: 'Pareto Point',
+    subtitle: 'The suppliers behind 80% of the period',
+    icon: PieChart,
+    iconWrap: 'bg-violet-500 text-white',
+    accent: 'bg-violet-500',
+    wash: 'bg-violet-50',
     items: [
-      'Connect to Xero where that path is enabled.',
-      'Export clean data into your accounting system or workflow.',
-      'Sync supplier documents with the books.',
+      'See how many suppliers make up at least 80% of the spend.',
+      'See each supplier’s share inside that group.',
+      'See whether that group is smaller or larger than the last period.',
+    ],
+  },
+  {
+    id: 'supplier-behaviour',
+    title: 'Supplier behaviour',
+    subtitle: 'How each supplier bills across the year',
+    icon: Building2,
+    iconWrap: 'bg-lime-500 text-white',
+    accent: 'bg-lime-500',
+    wash: 'bg-lime-50',
+    items: [
+      'See who bills steadily, who swings, and who has a short history.',
+      'Count the suppliers new in this period.',
+      'Mark where many small invoices keep repeating.',
+    ],
+  },
+  {
+    id: 'budget',
+    title: 'Budget and cash flow',
+    subtitle: 'The cap for the month, and what looks due',
+    icon: Gauge,
+    iconWrap: 'bg-emerald-500 text-white',
+    accent: 'bg-emerald-500',
+    wash: 'bg-emerald-50',
+    items: [
+      'Set a monthly budget on confirmed spend.',
+      'Add optional caps on selected suppliers.',
+      'See the amount that looks due over the next 30 days.',
     ],
   },
 ]
@@ -391,7 +391,7 @@ export default function SpendAnalyticsPage() {
           <div className="text-center mb-8 max-w-2xl mx-auto">
             <h2 className="type-h2 mb-3">DocFlow Analytics Capabilities</h2>
             <p className="hero-lead max-w-xl mx-auto">
-              Six capabilities inside DocFlow Analytics — from the monthly total to the books.
+              Six capabilities inside DocFlow Analytics — from the monthly total to how the spend behaves.
             </p>
           </div>
 
@@ -433,8 +433,8 @@ export default function SpendAnalyticsPage() {
             <p className="hero-lead max-w-5xl mx-auto lg:text-base">
               Verified invoice data becomes a live spending layer —
               <br className="hidden lg:block" />
-              supplier share, billing mix, budget controls, cashflow, and anomaly views, with Xero
-              delivery where you use it.
+              spend and volume, duplicate invoices, anomaly signals, Pareto Point, supplier behaviour,
+              and budget and cash flow.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto items-stretch">
