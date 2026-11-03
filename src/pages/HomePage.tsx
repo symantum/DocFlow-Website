@@ -41,7 +41,7 @@ const modules = [
     icon: ScanLine,
     accent: 'bg-lime-500',
     iconWrap: 'bg-lime-100 text-lime-800',
-    image: '/images/home/module-automation.png?v=11',
+    image: '/images/home/module-automation.png?v=12',
     imageAlt: 'Invoice and structured data in DocFlow Automation',
     link: { to: '/automation', label: 'Explore Automation' },
   },
