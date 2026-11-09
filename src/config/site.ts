@@ -3,8 +3,8 @@
  */
 export const siteConfig = {
   social: {
-    /** DocFlow by Symantum company page on LinkedIn */
-    linkedIn: 'https://www.linkedin.com/company/docflow-by-symantum/',
+    /** Public member view (viewAsMember avoids admin dashboard redirect for page managers) */
+    linkedIn: 'https://www.linkedin.com/company/docflow-by-symantum/?viewAsMember=true',
     /** YouTube channel or demo playlist — leave empty to hide icon until live */
     youTube: '',
   },
