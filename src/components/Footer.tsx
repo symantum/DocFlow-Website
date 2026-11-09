@@ -39,7 +39,7 @@ const legalLinks = [
 
 const socialLinks = [
   {
-    label: 'Symantum on LinkedIn',
+    label: 'DocFlow by Symantum on LinkedIn',
     href: siteConfig.social.linkedIn,
     icon: LinkedInIcon,
   },

@@ -108,7 +108,7 @@ export default function ResourcesPage() {
             to outcomes our clients can trust.
           </p>
           <p className="hero-lead">
-            Follow Symantum on{' '}
+            Follow DocFlow by Symantum on{' '}
             <a
               href={siteConfig.social.linkedIn}
               target="_blank"
