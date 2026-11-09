@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { siteConfig } from '../config/site'
 
 const essays: {
   id: string
@@ -91,12 +92,12 @@ export default function ResourcesPage() {
           <h2 className="type-h2 mb-5">Symantum — From Process Expertise to Digital Operations</h2>
           <p className="hero-lead mb-6">
             Symantum is an Australian-owned outsourced business process services provider
-            established in Melbourne in 2004. With more than two decades of dedicated focus on
+            established in Melbourne in 2005. With more than two decades of dedicated focus on
             corporate back-office services, we have built practical expertise in complex document
             processing, workflow automation and data extraction across document-intensive
             operations for clients in a range of industries.
           </p>
-          <p className="hero-lead">
+          <p className="hero-lead mb-6">
             Advances in cloud technology, intelligent automation and AI enabled us to transform
             that accumulated operating experience into a more scalable digital service. DocFlow is
             the natural outcome: a cloud-based service platform that brings controlled Gateway
@@ -105,6 +106,18 @@ export default function ResourcesPage() {
             combines digital technology with Symantum&apos;s operational expertise — committing
             ourselves to the value, productivity, and integrity of every process we operate, and
             to outcomes our clients can trust.
+          </p>
+          <p className="hero-lead">
+            Follow Symantum on{' '}
+            <a
+              href={siteConfig.social.linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-700 font-semibold underline underline-offset-2 hover:text-sky-600"
+            >
+              LinkedIn
+            </a>
+            .
           </p>
         </div>
       </section>
